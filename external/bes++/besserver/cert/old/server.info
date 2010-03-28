@@ -1,0 +1,45 @@
+MD5 Fingerprint=7A:1B:86:59:91:B9:4F:AC:4B:9E:D7:56:CA:C7:55:CD
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            df:84:6c:33:72:da:fa:8f
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=US, ST=Louisiana, L=BatonRouge, CN=Jonas.merzky.net
+        Validity
+            Not Before: Jan 12 18:07:16 2010 GMT
+            Not After : Jan 12 18:07:16 2011 GMT
+        Subject: C=US, ST=Louisiana, L=BatonRouge, CN=Jonas.merzky.net
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (1024 bit)
+                Modulus (1024 bit):
+                    00:b2:4d:f7:51:1c:2e:93:70:23:98:f7:c2:1a:b2:
+                    f7:b4:4f:59:d4:1c:f1:9c:13:d8:be:ab:94:d0:69:
+                    e2:04:ab:74:17:fa:36:bb:93:74:72:7e:8b:2e:0f:
+                    5f:1f:fc:7f:54:1c:f6:95:1d:fa:a9:98:4b:4c:53:
+                    cd:9f:7f:a2:bd:c2:5b:db:64:95:de:de:1d:92:6f:
+                    e8:07:81:8f:ef:19:55:a1:4f:00:c3:b9:5e:61:19:
+                    61:ec:09:ec:c0:f5:08:17:f2:41:2f:8d:40:33:36:
+                    4d:dd:c1:60:01:5b:5b:5f:cd:3f:80:24:45:f8:95:
+                    c9:84:c7:88:b7:9b:fc:39:93
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                AA:41:A1:EB:60:E0:D0:83:16:09:9B:96:56:A7:CA:59:E6:7A:9D:A5
+            X509v3 Authority Key Identifier: 
+                keyid:AA:41:A1:EB:60:E0:D0:83:16:09:9B:96:56:A7:CA:59:E6:7A:9D:A5
+                DirName:/C=US/ST=Louisiana/L=BatonRouge/CN=Jonas.merzky.net
+                serial:DF:84:6C:33:72:DA:FA:8F
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: sha1WithRSAEncryption
+        8b:13:d3:ea:ac:b5:f7:21:d4:3b:47:4f:98:20:1b:35:e3:a3:
+        43:3a:c8:f3:f5:46:d3:ab:59:46:61:43:a4:1b:7e:0d:88:3e:
+        fb:23:d3:da:21:43:4c:6e:1f:3f:b3:9f:78:5b:44:6e:3b:ba:
+        87:e0:17:9c:a8:87:65:22:56:59:93:f7:5e:8f:13:d9:86:38:
+        0c:a0:b9:37:01:fd:3d:74:79:35:29:ba:4b:4f:c9:35:80:53:
+        f5:52:fd:08:b6:c0:b1:d3:2d:62:a0:be:da:4d:7a:59:2b:22:
+        0b:43:27:16:9f:fd:59:1d:e9:62:7a:c8:de:7f:89:a6:6b:b9:
+        d1:6a

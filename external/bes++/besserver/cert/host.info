@@ -1,0 +1,45 @@
+MD5 Fingerprint=99:FB:06:80:C4:0E:F0:03:31:52:55:95:CA:7B:06:F8
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            95:b7:0f:5c:2e:ed:16:1f
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=US, ST=Some-State, O=Internet Widgits Pty Ltd, CN=localhost
+        Validity
+            Not Before: Jan 12 20:37:37 2010 GMT
+            Not After : Jan 12 20:37:37 2011 GMT
+        Subject: C=US, ST=Some-State, O=Internet Widgits Pty Ltd, CN=localhost
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (1024 bit)
+                Modulus (1024 bit):
+                    00:be:51:49:da:19:f6:f4:0a:82:83:20:7b:c5:f2:
+                    fa:8b:f1:70:41:95:94:68:fc:1a:db:bc:70:1b:54:
+                    c1:dd:67:0f:63:0c:21:4c:d1:a3:1d:75:63:63:0f:
+                    aa:19:2b:56:d7:d8:fb:ab:5e:40:ba:92:2b:31:04:
+                    e1:83:d1:ec:d2:a2:15:f5:36:0d:4c:bc:fe:5d:35:
+                    07:da:ee:c6:19:ec:eb:f2:53:a3:82:9a:44:ba:2b:
+                    1b:95:31:41:46:79:1b:4f:2d:5b:3f:80:29:57:9e:
+                    fc:3d:a9:95:79:cc:18:ba:da:4a:f9:c6:7c:9c:bf:
+                    a7:a0:6c:65:f0:55:b2:e9:13
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                14:41:80:76:E6:FA:3D:34:25:D3:E4:3F:E9:C7:BC:B8:C6:B6:1F:69
+            X509v3 Authority Key Identifier: 
+                keyid:14:41:80:76:E6:FA:3D:34:25:D3:E4:3F:E9:C7:BC:B8:C6:B6:1F:69
+                DirName:/C=US/ST=Some-State/O=Internet Widgits Pty Ltd/CN=localhost
+                serial:95:B7:0F:5C:2E:ED:16:1F
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: sha1WithRSAEncryption
+        ab:18:94:20:f6:1c:c1:1d:c1:d7:61:2f:46:61:41:8f:8b:1d:
+        b1:4b:0d:97:d6:ae:81:d8:f5:ce:f8:eb:82:86:67:b7:99:94:
+        f6:99:50:48:b0:8c:30:49:ec:e1:c6:f4:81:36:fb:d0:14:aa:
+        17:a4:09:59:ad:6b:f9:94:5a:6e:f9:b8:22:8b:a1:cd:f0:f9:
+        55:70:84:84:74:f1:df:45:18:c7:16:f5:12:44:8f:b6:15:fd:
+        e1:d8:84:34:b7:0d:97:6f:13:f9:19:6c:54:d8:38:75:d9:41:
+        a9:ff:06:bc:59:74:31:3a:ac:d9:c3:95:2e:06:4f:c1:c2:3b:
+        4a:67
