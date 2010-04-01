@@ -109,9 +109,11 @@ bes_init(struct bes_context **context)
         fprintf (stderr, "err 2\n");
         return BESE_SYS_ERR;
     }
+#ifdef DEBUG
     soap_set_recv_logfile(soap, NULL);
     soap_set_sent_logfile(soap, NULL);
     soap_set_test_logfile(soap, NULL);
+#endif
     soap_register_plugin(soap, soap_wsse);
     soap_set_namespaces(soap, default_namespaces);
     soap_header(soap);
