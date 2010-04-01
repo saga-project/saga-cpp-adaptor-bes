@@ -1,6 +1,8 @@
 
 #include <saga/saga.hpp>
 
+namespace sja = saga::job::attributes;
+
 int main (int argc, char** argv)
 {
   try
@@ -16,7 +18,25 @@ int main (int argc, char** argv)
     s.add_context (c);
 
     saga::job::service js (s, "bes://localhost:1235");
-    saga::job::job j = js.run_job ("/bin/sleep 10");
+
+    saga::job::description jd;
+
+    jd.set_attribute (sja::description_executable, "/usr/bin/uname");
+    jd.set_attribute (sja::description_output,     "output");
+
+    
+    std::vector <std::string> args;
+    args.push_back ("-a");
+    jd.set_vector_attribute (sja::description_arguments, args);
+
+
+    std::vector <std::string> transfers;
+    args.push_back ("output < output");
+    jd.set_vector_attribute (sja::description_file_transfer, transfers);
+
+    saga::job::job j = js.create_job (jd);
+
+    j.run ();
     
     // j.wait (-1.0);
 
