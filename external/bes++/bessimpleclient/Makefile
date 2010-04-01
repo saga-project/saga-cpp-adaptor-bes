@@ -82,7 +82,7 @@ clean:
 
 # dependencies
 bes-factory.wsdl: bes_sagatest-typemap.dat
-bes_sagatest.o:   bes_sagatest.cpp  bes.hpp bes_connector.hpp
+bes_sagatest.o:   bes_sagatest.cpp  bes.hpp hpcbp.hpp
 bes.o:            bes.cpp           bes.hpp jsdl.hpp $(SOAP_NS)
 jsdl.o:           jsdl.cpp                  jsdl.hpp $(SOAP_NS)
 soapServer.o:     soapServer.c
