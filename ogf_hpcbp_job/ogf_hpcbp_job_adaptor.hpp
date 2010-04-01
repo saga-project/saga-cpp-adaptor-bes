@@ -5,14 +5,17 @@
 //  (See accompanying file LICENSE or copy at 
 //   http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef ADAPTORS_ogf_bes_JOB_ADAPTOR_HPP
-#define ADAPTORS_ogf_bes_JOB_ADAPTOR_HPP
+#ifndef ADAPTORS_OGF_HPCBP_JOB_ADAPTOR_HPP
+#define ADAPTORS_OGF_HPCBP_JOB_ADAPTOR_HPP
 
 // saga adaptor includes
 #include <saga/saga/adaptors/adaptor.hpp>
 
+// hpcbp includes
+#include <hpcbp.hpp>
+
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_bes_job
+namespace ogf_hpcbp_job
 {
   struct adaptor : public saga::adaptor
   {
@@ -30,10 +33,42 @@ namespace ogf_bes_job
     { 
       return BOOST_PP_STRINGIZE (SAGA_ADAPTOR_NAME);
     }
+
+    saga::job::state get_saga_state (const hpcbp::state & s) const
+    {
+      switch ( s )
+      {
+        case hpcbp::Pending:
+          return saga::job::New;
+          break;
+
+        case hpcbp::Running:
+          return saga::job::Running;
+          break;
+
+        case hpcbp::Canceled:
+          return saga::job::Canceled;
+          break;
+
+        case hpcbp::Failed:
+          return saga::job::Failed;
+          break;
+
+        case hpcbp::Finished:
+          return saga::job::Done;
+          break;
+
+        default:
+          return saga::job::Unknown;
+          break;
+      }
+      
+      return saga::job::Unknown;
+    }
   };
 
-} // namespace ogf_bes_job
+} // namespace ogf_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 
-#endif // ADAPTORS_ogf_bes_JOB_ADAPTOR_HPP
+#endif // ADAPTORS_OGF_HPCBP_JOB_ADAPTOR_HPP
 

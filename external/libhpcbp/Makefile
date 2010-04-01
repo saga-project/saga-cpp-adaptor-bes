@@ -27,6 +27,9 @@ SAGA_DONT_INSTALL = 1
 SAGA_CXXFLAGS  += -I.
 SAGA_CXXFLAGS  += -DWITH_DOM -DWITH_OPENSSL
 SAGA_LDFLAGS   += -lssl -lcrypto
-
 # SAGA_CPPFLAGS  += -DDEBUG
 #
+
+bes_sagatest: bes_sagatest.o
+	$(SAGA_LD) -o $@ $< -L. -lhpcbp_client $(SAGA_LIBS) $(SAGA_LDFLAGS)
+

@@ -4,13 +4,11 @@
 #  License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 #  http://www.boost.org/LICENSE_1_0.txt)
 
--include ../../config/make.cfg
+-include $(SAGA_LOCATION)/share/saga/make/saga.util.mk
+-include config/make.cfg
 
-SAGA_SRC          = $(wildcard *.cpp)
-SAGA_OBJ          = $(SAGA_SRC:%.cpp=%.o)
-SAGA_BIN          = $(SAGA_SRC:%.cpp=%)
+SAGA_SUBDIRS = config external ogf_hpcbp_job
 
-SAGA_USE_PROFILER = yes
-
--include $(SAGA_MAKE_INCLUDE_ROOT)/saga.application.mk
+-include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
+-include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
 

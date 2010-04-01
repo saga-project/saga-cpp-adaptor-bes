@@ -25,11 +25,11 @@
 #include <saga/saga/packages/job/adaptors/job_self.hpp>
 
 // adaptor includes
-#include "ogf_bes_job_service.hpp"
+#include "ogf_hpcbp_job_service.hpp"
 
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_bes_job
+namespace ogf_hpcbp_job
 {
   // TODO:
   //
@@ -43,6 +43,7 @@ namespace ogf_bes_job
                                               saga::ini::ini const & adap_ini,
                                               TR1::shared_ptr <saga::adaptor> adaptor)
     : base_cpi (p, info, adaptor, cpi::Noflags)
+    , session_ (p->get_session ())
   {
     instance_data idata (this);
 
@@ -69,13 +70,83 @@ namespace ogf_bes_job
       rm_.set_scheme ("https");
     }
 
-    std::stringstream ss;
-    ss << "<?xml version=\"1.0\"  encoding=\"UTF-8\"?>\n"
-       << " <wsa:EndpointReference xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">\n"
-       << "  <wsa:Address>" << rm_.get_string () << "</wsa:Address>\n"
-       << " </wsa:EndpointReference>\n";
 
-    host_epr_s_ = ss.str ();
+    bp_.set_host_endpoint (rm_.get_string ());
+
+    // cycle over contexts and see which ones we can use.  
+    // We accept x509 and UserPass
+
+    bool context_found = false;
+    std::vector <saga::context> contexts = session_.list_contexts ();
+
+    for ( unsigned int i = 0; i < contexts.size (); i++ )
+    {
+      saga::context c = contexts[i];
+
+      if ( c.attribute_exists (saga::attributes::context_type) )
+      {
+        if ( c.get_attribute  (saga::attributes::context_type) == "UserPass" )
+        {
+          std::string user;
+          std::string pass;
+
+          if ( c.attribute_exists (saga::attributes::context_userid) )
+          {
+            user = c.get_attribute (saga::attributes::context_userid);
+          }
+
+          if ( c.attribute_exists (saga::attributes::context_userpass) )
+          {
+            pass = c.get_attribute (saga::attributes::context_userpass);
+          }
+
+          bp_.set_security ("", "", "", user, pass);
+
+          context_found = true;
+        }
+        else if ( c.get_attribute (saga::attributes::context_type) == "UserPass" )
+        {
+          std::string cert;
+          std::string pass;
+          std::string cadir;
+
+          if ( c.attribute_exists (saga::attributes::context_certrepository) )
+          {
+            cadir = c.get_attribute (saga::attributes::context_certrepository);
+          }
+
+          if ( c.attribute_exists (saga::attributes::context_usercert) )
+          {
+            cert = c.get_attribute (saga::attributes::context_usercert);
+          }
+
+          if ( c.attribute_exists (saga::attributes::context_userpass) )
+          {
+            pass = c.get_attribute (saga::attributes::context_userpass);
+          }
+
+          bp_.set_security (cert, pass, cadir, "", "");
+
+          context_found = true;
+        }
+
+        if ( context_found )
+        {
+          // TODO: test if context can be used to contact server.  If not, set
+          // context_found to false again, and free the bes context
+        }
+      }
+    }
+
+    if ( ! context_found )
+    {
+      // this is not really an error, maybe there is no security on the endpoint
+      // whatsoever - but its actually unlikely that calls will succeed.  So, we
+      // print a warning
+      SAGA_ADAPTOR_THROW ("No suitable context found - use either X509 or UserPass context",
+                          saga::AuthenticationFailed);
+    }
+
 
     // FIXME: check if host exists and can be used, otherwise throw
     // BadParameter.  Easiest would probably to run an invalid job 
@@ -131,6 +202,6 @@ namespace ogf_bes_job
     SAGA_ADAPTOR_THROW ("Not Implemented", saga::NotImplemented);
   }
 
-} // namespace ogf_bes_job
+} // namespace ogf_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 

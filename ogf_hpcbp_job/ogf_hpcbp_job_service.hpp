@@ -5,8 +5,8 @@
 //  (See accompanying file LICENSE or copy at 
 //   http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef ADAPTORS_ogf_bes_JOB_SERVICE_HPP
-#define ADAPTORS_ogf_bes_JOB_SERVICE_HPP
+#ifndef ADAPTORS_OGF_HPCBP_JOB_SERVICE_HPP
+#define ADAPTORS_OGF_HPCBP_JOB_SERVICE_HPP
 
 // stl includes
 #include <string>
@@ -28,11 +28,11 @@
 #include <saga/impl/packages/job/job_service_cpi.hpp>
 
 // adaptor includes
-#include "ogf_bes_job_adaptor.hpp"
+#include "ogf_hpcbp_job_adaptor.hpp"
 
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_bes_job
+namespace ogf_hpcbp_job
 {
   class job_service_cpi_impl 
     : public saga::adaptors::v1_0::job_service_cpi <job_service_cpi_impl>
@@ -44,8 +44,10 @@ namespace ogf_bes_job
       // adaptor data
       typedef saga::adaptors::adaptor_data <adaptor> adaptor_data_type;
 
-      saga::url   rm_;
-      std::string host_epr_s_;
+      saga::session           session_;
+      saga::url               rm_;
+      hpcbp::connector        bp_;
+      hpcbp::job_description  jsdl_;
 
     public:
       // constructor of the job_service cpi
@@ -74,8 +76,8 @@ namespace ogf_bes_job
 
   };  // class job_service_cpi_impl
 
-} // namespace ogf_bes_job
+} // namespace ogf_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 
-#endif // ADAPTORS_ogf_bes_JOB_SERVICE_HPP
+#endif // ADAPTORS_OGF_HPCBP_JOB_SERVICE_HPP
 

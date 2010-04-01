@@ -14,15 +14,15 @@
 #include <saga/saga/adaptors/adaptor.hpp>
 
 // adaptor includes
-#include "ogf_bes_job_adaptor.hpp"
-#include "ogf_bes_job_service.hpp"
-#include "ogf_bes_job.hpp"
+#include "ogf_hpcbp_job_adaptor.hpp"
+#include "ogf_hpcbp_job_service.hpp"
+#include "ogf_hpcbp_job.hpp"
 
-SAGA_ADAPTOR_REGISTER (ogf_bes_job::adaptor);
+SAGA_ADAPTOR_REGISTER (ogf_hpcbp_job::adaptor);
 
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_bes_job
+namespace ogf_hpcbp_job
 {
   // register function for the SAGA engine
   saga::impl::adaptor_selector::adaptor_info_list_type
@@ -49,6 +49,6 @@ namespace ogf_bes_job
     return (list);
   }
 
-} // namespace ogf_bes_job
+} // namespace ogf_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 

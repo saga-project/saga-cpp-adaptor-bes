@@ -46,7 +46,7 @@ namespace hpcbp
   {
     Pending   = BES_Pending  ,
     Running   = BES_Running  ,
-    Cancelled = BES_Cancelled,
+    Canceled  = BES_Cancelled,
     Failed    = BES_Failed   ,
     Finished  = BES_Finished ,
     State_Num = BES_State_Num
@@ -69,7 +69,7 @@ namespace hpcbp
       void set_job_name          (std::string s);
       void set_job_annotation    (std::string s);
       void set_job_project       (std::string s);
-      void set_total_cpu_count   (unsigned int n);
+      void set_total_cpu_count   (std::string s);
       void set_executable        (std::string s);
       void set_input             (std::string s);
       void set_output            (std::string s);
@@ -86,24 +86,21 @@ namespace hpcbp
       struct bes_context * bes_context_;
       epr_t                host_epr_;
       char               * host_;
-      char               * x509cert_;
-      char               * x509pass_;
-      char               * capath_;
-      char               * user_;
-      char               * pass_;
+      std::string          x509cert_;
+      std::string          x509pass_;
+      std::string          capath_;
+      std::string          user_;
+      std::string          pass_;
 
       void init_security_ (void);
 
 
     public:
-      connector (char * x509cert, 
-                 char * x509pass, 
-                 char * capath, 
-                 char * user,     
-                 char * pass);
-
+      connector (void);
       ~connector (void);
 
+      void       set_security      (std::string x509cert, std::string x509pass, std::string capath, 
+                                    std::string user,     std::string pass);
       void       set_host_endpoint (const std::string host);
       job_handle run_job           (const job_description & jd);
       state      get_state         (job_handle job_epr);

@@ -45,8 +45,10 @@ namespace hpcbp
     jsdl_->JobProject = ::strdup (s.c_str ());
   }
 
-  void job_description::set_total_cpu_count (unsigned int n)
+  void job_description::set_total_cpu_count (std::string s)
   {
+    int n = ::atoi (s.c_str ());
+
     struct jsdl_range_value * cpucount;
 
     if ( jsdl_newRangeValue (&cpucount) )
@@ -107,8 +109,21 @@ namespace hpcbp
 
   void connector::init_security_ (void)
   {
-    if ( bes_security (bes_context_, x509cert_, x509pass_, capath_, user_, pass_) )
+    char * x509cert;
+    char * x509pass;
+    char * capath;
+    char * user;
+    char * pass;
+
+    if ( x509cert_.empty () ) x509cert = NULL; else x509cert = ::strdup (x509cert_.c_str ());
+    if ( x509pass_.empty () ) x509pass = NULL; else x509pass = ::strdup (x509pass_.c_str ());
+    if ( capath_.empty   () ) capath   = NULL; else capath   = ::strdup (capath_.c_str   ());
+    if ( user_.empty     () ) user     = NULL; else user     = ::strdup (user_.c_str     ());
+    if ( pass_.empty     () ) pass     = NULL; else pass     = ::strdup (pass_.c_str     ());
+
+    if ( bes_security (bes_context_, x509cert, x509pass, capath, user, pass) )
     {
+      std::cout << bes_get_lasterror (bes_context_) << std::endl;
       throw bes_get_lasterror (bes_context_);
     }
 
@@ -116,18 +131,9 @@ namespace hpcbp
   }
 
 
-  connector::connector (char * x509cert, 
-                        char * x509pass, 
-                        char * capath, 
-                        char * user,     
-                        char * pass)
+  connector::connector (void)
     : bes_context_ (NULL)
-      , host_epr_    (NULL)
-      , x509cert_    (x509cert)
-      , x509pass_    (x509pass)
-      , capath_      (capath)
-      , user_        (user)
-      , pass_        (pass)
+    , host_epr_    (NULL)
   {
     if ( bes_init (&bes_context_) )
     {
@@ -145,6 +151,18 @@ namespace hpcbp
     std::cout << "bes connector finalized" << std::endl;
   }
 
+
+  void connector::set_security (std::string x509cert, std::string x509pass, std::string capath, 
+                                std::string user,     std::string pass)
+  {
+    x509cert_ = x509cert;
+    x509pass_ = x509pass;
+    capath_   = capath;
+    user_     = user;
+    pass_     = pass;
+  }
+
+
   void connector::set_host_endpoint (const std::string host)
   {
     host_ = strdup (host.c_str ());
@@ -160,6 +178,7 @@ namespace hpcbp
     if ( bes_initEPRFromString (bes_context_, endpoint_cs, &host_epr_) )
     {
       // Cannot initialize bes endpoint
+      std::cout << bes_get_lasterror (bes_context_) << std::endl;
       throw (bes_get_lasterror (bes_context_));
     }
 
@@ -174,6 +193,7 @@ namespace hpcbp
 
     if ( bes_createActivity (bes_context_, host_epr_, jd.get_jsdl (), &epr) )
     {
+      std::cout << bes_get_lasterror (bes_context_) << std::endl;
       throw bes_get_lasterror (bes_context_);
     }
 
@@ -194,6 +214,7 @@ namespace hpcbp
 
     if ( bes_getActivityStatuses (bes_context_, host_epr_, job_epr, &status) )
     {
+      std::cout << bes_get_lasterror (bes_context_) << std::endl;
       throw (bes_get_lasterror (bes_context_));
     }
 

@@ -5,8 +5,8 @@
 //  (See accompanying file LICENSE or copy at 
 //   http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef ADAPTORS_ogf_bes_JOB_HPP
-#define ADAPTORS_ogf_bes_JOB_HPP
+#ifndef ADAPTORS_OGF_HPCBP_JOB_HPP
+#define ADAPTORS_OGF_HPCBP_JOB_HPP
 
 // stl includes
 #include <string>
@@ -27,13 +27,13 @@
 #include <saga/impl/packages/job/job_cpi.hpp>
 
 // adaptor includes
-#include "ogf_bes_job_adaptor.hpp"
+#include "ogf_hpcbp_job_adaptor.hpp"
 
-// bes includes
-#include <besclient/bes.h>
+// hpcbp includes
+#include <hpcbp.hpp>
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_bes_job
+namespace ogf_hpcbp_job
 {
   class job_cpi_impl 
     : public saga::adaptors::v1_0::job_cpi <job_cpi_impl>
@@ -44,17 +44,15 @@ namespace ogf_bes_job
       // adaptor data
       typedef saga::adaptors::adaptor_data <adaptor> adaptor_data_type;
 
-      saga::session          session_;
-      saga::url              rm_;
-      std::string            host_epr_s_;
-      std::string            job_epr_s_;
-      saga::job::description jd_;
-      std::string            jobid_;
-      std::string            jsdl_;
+      saga::session           session_;
+      saga::url               rm_;
+      saga::job::description  jd_;
+      saga::job::state        state_;
+      std::string             jobid_;
 
-      epr_t                  host_epr_;
-      epr_t                  activity_epr_;
-      struct bes_context   * bes_context_;
+      hpcbp::connector        bp_;
+      hpcbp::job_description  jsdl_;
+      hpcbp::job_handle       job_epr_;
 
 
     public:
@@ -94,8 +92,8 @@ namespace ogf_bes_job
                                  double         timeout);
   };  // class job_cpi_impl
 
-} // namespace ogf_bes_job
+} // namespace ogf_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 
-#endif // ADAPTORS_ogf_bes_JOB_HPP
+#endif // ADAPTORS_OGF_HPCBP_JOB_HPP
 

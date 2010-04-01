@@ -21,10 +21,6 @@ SAGA_ADAPTOR_PACKAGES = job
 include $(SAGA_LOCATION)/share/saga/make/saga.adaptor.mk
 include $(SAGA_LOCATION)/share/saga/make/saga.doc.mk
 
-BES_LOCATION      = ../external/bes++/
-SAGA_CPPINCS     += -I$(BES_LOCATION)
-SAGA_LDFLAGS     += -L$(BES_LOCATION)/besclient -lbes
-
-GSOAP_LOCATION    = ../external/gsoap-2.7/gsoap/
-SAGA_CPPINCS     += -I$(GSOAP_LOCATION)
+SAGA_CPPINCS     += -I../external/libhpcbp
+SAGA_LDFLAGS     += -L../external/libhpcbp -lhpcbp_client -lssl -lcrypto
 
