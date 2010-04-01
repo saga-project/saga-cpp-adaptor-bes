@@ -1,12 +1,12 @@
 #!/bin/sh
 
-root=/Users/merzky/links/saga/trunk/adaptors/ogf/external/bes++/
+root=/Users/merzky/links/saga/adaptors/ogf/trunk/external/bes++/
 besserver=$root/besserver/besserver
 service_user=merzky
 host=localhost
 endpoint="https://${host}"
 certfile=$root/besserver/cert/host.pem
-port=1236
+port=1235
 
 # needed for SSL mutual authentication
 capath=$root/besserver/cert/

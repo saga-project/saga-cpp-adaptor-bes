@@ -33,7 +33,7 @@ int main (int argc, char * argv[])
 
   try 
   {
-    std::string capath   = "/Users/merzky/links/saga/adaptors.save/ogf/external/bes++/besserver/cert";
+    std::string capath   = "/Users/merzky/links/saga/adaptors/ogf/trunk/external/bes++/besserver/cert";
     std::string x509cert = "";
     std::string x509pass = "";
     std::string user     = "merzky";
@@ -41,7 +41,7 @@ int main (int argc, char * argv[])
 
     hpcbp::connector bp;
     bp.set_security      (x509cert, x509pass, capath, user, pass);
-    bp.set_host_endpoint ("https://localhost:1236");
+    bp.set_host_endpoint ("https://localhost:1235");
 
     hpcbp::job_description jd;
 

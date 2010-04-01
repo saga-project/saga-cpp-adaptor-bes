@@ -38,10 +38,10 @@ pkglibdir = $(libdir)/gsoap
 pkgincludedir = $(includedir)/gsoap
 top_builddir = ../../..
 
-ACLOCAL = ${SHELL} /Users/merzky/links/saga/trunk/adaptors/ogf/external/gsoap-2.7/missing --run aclocal-1.6
-AUTOCONF = ${SHELL} /Users/merzky/links/saga/trunk/adaptors/ogf/external/gsoap-2.7/missing --run autoconf
-AUTOMAKE = ${SHELL} /Users/merzky/links/saga/trunk/adaptors/ogf/external/gsoap-2.7/missing --run automake-1.6
-AUTOHEADER = ${SHELL} /Users/merzky/links/saga/trunk/adaptors/ogf/external/gsoap-2.7/missing --run autoheader
+ACLOCAL = ${SHELL} /Users/merzky/links/saga/adaptors/ogf/trunk/external/gsoap-2.7/missing --run aclocal-1.6
+AUTOCONF = ${SHELL} /Users/merzky/links/saga/adaptors/ogf/trunk/external/gsoap-2.7/missing --run autoconf
+AUTOMAKE = ${SHELL} /Users/merzky/links/saga/adaptors/ogf/trunk/external/gsoap-2.7/missing --run automake-1.6
+AUTOHEADER = ${SHELL} /Users/merzky/links/saga/adaptors/ogf/trunk/external/gsoap-2.7/missing --run autoheader
 
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 INSTALL = /usr/bin/install -c
@@ -65,7 +65,7 @@ host_triplet = i386-apple-darwin9.8.0
 EXEEXT = 
 OBJEXT = o
 PATH_SEPARATOR = :
-AMTAR = ${SHELL} /Users/merzky/links/saga/trunk/adaptors/ogf/external/gsoap-2.7/missing --run tar
+AMTAR = ${SHELL} /Users/merzky/links/saga/adaptors/ogf/trunk/external/gsoap-2.7/missing --run tar
 AWK = gawk
 BISON_DEFINE = -DWITH_BISON
 CC = gcc
@@ -85,16 +85,16 @@ RANLIB = ranlib
 SAMPLE_DIRS = 
 SAMPLE_EXTRA_LIBS = 
 SOAPCPP2_DEBUG = 
-SOAPCPP2_IMPORTPATH = -DSOAPCPP2_IMPORT_PATH="\"/Users/merzky/links/saga/trunk/adaptors/ogf/external/gsoap-2.7/gsoap/import\""
+SOAPCPP2_IMPORTPATH = -DSOAPCPP2_IMPORT_PATH="\"/Users/merzky/links/saga/adaptors/ogf/trunk/external/gsoap-2.7/gsoap/import\""
 SOAPCPP2_NONAMESPACES = 
 STRIP = 
 VERSION = 2.7
-WSDL2H_IMPORTPATH = -DWSDL2H_IMPORT_PATH="\"/Users/merzky/links/saga/trunk/adaptors/ogf/external/gsoap-2.7/gsoap/WS\""
+WSDL2H_IMPORTPATH = -DWSDL2H_IMPORT_PATH="\"/Users/merzky/links/saga/adaptors/ogf/trunk/external/gsoap-2.7/gsoap/WS\""
 YACC = bison -y
 YACC_LIB = 
 am__include = include
 am__quote = 
-install_sh = /Users/merzky/links/saga/trunk/adaptors/ogf/external/gsoap-2.7/install-sh
+install_sh = /Users/merzky/links/saga/adaptors/ogf/trunk/external/gsoap-2.7/install-sh
 platform = MACOSX
 
 ####### This is the input file for automake, which will generate Makefile.in ##########
