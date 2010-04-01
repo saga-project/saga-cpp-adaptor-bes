@@ -3,25 +3,70 @@
 
 namespace sja = saga::job::attributes;
 
-int main (int argc, char** argv)
+struct test
+{
+  std::string endpoint;
+  std::string user;
+  std::string pass;
+  std::string cert;
+  std::string key;
+  std::string cadir;
+  std::string exe;
+};
+
+
+class test_local : public test
+{
+  public:
+    test_local (void)
+    {
+      endpoint = "bes://localhost:1235";
+      user     = "merzky";
+      pass     = "aaa";
+      cert     = "";
+      key      = "";
+      cadir    = "./cert.local";
+      exe      = "/usr/bin/uname";
+    }
+};
+
+
+class test_gridsam : public test
+{
+  public:
+    test_gridsam (void)
+    {
+      endpoint = "INVALID";
+      user     = "";
+      pass     = "";
+      cert     = "";
+      key      = "";
+      cadir    = "./cert.gridsam";
+      exe      = "/bin/uname";
+    }
+};
+
+
+void run_test (std::string name, struct test & t)
 {
   try
   {
+
     saga::session s;
     saga::context c ("UserPass");
 
-    c.set_attribute (saga::attributes::context_userid,   "merzky");
-    c.set_attribute (saga::attributes::context_userpass, "aaa");
-    c.set_attribute (saga::attributes::context_certrepository, 
-                     "/Users/merzky/links/saga/adaptors/ogf/trunk/external/bes++/besserver/cert");
+    c.set_attribute (saga::attributes::context_userid,         t.user);
+    c.set_attribute (saga::attributes::context_userpass,       t.pass);
+    c.set_attribute (saga::attributes::context_certrepository, t.cadir);
 
     s.add_context (c);
 
-    saga::job::service js (s, "bes://localhost:1235");
-
+    saga::job::service     js (s, t.endpoint);
     saga::job::description jd;
 
-    jd.set_attribute (sja::description_executable, "/usr/bin/uname");
+    std::string output ("output_");
+    output += t.endpoint;
+    jd.set_attribute (sja::description_executable, t.exe);
     jd.set_attribute (sja::description_output,     "output");
 
     
@@ -30,9 +75,11 @@ int main (int argc, char** argv)
     jd.set_vector_attribute (sja::description_arguments, args);
 
 
+    // not supported, yet
     std::vector <std::string> transfers;
-    args.push_back ("output < output");
+    args.push_back ("file://localhost/tmp/output < output");
     jd.set_vector_attribute (sja::description_file_transfer, transfers);
+
 
     saga::job::job j = js.create_job (jd);
 
@@ -44,20 +91,31 @@ int main (int argc, char** argv)
 
     while ( state == saga::job::Running )
     {
-      std::cout << "Running" << std::endl;
+      std::cout << name << ": Running" << std::endl;
       ::sleep (1);
       state = j.get_state ();
     }
 
-    std::cout << "Done" << std::endl;
+    std::cout << name << ": Done" << std::endl;
   }
   catch ( const saga::exception & e )
   {
-    std::cout << "Exception: " << e.what () << std::endl;
+    std::cout << name << ": Exception: " << e.what () << std::endl;
   }
   catch ( const char * m )
   {
-    std::cout << "Exception: " << m << std::endl;
+    std::cout << name << ": exception: " << m << std::endl;
   }
+
+  std::cout <<  "===========================================" << std::endl;
+  return;
+}
+
+int main (int argc, char** argv)
+{
+  struct test_local   t_l;    run_test ("local",   t_l);
+  struct test_gridsam t_gs;   run_test ("gridsam", t_gs);
+
+  return 0;
 }
 

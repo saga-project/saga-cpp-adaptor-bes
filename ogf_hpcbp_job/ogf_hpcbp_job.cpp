@@ -33,15 +33,6 @@ namespace sja = saga::job::attributes;
 ////////////////////////////////////////////////////////////////////////
 namespace ogf_hpcbp_job
 {
-  // TODO: should be exposed from bes.h, really
-  struct bes_epr 
-  {
-    char *str;
-    struct soap_dom_element *dom;
-    int domCreateFlag;
-  };
-  
-
   // constructor
   job_cpi_impl::job_cpi_impl (proxy                           * p, 
                               cpi_info const                  & info,
@@ -323,7 +314,7 @@ namespace ogf_hpcbp_job
                           saga::IncorrectState);
     }
 
-    job_epr_ = bp_.run_job (jsdl_);
+    job_epr_ = bp_.run (jsdl_);
 
     state_ = saga::job::Running;
 
@@ -335,8 +326,14 @@ namespace ogf_hpcbp_job
   void job_cpi_impl::sync_cancel (saga::impl::void_t & ret, 
                                   double timeout)
   {
-    // TODO
-    SAGA_ADAPTOR_THROW ("Not Implemented", saga::NotImplemented);
+    try
+    {
+      bp_.terminate (job_epr_);
+    }
+    catch ( const char * msg )
+    {
+      SAGA_ADAPTOR_THROW (msg, saga::NoSuccess);
+    }
   }
 
   //  wait for the child process to terminate

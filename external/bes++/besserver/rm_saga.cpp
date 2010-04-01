@@ -54,31 +54,10 @@
 /**
  * SAGA does not need any special initialization
  */
-extern "C"
-int rm_initialize (struct soap * soap, 
-                   char        * serverName)
+extern "C" int rm_initialize (struct soap * soap, 
+                              char        * serverName)
 {
-   return BESE_OK;
-}
-
-/**
- * Prints an error message to stderr
- * @param message string to print
- */
-extern "C"
-void printError (char * message)
-{
-  std::cerr << message << std::flush;
-}
-
-/**
- * FIXME
- * @return 0
- */
-extern "C"
-int getErrNo (void)
-{
-   return 0;
+  return BESE_OK;
 }
 
 /**
@@ -88,10 +67,9 @@ int getErrNo (void)
  * job deletion
  * @return 0 if correct, non-zero if error
  */
-extern "C"
-int rm_terminateJob (struct soap * soap, 
-                     char        * jobid, 
-                     char        * user)
+extern "C" int rm_terminateJob (struct soap * soap, 
+                                char        * jobid, 
+                                char        * user)
 {
   if ( ! jobid || std::string (jobid).empty () )
   {
@@ -116,7 +94,7 @@ int rm_terminateJob (struct soap * soap,
     return BESE_BACKEND;
   }
 
-	return BESE_OK;
+  return BESE_OK;
 }
 
 /**
@@ -179,18 +157,18 @@ int rm_getJobStatus(struct soap * soap,
   catch ( const saga::exception & e )
   {
     std::cout << "Could not get job state for " 
-              << jobid 
-              << " : " 
-              << e.what () 
-              << std::endl;
+      << jobid 
+      << " : " 
+      << e.what () 
+      << std::endl;
     return BESE_BACKEND;
   }
 
   if ( ! ok )
   {
     std::cout << "invalid state state for " 
-              << jobid 
-              << std::endl;
+      << jobid 
+      << std::endl;
     return BESE_BACKEND;
   }
 
@@ -265,10 +243,10 @@ int rm_getJobInfo (struct soap    *  soap,
   catch ( const saga::exception & e )
   {
     std::cout << "Could not get job info for " 
-              << jobid 
-              << " : " 
-              << e.what () 
-              << std::endl;
+      << jobid 
+      << " : " 
+      << e.what () 
+      << std::endl;
     return BESE_BACKEND;
   }
 

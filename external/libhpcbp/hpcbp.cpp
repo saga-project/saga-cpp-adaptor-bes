@@ -185,7 +185,7 @@ namespace hpcbp
     std::cout << "host epr points to " << host_ << std::endl;
   }
 
-  job_handle connector::run_job (const job_description & jd)
+  job_handle connector::run (const job_description & jd)
   {
     init_security_ ();
 
@@ -206,7 +206,20 @@ namespace hpcbp
     return job_epr;
   }
 
-  state connector::get_state (job_handle job_epr)
+  void connector::terminate (job_handle & job_epr)
+  {
+    init_security_ ();
+
+    if ( bes_terminateActivities (bes_context_, host_epr_, job_epr) )
+    {
+      std::cout << bes_get_lasterror (bes_context_) << std::endl;
+      throw bes_get_lasterror (bes_context_);
+    }
+
+    return;
+  }
+
+  state connector::get_state (job_handle & job_epr)
   {
     init_security_ (); 
 

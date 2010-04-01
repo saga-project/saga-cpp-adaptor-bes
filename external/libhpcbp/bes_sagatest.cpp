@@ -57,7 +57,7 @@ int main (int argc, char * argv[])
     args.push_back ("10");
     jd.set_args (args); 
 
-    hpcbp::job_handle job_epr = bp.run_job (jd);
+    hpcbp::job_handle job_epr = bp.run (jd);
 
     std::cout << job_epr->str << std::endl;
 

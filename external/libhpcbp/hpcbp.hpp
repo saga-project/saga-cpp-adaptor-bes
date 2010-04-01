@@ -99,11 +99,13 @@ namespace hpcbp
       connector (void);
       ~connector (void);
 
-      void       set_security      (std::string x509cert, std::string x509pass, std::string capath, 
-                                    std::string user,     std::string pass);
-      void       set_host_endpoint (const std::string host);
-      job_handle run_job           (const job_description & jd);
-      state      get_state         (job_handle job_epr);
+      void             set_security       (std::string x509cert, std::string x509pass, std::string capath, 
+                                           std::string user,     std::string pass);
+      void             set_host_endpoint  (const std::string host);
+      job_handle       run                (const job_description & jd);
+      void             terminate          (job_handle & job_epr);
+      state            get_state          (job_handle & job_epr);
+      job_description  get_description    (job_handle & job_epr);
   };
 
 } // namespace hpcbp
