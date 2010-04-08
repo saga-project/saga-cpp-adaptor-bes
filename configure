@@ -1699,27 +1699,6 @@ echo $ECHO_N "checking SAGA installation/sources... $ECHO_C" >&6; }
 
 
   # check SAGA_ROOT - prefer over SAGA_LOCATION and saga-config
-  if test "x$SAGA_ROOT" = "x"; then
-
-    # try ./, ../ and ../../ as SAGA_ROOT
-
-    if test -e ./make/saga.mk; then
-      SAGA_ROOT=`pwd`
-    fi
-
-    if test -e ../make/saga.mk; then
-      SAGA_ROOT=`pwd`/..
-    fi
-
-    if test -e ../../make/saga.mk; then
-      SAGA_ROOT=`pwd`/../../
-    fi
-
-    if test -e ../../../make/saga.mk; then
-      SAGA_ROOT=`pwd`/../../../
-    fi
-  fi
-
   if test "x$SAGA_ROOT" != "x"; then
     TMP_SAGA_LOCATION=$SAGA_ROOT
     TMP_SAGA_INSTTYPE="source"
@@ -1750,6 +1729,11 @@ echo "${ECHO_T}$TMP_SAGA_LOCATION ($TMP_SAGA_INSTTYPE)" >&6; }
     SAGA_CONFIG_DIR="$TMP_SAGA_LOCATION/share/saga/config"
   fi
 
+  if ! test -e "$SAGA_CONFIG_DIR/saga-config.cache"; then
+    { { echo "$as_me:$LINENO: error: SAGA $TMP_SAGA_INSTTYPE tree seems invalid, no saga-config.cache found." >&5
+echo "$as_me: error: SAGA $TMP_SAGA_INSTTYPE tree seems invalid, no saga-config.cache found." >&2;}
+   { (exit 1); exit 1; }; }
+  fi
   source "$SAGA_CONFIG_DIR/saga-config.cache"
 
 
