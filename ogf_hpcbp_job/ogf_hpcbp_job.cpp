@@ -46,30 +46,30 @@ namespace ogf_hpcbp_job
     instance_data     idata (this);
     adaptor_data_type adata (this);
 
-    rm_ = idata->rm_;
+    endpoint_url_ = idata->rm_;
 
     // check if URL is usable
-    if ( ! rm_.get_scheme ().empty ()    &&
-           rm_.get_scheme () != "bes"    && 
-           rm_.get_scheme () != "http"   && 
-           rm_.get_scheme () != "https"  && 
-           rm_.get_scheme () != "any"    )
+    if ( ! endpoint_url_.get_scheme ().empty ()    &&
+           endpoint_url_.get_scheme () != "bes"    && 
+           endpoint_url_.get_scheme () != "http"   && 
+           endpoint_url_.get_scheme () != "https"  && 
+           endpoint_url_.get_scheme () != "any"    )
     {
       SAGA_OSSTREAM strm;
-      strm << "Could not initialize job service for [" << rm_ << "]. " 
+      strm << "Could not initialize job service for [" << endpoint_url_ << "]. " 
            << "Only these schemas are supported: any://, bes://, http(s)://, or none.";
 
       SAGA_ADAPTOR_THROW (SAGA_OSSTREAM_GETSTRING (strm), 
                           saga::adaptors::AdaptorDeclined);
     }
     
-    if ( rm_.get_scheme () == "any" ||
-         rm_.get_scheme () == "bes" )
+    if ( endpoint_url_.get_scheme () == "any" ||
+         endpoint_url_.get_scheme () == "bes" )
     {
-      rm_.set_scheme ("https");
+      endpoint_url_.set_scheme ("https");
     }
 
-    bp_.set_host_endpoint (rm_.get_string ());
+    bp_.set_host_endpoint (endpoint_url_.get_string ());
 
     // cycle over contexts and see which ones we can use.  
     // We accept x509 and UserPass
@@ -310,17 +310,19 @@ namespace ogf_hpcbp_job
   {
     if ( state_ != saga::job::New )
     {
-      SAGA_ADAPTOR_THROW ("can run only 'New' jobs", 
-                          saga::IncorrectState);
+      SAGA_ADAPTOR_THROW ("can run only 'New' jobs", saga::IncorrectState);
     }
 
     job_epr_ = bp_.run (jsdl_);
+    jobid_   = "[" + endpoint_url_.get_string () + "]-[" + job_epr_->str + "]";
 
-    state_ = saga::job::Running;
+    {
+      adaptor_data_type adata (this); // scoped lock
 
-    jobid_  += "[" + rm_.get_string () + "]-[" + job_epr_->str + "]";
+      state_ = adata->get_saga_state (bp_.get_state (job_epr_));
+    }
 
-    std::cout << "Successfully submitted activity: " << jobid_ << std::endl;
+    // std::cout << "Successfully submitted activity: " << jobid_ << std::endl;
   }
 
   void job_cpi_impl::sync_cancel (saga::impl::void_t & ret, 

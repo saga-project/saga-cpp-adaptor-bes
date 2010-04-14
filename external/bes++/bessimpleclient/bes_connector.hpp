@@ -128,6 +128,7 @@ class hpcbp_connector
       }
 
       std::cout << "host epr points to " << host_ << std::endl;
+      std::cout << "host epr: " << endpoint_ss.str () << std::endl;
     }
 
     struct bes_epr * run_job (struct jsdl_job_definition * jd)

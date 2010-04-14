@@ -38,7 +38,6 @@ int main (int argc, char * argv[])
     char * x509pass     = NULL;
     char * user         = "merzky";
     char * pass         = "aaa";
-    char * jsdl         = "sleep.jsdl";
 
     hpcbp_connector bp (x509cert, x509pass, capath, user, pass);
     bp.set_host_endpoint ("https://localhost:1236");

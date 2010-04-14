@@ -123,11 +123,17 @@ namespace hpcbp
 
     if ( bes_security (bes_context_, x509cert, x509pass, capath, user, pass) )
     {
-      std::cout << bes_get_lasterror (bes_context_) << std::endl;
+      std::cerr << bes_get_lasterror (bes_context_) << std::endl;
       throw bes_get_lasterror (bes_context_);
     }
 
-    std::cout << "bes security initialized" << std::endl;
+    // std::cout << "bes security initialized:" << std::endl;
+    // std::cout << "  x509cert : " << (x509cert ? x509cert : "NULL") << std::endl;
+    // std::cout << "  x509pass : " << (x509pass ? x509pass : "NULL") << std::endl;
+    // std::cout << "  capath   : " << (capath   ? capath   : "NULL") << std::endl;
+    // std::cout << "  user     : " << (user     ? user     : "NULL") << std::endl;
+    // std::cout << "  pass     : " << (pass     ? pass     : "NULL") << std::endl;
+
   }
 
 
@@ -140,7 +146,7 @@ namespace hpcbp
       throw ("Cannot init bes context");
     }
 
-    std::cout << "bes connector initialized" << std::endl;
+    // std::cout << "bes connector initialized" << std::endl;
 
   }
 
@@ -148,7 +154,7 @@ namespace hpcbp
   {
     bes_freeEPR  (&host_epr_);
     bes_finalize (&bes_context_);
-    std::cout << "bes connector finalized" << std::endl;
+    // std::cout << "bes connector finalized" << std::endl;
   }
 
 
@@ -173,12 +179,16 @@ namespace hpcbp
       << "  <wsa:Address>" << host_ << "</wsa:Address>\n"
       << " </wsa:EndpointReference>\n";
 
+    std::cout << " ---------------- host epr ------------- " << std::endl;
+    std::cout << endpoint_ss.str () << std::endl;
+    std::cout << " --------------------------------------- " << std::endl;
+
     char * endpoint_cs = ::strdup (endpoint_ss.str ().c_str ());
 
     if ( bes_initEPRFromString (bes_context_, endpoint_cs, &host_epr_) )
     {
       // Cannot initialize bes endpoint
-      std::cout << bes_get_lasterror (bes_context_) << std::endl;
+      std::cerr << bes_get_lasterror (bes_context_) << std::endl;
       throw (bes_get_lasterror (bes_context_));
     }
 
@@ -193,13 +203,13 @@ namespace hpcbp
 
     if ( bes_createActivity (bes_context_, host_epr_, jd.get_jsdl (), &epr) )
     {
-      std::cout << bes_get_lasterror (bes_context_) << std::endl;
+      std::cerr << bes_get_lasterror (bes_context_) << std::endl;
       throw bes_get_lasterror (bes_context_);
     }
 
     job_handle job_epr = (job_handle) epr;
 
-    // std::cout << job_epr->str << std::endl;
+    std::cout << "job epr: " << job_epr->str << std::endl;
 
     // FIXME: epr is leaking memory here... - should be wrapped in
     // separate class
@@ -212,7 +222,7 @@ namespace hpcbp
 
     if ( bes_terminateActivities (bes_context_, host_epr_, job_epr) )
     {
-      std::cout << bes_get_lasterror (bes_context_) << std::endl;
+      std::cerr << bes_get_lasterror (bes_context_) << std::endl;
       throw bes_get_lasterror (bes_context_);
     }
 
@@ -227,7 +237,7 @@ namespace hpcbp
 
     if ( bes_getActivityStatuses (bes_context_, host_epr_, job_epr, &status) )
     {
-      std::cout << bes_get_lasterror (bes_context_) << std::endl;
+      std::cerr << bes_get_lasterror (bes_context_) << std::endl;
       throw (bes_get_lasterror (bes_context_));
     }
 

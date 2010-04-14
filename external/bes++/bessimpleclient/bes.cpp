@@ -303,6 +303,7 @@ bes_createActivity (struct bes_context         * context,
     goto end;
   }
 
+
   tmpdom = rsp.__any;
 
   cleanDom (tmpdom);

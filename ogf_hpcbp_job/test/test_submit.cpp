@@ -3,87 +3,134 @@
 
 namespace sja = saga::job::attributes;
 
-struct test
+struct endpoint
 {
-  std::string endpoint;
-  std::string user;
-  std::string pass;
-  std::string cert;
-  std::string key;
-  std::string cadir;
-  std::string exe;
+  std::string               url;
+  std::string               user;
+  std::string               pass;
+  std::string               cert;
+  std::string               key;
+  std::string               cadir;
+  std::string               exe;
+  std::vector <std::string> args;
 };
 
 
-class test_local : public test
+class endpoint_local : public endpoint
 {
   public:
-    test_local (void)
+    endpoint_local (void)
     {
-      endpoint = "bes://localhost:1235";
+      url      = "https://localhost:1235/";
       user     = "merzky";
       pass     = "aaa";
       cert     = "";
       key      = "";
-      cadir    = "./cert.local";
-      exe      = "/usr/bin/uname";
+      cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/external/bes++/besserver/cert/";
+      exe      = "/bin/sleep";
+
+      args.push_back ("10");
     }
 };
 
 
-class test_gridsam : public test
+class endpoint_unicore : public endpoint
 {
   public:
-    test_gridsam (void)
+    endpoint_unicore (void)
     {
-      endpoint = "INVALID";
-      user     = "";
-      pass     = "";
-      cert     = "";
-      key      = "";
-      cadir    = "./cert.gridsam";
-      exe      = "/bin/uname";
+      url      = "https://zam1161v01.zam.kfa-juelich.de:8002/DEMO-SITE/services/BESFactory?res=default_bes_factory";
+      user     = "ogf";
+      pass     = "ogf";
+      cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      key      = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/";
+      exe      = "/bin/sleep";
+
+      args.push_back ("10");
     }
 };
 
 
-void run_test (std::string name, struct test & t)
+class endpoint_gridsam : public endpoint
 {
+  public:
+    endpoint_gridsam (void)
+    {
+      url      = "https://gridsam-endpoint.oerc.ox.ac.uk:18443/gridsam/services/hpcbp";
+      user     = "ogf";
+      pass     = "ogf";
+      cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      key      = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/";
+      exe      = "/bin/sleep";
+
+      args.push_back ("10");
+    }
+};
+
+
+class endpoint_arc : public endpoint
+{
+  public:
+    endpoint_arc (void)
+    {
+      url      = "http://knowarc1.grid.niif.hu:50000/arex";
+      user     = "ogf";
+      pass     = "ogf";
+      cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      key      = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/";
+      exe      = "/bin/sleep";
+
+      args.push_back ("10");
+    }
+};
+
+
+int run_test (std::string       name, 
+              struct endpoint & ep)
+{
+  int err = 0;
+
   try
   {
+    std::cout <<  " ==================================================================" << std::endl;
+    std::cout <<  " ----- " << ep.url << " ----- " << std::endl;
+    std::cout <<  " ------------------------------------------------------------------" << std::endl;
 
     saga::session s;
     saga::context c ("UserPass");
 
-    c.set_attribute (saga::attributes::context_userid,         t.user);
-    c.set_attribute (saga::attributes::context_userpass,       t.pass);
-    c.set_attribute (saga::attributes::context_certrepository, t.cadir);
+    c.set_attribute (saga::attributes::context_usercert,       ep.cert);
+    c.set_attribute (saga::attributes::context_userkey,        ep.key);
+    c.set_attribute (saga::attributes::context_userid,         ep.user);
+    c.set_attribute (saga::attributes::context_userpass,       ep.pass);
+    c.set_attribute (saga::attributes::context_certrepository, ep.cadir);
 
     s.add_context (c);
 
-    saga::job::service     js (s, t.endpoint);
+    saga::job::service     js (s, ep.url);
     saga::job::description jd;
 
-    std::string output ("output_");
-    output += t.endpoint;
-    jd.set_attribute (sja::description_executable, t.exe);
+    jd.set_attribute        (sja::description_executable, ep.exe);
+    jd.set_vector_attribute (sja::description_arguments,  ep.args);
+
+    std::string output ("file://localhost/tmp/output_");
+    output += ep.url;
     jd.set_attribute (sja::description_output,     "output");
-
-    
-    std::vector <std::string> args;
-    args.push_back ("-a");
-    jd.set_vector_attribute (sja::description_arguments, args);
-
 
     // not supported, yet
     std::vector <std::string> transfers;
-    args.push_back ("file://localhost/tmp/output < output");
+    transfers.push_back ("file://localhost/tmp/output < output");
     jd.set_vector_attribute (sja::description_file_transfer, transfers);
 
 
     saga::job::job j = js.create_job (jd);
 
     j.run ();
+
+    std::cout << name << ": Submitted" << std::endl;
     
     // j.wait (-1.0);
 
@@ -96,26 +143,47 @@ void run_test (std::string name, struct test & t)
       state = j.get_state ();
     }
 
-    std::cout << name << ": Done" << std::endl;
+    if ( state == saga::job::Done )
+    {
+      std::cout << name << ": Done" << std::endl;
+    }
+    else
+    {
+      std::cout << name << ": Failed?" << std::endl;
+      err++;
+    }
   }
   catch ( const saga::exception & e )
   {
     std::cout << name << ": Exception: " << e.what () << std::endl;
+    err++;
   }
   catch ( const char * m )
   {
     std::cout << name << ": exception: " << m << std::endl;
+    err++;
   }
 
-  std::cout <<  "===========================================" << std::endl;
-  return;
+  std::cout <<  " ----- " << err << " ---------------------------------------------------------- " << std::endl;
+
+  return err;
 }
 
 int main (int argc, char** argv)
 {
-  struct test_local   t_l;    run_test ("local",   t_l);
-  struct test_gridsam t_gs;   run_test ("gridsam", t_gs);
+  int err   = 0;
+  int total = 0;
 
-  return 0;
+  struct endpoint_local   ep_l;   run_test ("local  ", ep_l) && err++;  total++;
+  struct endpoint_unicore ep_u;   run_test ("unicore", ep_u) && err++;  total++;
+  struct endpoint_gridsam ep_g;   run_test ("gridsam", ep_g) && err++;  total++;
+  struct endpoint_arc     ep_a;   run_test ("arc    ", ep_a) && err++;  total++;
+
+  std::cout << " ==================================================================" << std::endl;
+  std::cout << " tests succeeded: " << total - err << std::endl;
+  std::cout << " tests failed   : " <<         err << std::endl;
+  std::cout << " ==================================================================" << std::endl;
+
+  return -err;
 }
 

@@ -96,11 +96,13 @@ main(int argc, char *argv[])
             usage();
         }
     }
-    
+
+    /*
     if ( (user && x509cert) || (!user && !x509cert) ) {
         fprintf(stderr, "You must specify only one of username or certificate file.\n");
         usage();
     }
+    */
     
     argc -= optind;
     argv += optind;
