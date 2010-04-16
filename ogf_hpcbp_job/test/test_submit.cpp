@@ -75,11 +75,11 @@ class endpoint_arc : public endpoint
   public:
     endpoint_arc (void)
     {
-      url      = "http://knowarc1.grid.niif.hu:50000/arex";
-      user     = "ogf";
-      pass     = "ogf";
-      cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
-      key      = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      url      = "https://interop.grid.niif.hu:2010/arex-x509";
+      user     = "";
+      pass     = "";
+      cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/arc-user-cert+key.pem";
+      key      = "z1nfandel";
       cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/";
       exe      = "/bin/sleep";
 
@@ -135,6 +135,13 @@ int run_test (std::string       name,
     // j.wait (-1.0);
 
     saga::job::state state = j.get_state ();
+
+    while ( state == saga::job::New )
+    {
+      std::cout << name << ": New" << std::endl;
+      ::sleep (1);
+      state = j.get_state ();
+    }
 
     while ( state == saga::job::Running )
     {
