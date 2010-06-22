@@ -33,24 +33,24 @@ int main (int argc, char * argv[])
 
   try 
   {
-    // char * capath       = "../besserver/cert/";
-    // char * x509cert     = NULL;
-    // char * x509pass     = NULL;
-    // char * user         = "merzky";
-    // char * pass         = "aaa";
-
-    // hpcbp_connector bp (x509cert, x509pass, capath, user, pass);
-    // bp.set_host_endpoint ("https://localhost:1235");
-
-
     char * capath       = "../besserver/cert/";
-    char * x509cert     = "../besserver/cert/arc-user-cert.pem";
-    char * x509pass     = "../besserver/cert/arc-user-key.pem";
-    char * user         = NULL;
-    char * pass         = NULL;
+    char * x509cert     = NULL;
+    char * x509pass     = NULL;
+    char * user         = "merzky";
+    char * pass         = "aaa";
 
     hpcbp_connector bp (x509cert, x509pass, capath, user, pass);
-    bp.set_host_endpoint ("https://interop.grid.niif.hu:2010/arex-x509");
+    bp.set_host_endpoint ("https://localhost:1235");
+
+
+    // char * capath       = "../besserver/cert/";
+    // char * x509cert     = "../besserver/cert/arc-user-cert.pem";
+    // char * x509pass     = "../besserver/cert/arc-user-key.pem";
+    // char * user         = NULL;
+    // char * pass         = NULL;
+
+    // hpcbp_connector bp (x509cert, x509pass, capath, user, pass);
+    // bp.set_host_endpoint ("https://interop.grid.niif.hu:2010/arex-x509");
 
     hpcbp_job_description jd;
 
