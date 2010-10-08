@@ -169,6 +169,22 @@ namespace hpcbp
   }
 
 
+  void connector::set_host_epr (const std::string epr)
+  {
+    std::cout << " ---------------- host epr ------------- " << std::endl;
+    std::cout << epr << std::endl;
+    std::cout << " --------------------------------------- " << std::endl;
+
+    char * endpoint_cs = ::strdup (epr.c_str ());
+
+    if ( bes_initEPRFromString (bes_context_, endpoint_cs, &host_epr_) )
+    {
+      // Cannot initialize bes endpoint
+      std::cerr << bes_get_lasterror (bes_context_) << std::endl;
+      throw (bes_get_lasterror (bes_context_));
+    }
+  }
+
   void connector::set_host_endpoint (const std::string host)
   {
     host_ = strdup (host.c_str ());
