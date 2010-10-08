@@ -18,6 +18,8 @@ SAGA_ADAPTOR_OBJ  = $(SAGA_OBJ)
 
 SAGA_ADAPTOR_PACKAGES = job
 
+SAGA_ADAPTOR_REQUIREMENTS = package_filesystem
+
 include $(SAGA_LOCATION)/share/saga/make/saga.adaptor.mk
 include $(SAGA_LOCATION)/share/saga/make/saga.doc.mk
 

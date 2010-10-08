@@ -40,8 +40,8 @@ class endpoint_unicore : public endpoint
     endpoint_unicore (void)
     {
       url      = "https://zam1161v01.zam.kfa-juelich.de:8002/DEMO-SITE/services/BESFactory?res=default_bes_factory";
-      user     = "ogf";
-      pass     = "ogf";
+      user     = "ogf30";
+      pass     = "ogf30";
       cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
       key      = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
       cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/";
@@ -57,9 +57,9 @@ class endpoint_gridsam : public endpoint
   public:
     endpoint_gridsam (void)
     {
-      url      = "https://gridsam-endpoint.oerc.ox.ac.uk:18443/gridsam/services/hpcbp";
-      user     = "ogf";
-      pass     = "ogf";
+      url      = "https://gridsam-test.oerc.ox.ac.uk:18443/gridsam/services/hpcbp";
+      user     = "ogf30";
+      pass     = "ogf30";
       cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
       key      = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
       cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/";
@@ -80,6 +80,40 @@ class endpoint_arc : public endpoint
       pass     = "";
       cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/arc-user-cert+key.pem";
       key      = "z1nfandel";
+      cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/";
+      exe      = "/bin/sleep";
+
+      args.push_back ("10");
+    }
+};
+
+class endpoint_smoa : public endpoint
+{
+  public:
+    endpoint_smoa (void)
+    {
+      url      = "https://grass1.man.poznan.pl:19001";
+      user     = "ogf30";
+      pass     = "ogf30";
+      cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      key      = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/";
+      exe      = "/bin/sleep";
+
+      args.push_back ("10");
+    }
+};
+
+class endpoint_fg_sierra : public endpoint
+{
+  public:
+    endpoint_fg_sierra (void)
+    {
+      url      = "epr://localhost/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/fg_sierra.epr";
+      user     = "ogf30";
+      pass     = "ogf30";
+      cert     = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
+      key      = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem";
       cadir    = "/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/";
       exe      = "/bin/sleep";
 
@@ -179,12 +213,14 @@ int run_test (std::string       name,
 int main (int argc, char** argv)
 {
   int err   = 0;
-  int total = 0;
+  int total = 0; 
 
-  struct endpoint_local   ep_l;   run_test ("local  ", ep_l) && err++;  total++;
-  struct endpoint_unicore ep_u;   run_test ("unicore", ep_u) && err++;  total++;
-  struct endpoint_gridsam ep_g;   run_test ("gridsam", ep_g) && err++;  total++;
-  struct endpoint_arc     ep_a;   run_test ("arc    ", ep_a) && err++;  total++;
+  // struct endpoint_local     ep_l;   run_test ("local    ", ep_l)  && err++;  total++;
+  // struct endpoint_unicore   ep_u;   run_test ("unicore  ", ep_u)  && err++;  total++;
+  // struct endpoint_gridsam   ep_g;   run_test ("gridsam  ", ep_g)  && err++;  total++;
+  // struct endpoint_arc       ep_a;   run_test ("arc      ", ep_a)  && err++;  total++;
+  // struct endpoint_smoa      ep_s;   run_test ("smoa     ", ep_s)  && err++;  total++;
+     struct endpoint_fg_sierra ep_f1;  run_test ("fg sierra", ep_f1) && err++;  total++;
 
   std::cout << " ==================================================================" << std::endl;
   std::cout << " tests succeeded: " << total - err << std::endl;

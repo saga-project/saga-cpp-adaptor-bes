@@ -54,11 +54,12 @@ namespace ogf_hpcbp_job
            rm_.get_scheme () != "bes"    && 
            rm_.get_scheme () != "http"   && 
            rm_.get_scheme () != "https"  && 
+           rm_.get_scheme () != "epr"    && // read epr from url
            rm_.get_scheme () != "any"    )
     {
       SAGA_OSSTREAM strm;
       strm << "Could not initialize job service for [" << rm_ << "]. " 
-           << "Only these schemas are supported: any://, bes://, http(s)://, or none.";
+           << "Only these schemas are supported: any://, bes://, http(s)://, epr://, or none.";
 
       SAGA_ADAPTOR_THROW (SAGA_OSSTREAM_GETSTRING (strm), 
                           saga::adaptors::AdaptorDeclined);
@@ -70,8 +71,27 @@ namespace ogf_hpcbp_job
       rm_.set_scheme ("https");
     }
 
+    if ( rm_.get_scheme () == "epr" )
+    {
+      // read epr from file, using saga::filesystem
+      saga::url e (rm_);
+      e.set_scheme ("any");
 
-    bp_.set_host_endpoint (rm_.get_string ());
+      saga::filesystem::file f (e);
+      saga::size_t           s = f.get_size ();
+      saga::mutable_buffer   b (s + 1);
+
+      f.read (b);
+
+      static_cast <char *> (b.get_data ())[s] = '\0';
+      
+      bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
+    }
+    else
+    {
+      bp_.set_host_endpoint (rm_.get_string ());
+    }
+
 
     // cycle over contexts and see which ones we can use.  
     // We accept x509 and UserPass

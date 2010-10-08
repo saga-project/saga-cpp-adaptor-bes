@@ -139,6 +139,7 @@ inoremap <silent> 	 =TriggerSnippet()
 imap 		 	
 inoremap <silent> 	 =ShowAvailableSnips()
 map Û :diffget]c
+map Û :diffget]c
 map Ý :diffput]c
 let &cpo=s:cpo_save
 unlet s:cpo_save
@@ -201,24 +202,24 @@ set writeany
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/links/saga/svn/trunk/adaptors/ogf/ogf_bes_job
+cd ~/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +27 ogf_bes_job.cpp
-badd +0 ogf_bes_job.hpp
-badd +0 ogf_bes_job_adaptor.cpp
-badd +0 ogf_bes_job_adaptor.hpp
-badd +0 ogf_bes_job_async.cpp
-badd +0 ogf_bes_job_istream.hpp
-badd +0 ogf_bes_job_ostream.hpp
-badd +0 ogf_bes_job_service.cpp
-badd +0 ogf_bes_job_service.hpp
-badd +0 ogf_bes_job_service_async.cpp
-badd +0 ogf_bes_job_stream.hpp
-badd +0 Makefile
-args ogf_bes_job.cpp ogf_bes_job.hpp ogf_bes_job_adaptor.cpp ogf_bes_job_adaptor.hpp ogf_bes_job_async.cpp ogf_bes_job_istream.hpp ogf_bes_job_ostream.hpp ogf_bes_job_service.cpp ogf_bes_job_service.hpp ogf_bes_job_service_async.cpp ogf_bes_job_stream.hpp
+badd +27 ogf_hpcbp_job.cpp
+badd +1 ogf_hpcbp_job.hpp
+badd +1 ogf_hpcbp_job_adaptor.cpp
+badd +1 ogf_hpcbp_job_adaptor.hpp
+badd +1 ogf_hpcbp_job_async.cpp
+badd +1 ogf_hpcbp_job_istream.hpp
+badd +1 ogf_hpcbp_job_ostream.hpp
+badd +1 ogf_hpcbp_job_service.cpp
+badd +1 ogf_hpcbp_job_service.hpp
+badd +1 ogf_hpcbp_job_service_async.cpp
+badd +1 ogf_hpcbp_job_stream.hpp
+badd +15 Makefile
+args ogf_hpcbp_job.cpp ogf_hpcbp_job.hpp ogf_hpcbp_job_adaptor.cpp ogf_hpcbp_job_adaptor.hpp ogf_hpcbp_job_async.cpp ogf_hpcbp_job_istream.hpp ogf_hpcbp_job_ostream.hpp ogf_hpcbp_job_service.cpp ogf_hpcbp_job_service.hpp ogf_hpcbp_job_service_async.cpp ogf_hpcbp_job_stream.hpp
 edit Makefile
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -258,18 +259,18 @@ wincmd w
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 0 + 30) / 60)
-exe '2resize ' . ((&lines * 47 + 30) / 60)
-exe '3resize ' . ((&lines * 0 + 30) / 60)
-exe '4resize ' . ((&lines * 0 + 30) / 60)
-exe '5resize ' . ((&lines * 0 + 30) / 60)
-exe '6resize ' . ((&lines * 0 + 30) / 60)
-exe '7resize ' . ((&lines * 0 + 30) / 60)
-exe '8resize ' . ((&lines * 0 + 30) / 60)
-exe '9resize ' . ((&lines * 0 + 30) / 60)
-exe '10resize ' . ((&lines * 0 + 30) / 60)
-exe '11resize ' . ((&lines * 0 + 30) / 60)
-exe '12resize ' . ((&lines * 0 + 30) / 60)
+exe '1resize ' . ((&lines * 0 + 32) / 64)
+exe '2resize ' . ((&lines * 51 + 32) / 64)
+exe '3resize ' . ((&lines * 0 + 32) / 64)
+exe '4resize ' . ((&lines * 0 + 32) / 64)
+exe '5resize ' . ((&lines * 0 + 32) / 64)
+exe '6resize ' . ((&lines * 0 + 32) / 64)
+exe '7resize ' . ((&lines * 0 + 32) / 64)
+exe '8resize ' . ((&lines * 0 + 32) / 64)
+exe '9resize ' . ((&lines * 0 + 32) / 64)
+exe '10resize ' . ((&lines * 0 + 32) / 64)
+exe '11resize ' . ((&lines * 0 + 32) / 64)
+exe '12resize ' . ((&lines * 0 + 32) / 64)
 argglobal
 edit Makefile
 setlocal keymap=
@@ -366,7 +367,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 15 - ((14 * winheight(0) + 0) / 0)
+let s:l = 15 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -469,7 +470,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 17 - ((15 * winheight(0) + 23) / 47)
+let s:l = 17 - ((5 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -572,7 +573,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 52 - ((43 * winheight(0) + 0) / 0)
+let s:l = 52 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -675,15 +676,15 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 107 - ((44 * winheight(0) + 0) / 0)
+let s:l = 99 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-107
-normal! 026l
+99
+normal! 0
 wincmd w
 argglobal
-edit ogf_bes_job.cpp
+edit ogf_hpcbp_job.cpp
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -778,12 +779,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 27 - ((23 * winheight(0) + 0) / 0)
+let s:l = 28 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-27
-normal! 017l
+28
+normal! 016l
 wincmd w
 argglobal
 5argu
@@ -881,12 +882,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 155 - ((43 * winheight(0) + 0) / 0)
+let s:l = 1 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-155
-normal! 022l
+1
+normal! 0
 wincmd w
 argglobal
 9argu
@@ -984,12 +985,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 89 - ((0 * winheight(0) + 0) / 0)
+let s:l = 83 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-89
-normal! 026l
+83
+normal! 0
 wincmd w
 argglobal
 8argu
@@ -1087,12 +1088,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 87 - ((43 * winheight(0) + 0) / 0)
+let s:l = 88 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-87
-normal! 022l
+88
+normal! 015l
 wincmd w
 argglobal
 10argu
@@ -1190,12 +1191,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 89 - ((43 * winheight(0) + 0) / 0)
+let s:l = 1 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-89
-normal! 022l
+1
+normal! 0
 wincmd w
 argglobal
 11argu
@@ -1293,12 +1294,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 9 - ((5 * winheight(0) + 0) / 0)
+let s:l = 1 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-9
-normal! 024l
+1
+normal! 0
 wincmd w
 argglobal
 6argu
@@ -1396,12 +1397,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 43 - ((0 * winheight(0) + 0) / 0)
+let s:l = 1 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-43
-normal! 035l
+1
+normal! 0
 wincmd w
 argglobal
 7argu
@@ -1499,26 +1500,26 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 44 - ((41 * winheight(0) + 0) / 0)
+let s:l = 1 - ((0 * winheight(0) + 0) / 0)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-44
-normal! 026l
+1
+normal! 0
 wincmd w
 2wincmd w
-exe '1resize ' . ((&lines * 0 + 30) / 60)
-exe '2resize ' . ((&lines * 47 + 30) / 60)
-exe '3resize ' . ((&lines * 0 + 30) / 60)
-exe '4resize ' . ((&lines * 0 + 30) / 60)
-exe '5resize ' . ((&lines * 0 + 30) / 60)
-exe '6resize ' . ((&lines * 0 + 30) / 60)
-exe '7resize ' . ((&lines * 0 + 30) / 60)
-exe '8resize ' . ((&lines * 0 + 30) / 60)
-exe '9resize ' . ((&lines * 0 + 30) / 60)
-exe '10resize ' . ((&lines * 0 + 30) / 60)
-exe '11resize ' . ((&lines * 0 + 30) / 60)
-exe '12resize ' . ((&lines * 0 + 30) / 60)
+exe '1resize ' . ((&lines * 0 + 32) / 64)
+exe '2resize ' . ((&lines * 51 + 32) / 64)
+exe '3resize ' . ((&lines * 0 + 32) / 64)
+exe '4resize ' . ((&lines * 0 + 32) / 64)
+exe '5resize ' . ((&lines * 0 + 32) / 64)
+exe '6resize ' . ((&lines * 0 + 32) / 64)
+exe '7resize ' . ((&lines * 0 + 32) / 64)
+exe '8resize ' . ((&lines * 0 + 32) / 64)
+exe '9resize ' . ((&lines * 0 + 32) / 64)
+exe '10resize ' . ((&lines * 0 + 32) / 64)
+exe '11resize ' . ((&lines * 0 + 32) / 64)
+exe '12resize ' . ((&lines * 0 + 32) / 64)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

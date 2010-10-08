@@ -45,7 +45,7 @@ namespace ogf_hpcbp_job
       typedef saga::adaptors::adaptor_data <adaptor> adaptor_data_type;
 
       saga::session           session_;
-      saga::url               endpoint_url_;
+      saga::url               rm_;
       saga::job::description  jd_;
       saga::job::state        state_;
       std::string             jobid_;

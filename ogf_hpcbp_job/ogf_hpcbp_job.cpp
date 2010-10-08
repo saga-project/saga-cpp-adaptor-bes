@@ -46,30 +46,50 @@ namespace ogf_hpcbp_job
     instance_data     idata (this);
     adaptor_data_type adata (this);
 
-    endpoint_url_ = idata->rm_;
+    rm_ = idata->rm_;
 
     // check if URL is usable
-    if ( ! endpoint_url_.get_scheme ().empty ()    &&
-           endpoint_url_.get_scheme () != "bes"    && 
-           endpoint_url_.get_scheme () != "http"   && 
-           endpoint_url_.get_scheme () != "https"  && 
-           endpoint_url_.get_scheme () != "any"    )
+    if ( ! rm_.get_scheme ().empty ()    &&
+           rm_.get_scheme () != "bes"    && 
+           rm_.get_scheme () != "http"   && 
+           rm_.get_scheme () != "https"  && 
+           rm_.get_scheme () != "epr"    && 
+           rm_.get_scheme () != "any"    )
     {
       SAGA_OSSTREAM strm;
-      strm << "Could not initialize job service for [" << endpoint_url_ << "]. " 
-           << "Only these schemas are supported: any://, bes://, http(s)://, or none.";
+      strm << "Could not initialize job service for [" << rm_ << "]. " 
+           << "Only these schemas are supported: any://, bes://, http(s)://, epr://, or none.";
 
       SAGA_ADAPTOR_THROW (SAGA_OSSTREAM_GETSTRING (strm), 
                           saga::adaptors::AdaptorDeclined);
     }
     
-    if ( endpoint_url_.get_scheme () == "any" ||
-         endpoint_url_.get_scheme () == "bes" )
+    if ( rm_.get_scheme () == "any" ||
+         rm_.get_scheme () == "bes" )
     {
-      endpoint_url_.set_scheme ("https");
+      rm_.set_scheme ("https");
     }
 
-    bp_.set_host_endpoint (endpoint_url_.get_string ());
+    if ( rm_.get_scheme () == "epr" )
+    {
+      // read epr from file, using saga::filesystem
+      saga::url e (rm_);
+      e.set_scheme ("any");
+
+      saga::filesystem::file f (e);
+      saga::size_t           s = f.get_size ();
+      saga::mutable_buffer   b (s + 1);
+
+      f.read (b);
+
+      static_cast <char *> (b.get_data ())[s] = '\0';
+      
+      bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
+    }
+    else
+    {
+      bp_.set_host_endpoint (rm_.get_string ());
+    }
 
     // cycle over contexts and see which ones we can use.  
     // We accept x509 and UserPass
@@ -314,7 +334,7 @@ namespace ogf_hpcbp_job
     }
 
     job_epr_ = bp_.run (jsdl_);
-    jobid_   = "[" + endpoint_url_.get_string () + "]-[" + job_epr_->str + "]";
+    jobid_   = "[" + rm_.get_string () + "]-[" + job_epr_->str + "]";
 
     {
       adaptor_data_type adata (this); // scoped lock
