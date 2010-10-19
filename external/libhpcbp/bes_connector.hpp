@@ -75,7 +75,7 @@ class hpcbp_connector
         throw bes_get_lasterror (hpcbp_context_);
       }
 
-      std::cout << "bes security initialized" << std::endl;
+      // std::cout << "bes security initialized" << std::endl;
     }
 
 
@@ -98,7 +98,7 @@ class hpcbp_connector
         throw ("Cannot init bes context");
       }
 
-      std::cout << "bes connector initialized" << std::endl;
+      // std::cout << "bes connector initialized" << std::endl;
 
     }
 
@@ -106,7 +106,7 @@ class hpcbp_connector
     {
       bes_freeEPR  (&host_epr_);
       bes_finalize (&hpcbp_context_);
-      std::cout << "bes connector finalized" << std::endl;
+      // std::cout << "bes connector finalized" << std::endl;
     }
 
     void set_host_endpoint (const std::string host)
@@ -127,7 +127,7 @@ class hpcbp_connector
         throw (bes_get_lasterror (hpcbp_context_));
       }
 
-      std::cout << "host epr points to " << host_ << std::endl;
+      // std::cout << "host epr points to " << host_ << std::endl;
     }
 
     struct bes_epr * run_job (struct jsdl_job_definition * jd)

@@ -171,9 +171,9 @@ namespace hpcbp
 
   void connector::set_host_epr (const std::string epr)
   {
-    std::cout << " ---------------- host epr ------------- " << std::endl;
-    std::cout << epr << std::endl;
-    std::cout << " --------------------------------------- " << std::endl;
+    // std::cout << " ---------------- host epr ------------- " << std::endl;
+    // std::cout << epr << std::endl;
+    // std::cout << " --------------------------------------- " << std::endl;
 
     char * endpoint_cs = ::strdup (epr.c_str ());
 
@@ -195,9 +195,9 @@ namespace hpcbp
       << "  <wsa:Address>" << host_ << "</wsa:Address>\n"
       << " </wsa:EndpointReference>\n";
 
-    std::cout << " ---------------- host epr ------------- " << std::endl;
-    std::cout << endpoint_ss.str () << std::endl;
-    std::cout << " --------------------------------------- " << std::endl;
+    // std::cout << " ---------------- host epr ------------- " << std::endl;
+    // std::cout << endpoint_ss.str () << std::endl;
+    // std::cout << " --------------------------------------- " << std::endl;
 
     char * endpoint_cs = ::strdup (endpoint_ss.str ().c_str ());
 
@@ -208,7 +208,7 @@ namespace hpcbp
       throw (bes_get_lasterror (bes_context_));
     }
 
-    std::cout << "host epr points to " << host_ << std::endl;
+    // std::cout << "host epr points to " << host_ << std::endl;
   }
 
   job_handle connector::run (const job_description & jd)
@@ -225,7 +225,7 @@ namespace hpcbp
 
     job_handle job_epr = (job_handle) epr;
 
-    std::cout << "job epr: " << job_epr->str << std::endl;
+    // std::cout << "job epr: " << job_epr->str << std::endl;
 
     // FIXME: epr is leaking memory here... - should be wrapped in
     // separate class

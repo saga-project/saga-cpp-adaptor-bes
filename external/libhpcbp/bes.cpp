@@ -295,7 +295,7 @@ bes_createActivity (struct bes_context         * context,
 
   req.bes__ActivityDocument.__any = jsdl_dom;
 
-  std::cout << "jsdl: " << *(req.bes__ActivityDocument.__any) << std::endl;
+  // std::cout << "jsdl: " << *(req.bes__ActivityDocument.__any) << std::endl;
 
   if ( soap_call___bes__CreateActivity (s, endpoint, 
                                         CREATE_ACT, &req, &rsp) != SOAP_OK )
@@ -1586,7 +1586,7 @@ isElement(struct soap_dom_element *dom,
     if (!dom || !ns || !elt) {
         return 0;
     }
-    if (strcmp(dom->nstr, ns)) {
+    if (dom->nstr && strcmp(dom->nstr, ns)) {
         return 0;
     }
     cp = strchr(dom->name, ':');
@@ -1613,7 +1613,7 @@ isAttribute(struct soap_dom_attribute *attr,
     if (!attr || !ns || !elt) {
         return 0;
     }
-    if (strcmp(attr->nstr, ns)) {
+    if (attr->nstr && strcmp(attr->nstr, ns)) {
         return 0;
     }
     cp = strchr(attr->name, ':');
