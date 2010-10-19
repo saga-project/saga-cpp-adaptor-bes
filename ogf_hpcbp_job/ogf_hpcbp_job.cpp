@@ -338,7 +338,15 @@ namespace ogf_hpcbp_job
 
     {
       adaptor_data_type adata (this); // scoped lock
+      state_ = adata->get_saga_state (bp_.get_state (job_epr_));
+    }
 
+    while ( state_ == saga::job::New )
+    {
+      // std::cout << "waiting for job state to change" << std::endl;
+      ::sleep (1);
+
+      adaptor_data_type adata (this); // scoped lock
       state_ = adata->get_saga_state (bp_.get_state (job_epr_));
     }
 
