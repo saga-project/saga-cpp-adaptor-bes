@@ -61,16 +61,21 @@ class hpcbp_connector
   private: 
     struct bes_context * hpcbp_context_;
     epr_t                host_epr_;
-    char               * host_;
-    char               * x509cert_;
-    char               * x509pass_;
-    char               * capath_;
-    char               * user_;
-    char               * pass_;
+    std::string          host_;
+    std::string          x509cert_;
+    std::string          x509pass_;
+    std::string          capath_;
+    std::string          user_;
+    std::string          pass_;
 
     void init_security_ (void)
     {
-      if ( bes_security (hpcbp_context_, x509cert_, x509pass_, capath_, user_, pass_) )
+      if ( bes_security (hpcbp_context_, 
+                         x509cert_.c_str (), 
+                         x509pass_.c_str (), 
+                         capath_.c_str (), 
+                         user_.c_str (), 
+                         pass_.c_str ()) )
       {
         throw bes_get_lasterror (hpcbp_context_);
       }
@@ -80,11 +85,11 @@ class hpcbp_connector
 
 
   public:
-    bes_connector (char * x509cert, 
-                   char * x509pass, 
-                   char * capath, 
-                   char * user,     
-                   char * pass)
+    bes_connector (std::string x509cert, 
+                   std::string x509pass, 
+                   std::string capath, 
+                   std::string user,     
+                   std::string pass)
       : hpcbp_context_ (NULL)
       , host_epr_    (NULL)
       , x509cert_    (x509cert)
@@ -111,7 +116,7 @@ class hpcbp_connector
 
     void set_host_endpoint (const std::string host)
     {
-      host_ = strdup (host.c_str ());
+      host_ = host;
 
       std::stringstream endpoint_ss;
       endpoint_ss << "<?xml version=\"1.0\"  encoding=\"UTF-8\"?>\n"
@@ -119,9 +124,9 @@ class hpcbp_connector
                   << "  <wsa:Address>" << host_ << "</wsa:Address>\n"
                   << " </wsa:EndpointReference>\n";
 
-      char * endpoint_cs = ::strdup (endpoint_ss.str ().c_str ());
+      std::string endpoint_cs = endpoint_ss.str ();
 
-      if ( bes_initEPRFromString (hpcbp_context_, endpoint_cs, &host_epr_) )
+      if ( bes_initEPRFromString (hpcbp_context_, endpoint_cs.c_str (), &host_epr_) )
       {
         // Cannot initialize bes endpoint
         throw (bes_get_lasterror (hpcbp_context_));

@@ -1484,7 +1484,7 @@ struct soap_dom_element
   struct soap_dom_attribute *atts;	/* list of attributes */
   const char *nstr;			/* namespace string */
   char *name;				/* element tag name */
-  char *data;				/* element content data (with SOAP_C_UTFSTRING flag set) */
+  const char *data;				/* element content data (with SOAP_C_UTFSTRING flag set) */
   wchar_t *wide;			/* element content data */
   int type;				/* optional: serialized C/C++ data type */
   void *node;				/* optional: pointer to serialized C/C++ data */

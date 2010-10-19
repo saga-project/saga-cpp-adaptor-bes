@@ -26,6 +26,9 @@
  *
  */
 
+#include <iostream>
+#include <string.h>
+
 #include "hpcbp.hpp"
 
 int main (int argc, char * argv[])
@@ -33,24 +36,26 @@ int main (int argc, char * argv[])
 
   try 
   {
-    char * capath       = "../besserver/cert/";
-    char * x509cert     = NULL;
-    char * x509pass     = NULL;
-    char * user         = "merzky";
-    char * pass         = "aaa";
-    char * jsdl         = "sleep.jsdl";
+    const char * cadir        = "/home/merzky/.saga/certificates/";
+    const char * cert         = "/tmp/x509up_u501";
+    const char * key          = "/tmp/x509up_u501";
+    const char * user         = "ogf";
+    const char * pass         = "ogf";
+    const char * jsdl         = "sleep.jsdl";
 
-    hpcbp_connector bp (x509cert, x509pass, capath, user, pass);
-    bp.set_host_endpoint ("https://localhost:1236");
+    hpcbp::connector bp;
+    
+    bp.set_security (cert, key, cadir, user, pass);
+    bp.set_host_endpoint ("https://zam1161v01.zam.kfa-juelich.de:8002/DEMO-SITE/services/BESFactory?res=default_bes_factory");
 
-    hpcbp_job_description jd;
+    hpcbp::job_description jd;
 
     jd.set_job_name ("Sleep Name");
 
     jd.set_job_name          ("SleepName");
     jd.set_job_annotation    ("SleepAnnotation");
     jd.set_job_project       ("SleepProject");
-    jd.set_total_cpu_count   (1);
+    jd.set_total_cpu_count   ("1");
     jd.set_executable        ("/bin/sleep");
     jd.set_output            ("/dev/null");
     jd.set_working_directory ("/tmp/");
@@ -59,17 +64,17 @@ int main (int argc, char * argv[])
     args.push_back ("10");
     jd.set_args (args); 
 
-    hpcbp_job_handle job_epr = bp.run_job (jd);
+    hpcbp::job_handle job_epr = bp.run (jd);
 
     std::cout << job_epr->str << std::endl;
 
     while ( true ) 
     {
-      hpcbp_state state = bp.get_state (job_epr);
+      hpcbp::state state = bp.get_state (job_epr);
 
-      if ( state == HPCBP_Cancelled ||
-           state == HPCBP_Failed    ||
-           state == HPCBP_Finished  )
+      if ( state == hpcbp::Canceled  ||
+           state == hpcbp::Failed    ||
+           state == hpcbp::Finished  )
       {
         break;
       }

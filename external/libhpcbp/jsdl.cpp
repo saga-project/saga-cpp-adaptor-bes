@@ -29,7 +29,7 @@
 #include "soapStub.h"
 
 
-char *jsdl_operating_system_names[] = {
+const char *jsdl_operating_system_names[] = {
     "Unknown", "MACOS", "ATTUNIX", "DGUX", "DECNT", "Tru64_UNIX", "OpenVMS",
     "HPUX", "AIX", "MVS", "OS400", "OS_2", "JavaVM", "MSDOS", "WIN3x", "WIN95",
     "WIN98", "WINNT", "WINCE", "NCR3000", "NetWare", "OSF", "DC_OS", 
@@ -43,14 +43,14 @@ char *jsdl_operating_system_names[] = {
     "Windows_XP", "z_OS", "other", NULL,
 };
 
-char *jsdl_processor_architectures[] = {
+const char *jsdl_processor_architectures[] = {
     "sparc", "powerpc", "x86", "x86_32", "x86_64",
     "parisc", "mips", "ia64", "arm", "other", NULL,
 };
 
 
 int 
-jsdl_addArg(struct jsdl_job_definition *jsdl, char *arg)
+jsdl_addArg(struct jsdl_job_definition *jsdl, const char *arg)
 {
     struct jsdl_hpcp_application *app;
     char *cp, **cpp;
@@ -138,7 +138,7 @@ jsdl_addEnv(struct jsdl_job_definition *jsdl, struct soap_dom_element *dom)
 }
 
 int 
-jsdl_addHost(struct jsdl_job_definition *jsdl, char *host)
+jsdl_addHost(struct jsdl_job_definition *jsdl, const char *host)
 {
     char *cp, **cpp;
     int i;
@@ -370,7 +370,7 @@ jsdl_processJobIdentification(struct soap_dom_element *dom,
                               struct jsdl_job_definition *jsdl)
 {
     struct soap_dom_element *cur = dom->elts;
-    int rc;
+ // int rc;
 
     while (cur) {
         if (isElement(cur, JSDL_NS, "JobName")) {
@@ -519,7 +519,7 @@ jsdl_addExact(struct jsdl_range_value *rval, double value, double epsilon)
     exact->value = value;
     exact->epsilon = epsilon;
 
-    if (cur = rval->Exact) {
+    if ( (cur = rval->Exact) ) {
         while (cur->next) {
             cur = cur->next;
         }
@@ -560,7 +560,7 @@ jsdl_addRange(struct jsdl_range_value *rval,
     range->LowerBound = lower;
     range->UpperBound = upper;
     range->next = NULL;
-    if (cur = rval->Range) {
+    if ( (cur = rval->Range) ) {
         while (cur->next) {
             cur = cur->next;
         }
@@ -688,7 +688,7 @@ jsdl_processRangeValue(struct soap_dom_element *dom,
     struct jsdl_bound *bound;
     struct soap_dom_element *cur;
     struct soap_dom_attribute *attr;
-    char *endptr;
+ // char *endptr;
     int rc;
 
     if (!dom || !value) {
@@ -760,7 +760,7 @@ jsdl_processRangeValue(struct soap_dom_element *dom,
             exact = new_exact;
         }
         else if (isElement(cur, JSDL_NS, "Range")) {
-            if (rc = jsdl_processRange(cur, &new_range)) {
+            if ( (rc = jsdl_processRange(cur, &new_range)) ) {
                 jsdl_freeRangeValue(val);
                 return rc;
             }
@@ -790,7 +790,7 @@ jsdl_processCandidateHosts(struct soap_dom_element *dom,
 
     while (cur) {
         if (isElement(cur, JSDL_NS, "HostName")) {
-            if ((rc = jsdl_addHost(jsdl, cur->data)) != BESE_OK) {
+            if ( ((rc = jsdl_addHost(jsdl, cur->data)) != BESE_OK) ) {
                 return rc;
             }
         }
@@ -827,7 +827,8 @@ jsdl_processOperatingSystem(struct soap_dom_element *dom,
 {
     struct jsdl_operating_system *os;
     struct soap_dom_element *cur = dom->elts;
-    int i, rc;
+    int    i;
+ // int    rc;
 
     if (!dom || !jsdl) {
         return BESE_BAD_ARG;
@@ -885,7 +886,8 @@ jsdl_processCPUArchitecture(struct soap_dom_element *dom,
 {
     struct jsdl_cpu_architecture *arch;
     struct soap_dom_element *cur = dom->elts;
-    int i, rc;
+    int    i;
+ // int    rc;
 
     if (!dom || !jsdl) {
         return BESE_BAD_ARG;
@@ -1164,7 +1166,8 @@ jsdl_processJobDefinition(struct soap_dom_element *dom,
 void
 jsdl_freeJobDefinition(struct jsdl_job_definition *jsdl)
 {
-    struct jsdl_data_staging *file, *next_file;
+ // struct jsdl_data_staging *file;
+ // struct *next_file;
     int i;
 
     if (!jsdl) return;
@@ -1277,7 +1280,7 @@ jsdl_newJobDefinition(enum jsdl_application_type app_type, struct jsdl_job_defin
  * into a gSOAP DOM tree
  */
 struct soap_dom_element *
-jsdl_generateDomElement(struct soap *s, char *nstr, char *name)
+jsdl_generateDomElement(struct soap *s, const char *nstr, const char *name)
 {
     struct soap_dom_element *dom;
     
@@ -1296,7 +1299,7 @@ jsdl_generateDomElement(struct soap *s, char *nstr, char *name)
 }
 
 struct soap_dom_attribute *
-jsdl_generateDomAttribute(struct soap *s, char *name)
+jsdl_generateDomAttribute(struct soap *s, const char *name)
 {
     struct soap_dom_attribute *attr;
 
@@ -1398,7 +1401,7 @@ jsdl_generateCPUArchitecture(struct soap *s, struct jsdl_cpu_architecture *arch)
 }
 
 struct soap_dom_element *
-jsdl_generateRangeValue(struct soap *s, struct jsdl_range_value *rangeval, char *name)
+jsdl_generateRangeValue(struct soap *s, struct jsdl_range_value *rangeval, const char *name)
 {
     struct soap_dom_element *rval, *first, *cur, *dom;
     struct jsdl_exact *exact;
@@ -1715,7 +1718,7 @@ jsdl_generateHPCProfileApplication(struct soap *s, struct jsdl_job_definition *j
     struct soap_dom_element *hpcpa, *first, *cur, *dom;
     struct jsdl_hpcp_application *app;
     struct jsdl_envvar *envvar;
-    char *nstr;
+ // char *nstr;
     int i;
 
     if (jd == NULL || jd->Application == NULL) {
@@ -1886,7 +1889,7 @@ jsdl_generatePosixApplication(struct soap *s, struct jsdl_job_definition *jd)
     struct soap_dom_element *posix, *first, *cur, *dom;
     struct jsdl_posix_application *app;
     struct jsdl_envvar *envvar;
-    char *nstr;
+ // char *nstr;
     int i;
 
     if (jd == NULL || jd->Application == NULL) {

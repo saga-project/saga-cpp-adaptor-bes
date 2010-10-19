@@ -91,7 +91,7 @@ struct bes_epr
 #define BESE_UNSUPPORTED_STRING "Feature is unsupported by BES++ at this time"
 #define BESE_XML_FORMAT_STRING  "Format error in XML request/response"
 
-int          isElement                        (struct soap_dom_element *dom, char *ns, char *elt);
+int          isElement                        (struct soap_dom_element *dom, const char *ns, const char *elt);
 
 int          bes_init                         (struct bes_context **);
 int          bes_security                     (struct bes_context *, char *, char *, char *, char *, char *);

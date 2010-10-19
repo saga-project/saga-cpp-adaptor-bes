@@ -74,8 +74,8 @@ struct Namespace epr_namespaces[] = {
 #define FromMalloc  1
 
 int isElement(struct soap_dom_element *, char *, char *);
-int isAttribute(struct soap_dom_attribute *, char *, char *);
-int generateAddressingHeaders(struct bes_context *, epr_t, char *, char **);
+int isAttribute(struct soap_dom_attribute *, const char *, const char *);
+int generateAddressingHeaders(struct bes_context *, epr_t, const char *, char **);
 void printDom(struct soap_dom_element*, char *, int); 
 void cleanDom(struct soap_dom_element*);
 void setErrorString(struct bes_context *, struct soap *, int);
@@ -277,14 +277,14 @@ bes_createActivity (struct bes_context         * context,
 
   s = context->soap;
 
-  if ( ret = generateAddressingHeaders (context, endpointepr, 
-                                        CREATE_ACT, &endpoint) )
+  if ( (ret = generateAddressingHeaders (context, endpointepr, 
+                                        CREATE_ACT, &endpoint)) )
   {
     setErrorString (context, NULL, ret);
     return ret;
   }
 
-  if ( ret = jsdl_generateJobDefinitionDOM (jsdl, &jsdl_dom) )
+  if ( (ret = jsdl_generateJobDefinitionDOM (jsdl, &jsdl_dom)) )
   {
     setErrorString (context, NULL, ret);
     return ret;
@@ -350,9 +350,10 @@ bes_createActivityFromFile(struct bes_context *context,
     struct bes__CreateActivityType req;
     struct bes__CreateActivityResponseType rsp;
     struct soap_dom_element dom, *tmpdom;
-    struct soap_dom_attribute *attr;
+ // struct soap_dom_attribute *attr;
     struct bes_epr *epr;
-    int jsdl, size = 0, ret = BESE_OK;
+    int jsdl, ret = BESE_OK;
+ // int size = 0;
     char *endpoint;
     
     if (context == NULL 
@@ -364,7 +365,7 @@ bes_createActivityFromFile(struct bes_context *context,
     
     s = context->soap;
     
-    if (ret = generateAddressingHeaders(context, endpointepr, CREATE_ACT, &endpoint)) {
+    if ( (ret = generateAddressingHeaders(context, endpointepr, CREATE_ACT, &endpoint)) ) {
         return ret;
     }
     
@@ -439,10 +440,12 @@ bes_createActivityFromString (struct bes_context * context,
   struct bes__CreateActivityType req;
   struct bes__CreateActivityResponseType rsp;
   struct soap_dom_element dom, *tmpdom;
-  struct soap_dom_attribute *attr;
+//struct soap_dom_attribute *attr;
   struct bes_epr *epr;
-  int    jsdl_fd, size = 0, ret = BESE_OK;
-  char   *endpoint, filename[] = "/tmp/XXXXXX";
+//int    jsdl_fd, size = 0;
+  int    ret = BESE_OK;
+  char   *endpoint;
+//char   filename[] = "/tmp/XXXXXX";
 
   if ( context     == NULL ||
        endpointepr == NULL ||
@@ -454,8 +457,8 @@ bes_createActivityFromString (struct bes_context * context,
 
   s = context->soap;
 
-  if ( ret = generateAddressingHeaders (context,    endpointepr, 
-                                        CREATE_ACT, &endpoint) )
+  if ( (ret = generateAddressingHeaders (context,    endpointepr, 
+                                         CREATE_ACT, &endpoint)) )
   {
     return ret;
   }
@@ -545,7 +548,7 @@ bes_terminateActivities(struct bes_context *context,
     s = context->soap;
     epr = (struct bes_epr *)activityepr;
     
-    if (ret = generateAddressingHeaders(context, endpointepr, TERMINATE_ACT, &endpoint)) {
+    if ( (ret = generateAddressingHeaders(context, endpointepr, TERMINATE_ACT, &endpoint)) ) {
         return BESE_ERROR;
     }
     
@@ -596,7 +599,7 @@ bes_getActivityStatuses(struct bes_context *context,
     
     memset(status, 0, sizeof(struct bes_activity_status));
     
-    if (ret = generateAddressingHeaders(context, endpointepr, STATUS_ACT, &endpoint)) {
+    if ( (ret = generateAddressingHeaders(context, endpointepr, STATUS_ACT, &endpoint)) ) {
         return ret;
     }
     
@@ -684,8 +687,10 @@ getActivityDocumentsDOM(struct bes_context *context,
     struct bes__GetActivityDocumentsType req;
     struct bes__GetActivityDocumentsResponseType rsp;
     struct bes_epr *epr;
-    int size = 0, ret = BESE_OK;
-    char *endpoint, *str;
+    int    ret = BESE_OK;
+ // int    size = 0;
+    char   *endpoint;
+ // char   *str;
     
     if (context == NULL
         || endpointepr == NULL
@@ -697,7 +702,7 @@ getActivityDocumentsDOM(struct bes_context *context,
     s = context->soap;
     epr = (struct bes_epr *)activityepr;
     
-    if (ret = generateAddressingHeaders(context, endpointepr, ACTIVITIES_ACT, &endpoint)) {
+    if ( (ret = generateAddressingHeaders(context, endpointepr, ACTIVITIES_ACT, &endpoint)) ) {
         return ret;
     }
     
@@ -762,8 +767,9 @@ bes_getActivityDocuments(struct bes_context *context,
     struct soap_dom_element *dom, *epr_dom, *jsdl_dom;
     struct bes_activity_document *doc;
     struct bes_epr *epr;
-    int size = 0, ret = BESE_OK;
-    char *str;
+    int    ret = BESE_OK;
+ // int    size = 0;
+ // char *str;
 
     if (activity == NULL) {
         setErrorString(context, NULL, BESE_BAD_ARG);
@@ -856,7 +862,7 @@ bes_getFactoryAttributesDocument(struct bes_context *context,
     
     s = context->soap;
     
-    if (ret = generateAddressingHeaders(context, endpointepr, FACTORY_ACT, &endpoint)) {
+    if ( (ret = generateAddressingHeaders(context, endpointepr, FACTORY_ACT, &endpoint)) ) {
         return ret;
     }
     
@@ -1282,7 +1288,8 @@ calcDomSize(struct soap_dom_element *node,
             char *current_nstr) 
 {
     struct soap_dom_attribute *attr;
-    int i, size = 0;
+    int    size = 0;
+ // int    i;
 
     if (node == NULL) {
         return 0;
@@ -1327,7 +1334,7 @@ sprintDom(struct soap_dom_element *node,
           char *current_nstr) 
 {
     struct soap_dom_attribute *attr;
-    int i;
+ // int i;
 
     if (node == NULL) {
         return;
@@ -1367,9 +1374,10 @@ char *
 generateEPRString(struct soap_dom_element *node, 
                   char *current_nstr) 
 {
-    struct soap_dom_attribute *attr;
+ // struct soap_dom_attribute *attr;
     char *epr_buf;
-    int i, epr_len;
+    int   epr_len;
+ // int   i;
 
     if (node == NULL) {
         return NULL;
@@ -1463,7 +1471,7 @@ generateAddressHeader(struct bes_context *context,
 int
 generateAddressingHeaders(struct bes_context *context, 
                           epr_t endpointepr, 
-                          char *action,
+                          const char *action,
                           char **endpoint_ret)
 {
     struct soap *s;
@@ -1578,8 +1586,8 @@ generateAddressingHeaders(struct bes_context *context,
 
 int
 isElement(struct soap_dom_element *dom, 
-          char *ns, 
-          char *elt)
+          const char *ns, 
+          const char *elt)
 {
     char *cp;
     
@@ -1605,8 +1613,8 @@ isElement(struct soap_dom_element *dom,
 
 int
 isAttribute(struct soap_dom_attribute *attr, 
-            char *ns, 
-            char *elt)
+            const char *ns, 
+            const char *elt)
 {
     char *cp;
     

@@ -9042,7 +9042,7 @@ soap_wstring_in(struct soap *soap, int flag, long minlen, long maxlen)
           *s++ = (soap_wchar)'<';
         else
         { *s++ = (soap_wchar)'&';
-          t = "lt;";
+          t = strdup ("lt;");
         }
         break;
       case '>':
@@ -9050,7 +9050,7 @@ soap_wstring_in(struct soap *soap, int flag, long minlen, long maxlen)
           *s++ = (soap_wchar)'>';
         else
         { *s++ = (soap_wchar)'&';
-          t = "gt;";
+          t = strdup ("gt;");
         }
         break;
       case '"':
@@ -9058,7 +9058,7 @@ soap_wstring_in(struct soap *soap, int flag, long minlen, long maxlen)
           *s++ = (soap_wchar)'"';
         else
         { *s++ = (soap_wchar)'&';
-          t = "quot;";
+          t = strdup ("quot;");
         }
         break;
       default:
