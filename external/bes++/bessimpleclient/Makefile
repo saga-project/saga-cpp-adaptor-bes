@@ -7,7 +7,7 @@ SCHEMAS      =	http://schemas.ggf.org/jsdl/2006/07/jsdl-hpcpa \
 		            http://schemas.ggf.org/jsdl/2005/11/jsdl-posix
 
 CXX          = g++
-CXXFLAGS     = -g $(GSOAP_DEF) -I. $(EXTRA_INC) $(EXTRA_CFLAGS)
+CXXFLAGS     = -g $(GSOAP_DEF) -I. $(EXTRA_INC) $(EXTRA_CFLAGS) -fPIC
 
 LDFLAGS      = -g -L. $(EXTRA_LIB) $(EXTRA_LDFLAGS)
 LIBS         = -lssl -lcrypto $(EXTRA_LIBS)
@@ -49,7 +49,7 @@ libbes.a: bes.o jsdl.o $(CLIENT_OBJ)
 	ar -rsv $@  bes.o jsdl.o $(CLIENT_OBJ)
 
 libbes.$(SO): bes.o jsdl.o $(CLIENT_OBJ)
-	$(CXX) -dynamiclib -o $@ bes.o jsdl.o $(CLIENT_OBJ) $(LIBS)
+	$(CXX) $(LIBLDFLAG) -o $@ bes.o jsdl.o $(CLIENT_OBJ) $(LIBS)
 
 $(SOAP_NS): $(BES_HEADER)
 	$(SOAPCPP2) $<

@@ -6,7 +6,7 @@
 #define QSUBEXEC "qsub" 
 
 /* Uncomment the next line if you are building on Mac OS X */
-#define MACOSX
+/* #define MACOSX */
 
 /* You probably don't need to change these. */
 /* Setting the VERSION_STRING macro determines what is output */

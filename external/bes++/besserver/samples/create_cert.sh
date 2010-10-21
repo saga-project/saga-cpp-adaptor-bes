@@ -21,7 +21,8 @@ ln -s ../cert/server.pem `openssl x509 -noout -hash -in ../cert/server.pem`.0
 
 # from thijs
 #
-/usr/lib/ssl/CA.pl -newca
-/usr/lib/ssl/CA.pl -newreq
-/usr/lib/ssl/CA.pl -sign
+# /usr/lib/ssl/misc/CA.pl -newca 
+# /usr/lib/ssl/misc/CA.pl -newreq
+# /usr/lib/ssl/misc/CA.pl -sign  
 # 
+

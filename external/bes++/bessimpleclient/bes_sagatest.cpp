@@ -33,15 +33,15 @@ int main (int argc, char * argv[])
 
   try 
   {
-    char * capath       = "../besserver/cert/";
-    char * x509cert     = NULL;
-    char * x509pass     = NULL;
-    char * user         = "merzky";
-    char * pass         = "aaa";
+    char * cadir        = "/home/merzky/.saga/certificates/";
+    char * cert         = "/tmp/x509up_u501";
+    char * key          = "/tmp/x509up_u501";
+    char * user         = "ogf";
+    char * pass         = "ogf";
+    char * jsdl         = "sleep.jsdl";
 
-    hpcbp_connector bp (x509cert, x509pass, capath, user, pass);
-    bp.set_host_endpoint ("https://localhost:1235");
-
+    hpcbp_connector bp (cert, key, cadir, user, pass);
+    bp.set_host_endpoint ("https://zam1161v01.zam.kfa-juelich.de:8002/DEMO-SITE/services/BESFactory?res=default_bes_factory");
 
     // char * capath       = "../besserver/cert/";
     // char * x509cert     = "../besserver/cert/arc-user-cert.pem";
@@ -80,6 +80,7 @@ int main (int argc, char * argv[])
            state == HPCBP_Failed    ||
            state == HPCBP_Finished  )
       {
+        std::cout << "final state" << std::endl;
         break;
       }
 
@@ -87,7 +88,7 @@ int main (int argc, char * argv[])
       ::sleep (1);
     }
 
-    std::cout << std::endl;
+    std::cout << "--" << std::endl;
   }
   catch ( const char * e )
   {

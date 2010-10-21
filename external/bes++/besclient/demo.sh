@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 ##################################################################################
@@ -47,36 +47,35 @@ function run_test() {
 
 
 
-##################################################################################
-#
-  unset  USER PASS CERT KEY CADIR ENDPOINT
-  export USER=""
-  export PASS=""
-  export CERT=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/arc-user-cert+key.pem
-  export KEY=z1nfandel
-  export CADIR=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates
-  export ENDPOINT=arc.xml
-  
-  run_test arc
-#
-##################################################################################
-
-exit 1
+###################################################################################
+##
+#  unset  USER PASS CERT KEY CADIR ENDPOINT
+#  export USER=""
+#  export PASS=""
+#  export CERT=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/arc-user-cert+key.pem
+#  export KEY=z1nfandel
+#  export CADIR=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates
+#  export ENDPOINT=arc.xml
+#  
+#  run_test arc
+##
+###################################################################################
 
 
-##################################################################################
-#
-  unset  USER PASS CERT KEY CADIR ENDPOINT
-  export USER=ogf
-  export PASS=ogf
-  export CERT=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem
-  export KEY=""
-  export CADIR=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates
-  export ENDPOINT=gridsam.xml
-  
-  run_test gridsam
-#
-##################################################################################
+
+###################################################################################
+##
+#  unset  USER PASS CERT KEY CADIR ENDPOINT
+#  export USER=ogf
+#  export PASS=ogf
+#  export CERT=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem
+#  export KEY=""
+#  export CADIR=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates
+#  export ENDPOINT=gridsam.xml
+#  
+#  run_test gridsam
+##
+###################################################################################
 
 
 
@@ -85,9 +84,9 @@ exit 1
   unset  USER PASS CERT KEY CADIR ENDPOINT
   export USER=ogf
   export PASS=ogf
-  export CERT=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem
-  export KEY=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/bes_client_cert.pem
-  export CADIR=/Users/merzky/links/saga/adaptors/ogf/trunk/ogf_hpcbp_job/certs/certificates/
+  export CERT=/tmp/x509up_u501
+  export KEY=/tmp/x509up_u501
+  export CADIR=$HOME/.saga/certificates/
   export ENDPOINT=unicore.xml
  
   run_test unicore 
@@ -96,17 +95,17 @@ exit 1
 
 
 
-##################################################################################
+###################################################################################
+##
+#  unset  USER PASS CERT KEY CADIR ENDPOINT
+#  export USER=merzky
+#  export PASS=aaa
+#  export CERT=""
+#  export KEY=""
+#  export CADIR=/Users/merzky/links/saga/adaptors/ogf/trunk/external/bes++/besserver/cert/
+#  export ENDPOINT=local.xml
 #
-  unset  USER PASS CERT KEY CADIR ENDPOINT
-  export USER=merzky
-  export PASS=aaa
-  export CERT=""
-  export KEY=""
-  export CADIR=/Users/merzky/links/saga/adaptors/ogf/trunk/external/bes++/besserver/cert/
-  export ENDPOINT=local.xml
-
-  run_test local 
-#
-##################################################################################
+#  run_test local 
+##
+###################################################################################
 

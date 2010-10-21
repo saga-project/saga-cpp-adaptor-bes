@@ -241,6 +241,7 @@ main(int argc, char **argv)
             }
             if (soap_serve(psoap) != SOAP_OK) {
                 soap_print_fault(&soap, stderr);
+                fprintf(stderr, "soap error\n");
             }
             fprintf(stderr, "Request served\n");
             soap_end(psoap);
@@ -436,6 +437,7 @@ __bes__GetActivityStatuses(struct soap *s,
 
         rc = rm_getJobStatus(s, jobid, username, &status);
         if (rc != BESE_OK) {
+            fprintf (stderr, "status problem\n");
             if (rc == BESE_NO_ACTIVITY) {
                 fault = bes_InvalidActivityFaultDOM(s, "Unknown Activity", "Unknown Activity");
             } 

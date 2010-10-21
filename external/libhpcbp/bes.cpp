@@ -295,7 +295,7 @@ bes_createActivity (struct bes_context         * context,
 
   req.bes__ActivityDocument.__any = jsdl_dom;
 
-  // std::cout << "jsdl: " << *(req.bes__ActivityDocument.__any) << std::endl;
+  std::cout << "jsdl: " << *(req.bes__ActivityDocument.__any) << std::endl;
 
   if ( soap_call___bes__CreateActivity (s, endpoint, 
                                         CREATE_ACT, &req, &rsp) != SOAP_OK )

@@ -1,45 +1,45 @@
-MD5 Fingerprint=97:47:C0:5F:4F:09:AF:AE:7A:D1:4C:3D:1E:44:6C:C9
+SHA1 Fingerprint=6D:5C:F4:D8:7B:0A:89:27:5E:C5:8C:35:D8:47:09:B3:21:04:31:FD
 Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            9c:76:bb:d1:6d:c8:e8:e6
+            91:0d:a8:34:88:ce:f7:fd
         Signature Algorithm: sha1WithRSAEncryption
         Issuer: C=US, O=SAGA, CN=localhost
         Validity
-            Not Before: Jun 10 09:55:32 2010 GMT
-            Not After : Jun 10 09:55:32 2011 GMT
+            Not Before: Oct 14 18:11:05 2010 GMT
+            Not After : Oct 14 18:11:05 2011 GMT
         Subject: C=US, O=SAGA, CN=localhost
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
             RSA Public Key: (1024 bit)
                 Modulus (1024 bit):
-                    00:9e:a6:84:04:70:31:7f:85:f4:27:43:a4:c7:60:
-                    33:af:45:31:c5:95:eb:7f:0f:a2:c6:14:b1:cf:a2:
-                    6a:ac:b0:0c:05:f5:78:f9:a8:88:19:65:d9:e3:e8:
-                    d2:35:dc:fd:90:cf:60:18:f3:42:cd:68:8c:3c:d3:
-                    cc:ac:ad:49:f5:90:94:98:90:d3:87:b3:c8:71:c0:
-                    85:5d:b5:cf:75:9d:02:d5:e8:2d:67:da:c2:24:97:
-                    b0:9b:ac:05:3f:14:aa:e0:ab:42:d4:76:ff:b5:e8:
-                    80:e8:26:ec:45:fa:44:83:b6:97:b9:fb:c0:e6:f0:
-                    60:3c:e1:ad:0a:c8:a5:40:d7
+                    00:b6:4a:07:72:dc:f3:1f:19:ea:96:cf:5a:24:b8:
+                    cd:9e:80:a4:cc:9b:f2:80:82:a2:12:85:e6:82:a1:
+                    3c:e0:41:0a:5a:af:b1:d5:23:54:9e:9f:a5:42:bd:
+                    e0:50:ff:ee:ea:32:f7:8f:e3:28:d3:78:34:08:82:
+                    b2:eb:0e:f9:2e:36:d0:e0:ea:b7:5a:7a:44:62:46:
+                    0b:dc:e0:cc:5b:c8:c7:48:59:56:17:ba:ca:33:27:
+                    f3:9c:92:11:be:f9:f3:cd:33:99:4b:04:95:6b:ff:
+                    26:90:27:6b:a6:10:0d:78:79:4f:14:fa:5a:b5:9d:
+                    7e:90:ff:4b:35:af:b6:af:41
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
             X509v3 Subject Key Identifier: 
-                E3:43:2C:D2:2D:19:0A:0E:5E:A0:E6:87:E1:8C:27:C3:96:66:AE:90
+                9A:4F:28:81:B5:C9:59:B2:57:4D:EF:C5:55:63:A4:D3:F5:9F:52:7B
             X509v3 Authority Key Identifier: 
-                keyid:E3:43:2C:D2:2D:19:0A:0E:5E:A0:E6:87:E1:8C:27:C3:96:66:AE:90
+                keyid:9A:4F:28:81:B5:C9:59:B2:57:4D:EF:C5:55:63:A4:D3:F5:9F:52:7B
                 DirName:/C=US/O=SAGA/CN=localhost
-                serial:9C:76:BB:D1:6D:C8:E8:E6
+                serial:91:0D:A8:34:88:CE:F7:FD
 
             X509v3 Basic Constraints: 
                 CA:TRUE
     Signature Algorithm: sha1WithRSAEncryption
-        6b:8b:de:7a:e1:67:ec:a5:f2:f3:d9:95:18:c4:26:47:0b:11:
-        77:f8:98:f4:4b:b4:4b:f5:f6:8e:79:51:0d:cf:f6:0d:16:98:
-        26:79:38:61:d9:eb:35:b2:07:38:60:43:be:e8:0f:53:e0:42:
-        ea:04:a9:35:cd:16:3a:0d:84:0b:df:9b:26:1a:ec:c7:4c:d5:
-        ba:28:db:9d:cc:cc:e7:1d:3d:ee:ba:a1:e5:bb:9d:1d:1c:4d:
-        a3:7f:2d:8e:61:f1:ee:84:51:a7:98:2d:fd:40:81:e9:8b:e6:
-        b6:4e:fd:7e:21:28:cf:85:1c:39:1b:dc:2b:3d:05:3d:2c:70:
-        14:6e
+        06:f2:e5:ae:ca:5c:fd:51:84:63:4a:e1:c3:49:3e:4b:5c:24:
+        68:5c:c7:c5:25:49:63:2b:f0:3b:4b:1b:44:45:04:23:6a:cd:
+        56:54:79:25:1a:d6:a8:11:7e:15:52:7b:40:35:38:d3:0c:c6:
+        64:26:31:2a:bc:bb:df:ce:3e:1c:ac:dd:bf:34:3d:f0:56:e4:
+        aa:35:a2:06:12:86:7e:89:1a:94:07:55:87:10:1d:30:34:ec:
+        8c:41:7f:96:a0:9c:40:0e:dd:e5:9a:9b:71:c1:db:f9:1e:fd:
+        d6:3a:df:80:66:4e:9d:a3:ea:7b:53:00:63:dc:33:18:20:fb:
+        42:d9

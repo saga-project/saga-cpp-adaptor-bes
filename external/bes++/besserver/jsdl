@@ -106,7 +106,7 @@ This document and the information contained herein is provided on an "AS IS" bas
 	<!--========================================================================-->
 	<xsd:simpleType name="FileSystemTypeEnumeration">
 		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="swap"/>
+			<xsd:enumeration value="swapfs"/>
 			<xsd:enumeration value="temporary"/>
 			<xsd:enumeration value="spool"/>
 			<xsd:enumeration value="normal"/>

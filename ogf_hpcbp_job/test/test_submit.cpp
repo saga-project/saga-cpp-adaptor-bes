@@ -61,8 +61,8 @@ class endpoint_gridsam : public endpoint
       url      = "https://gridsam-test.oerc.ox.ac.uk:18443/gridsam/services/hpcbp";
       user     = "ogf30";
       pass     = "ogf30";
-      cert     = "/home/merzky/.saga/certificates/bes_client_cert.pem";
-      key      = "/home/merzky/.saga/certificates/bes_client_cert.pem";
+      cert     = "/tmp/x509up_u501";
+      key      = "/tmp/x509up_u501";
       cadir    = "/home/merzky/.saga/certificates/";
       exe      = "/bin/sleep";
 
@@ -76,14 +76,16 @@ class endpoint_arc : public endpoint
   public:
     endpoint_arc (void)
     {
-      url      = "https://interop.grid.niif.hu:2010/arex-x509";
-      user     = "";
-      pass     = "";
-      cert     = "/home/merzky/.saga/certificates/arc-user-cert+key.pem";
-      key      = "z1nfandel";
+      url      = "https://interop.grid.niif.hu:60000/arex-ut";
+      user     = "ogf30";
+      pass     = "ogf30";
+      cert     = "/tmp/x509up_u501";
+      key      = "/tmp/x509up_u501";
       cadir    = "/home/merzky/.saga/certificates/";
-      exe      = "/bin/sleep";
+      exe      = "/usr/local/saga/bin/saga-run.sh";
 
+      args.push_back ("/bin/ls");
+      args.push_back ("10");
       args.push_back ("10");
     }
 };
@@ -135,6 +137,24 @@ class endpoint_fg_sierra : public endpoint
       pass     = "ogf30";
       cert     = "/home/merzky/.saga/certificates/bes_client_cert.pem";
       key      = "/home/merzky/.saga/certificates/bes_client_cert.pem";
+      cadir    = "/home/merzky/.saga/certificates/";
+      exe      = "/bin/sleep";
+
+      args.push_back ("10");
+    }
+};
+
+
+class endpoint_fg_india : public endpoint
+{
+  public:
+    endpoint_fg_india (void)
+    {
+      url      = "epr://localhost/home/merzky/.saga/fg_india.epr";
+      user     = "ogf30";
+      pass     = "ogf30";
+      cert     = "x509up_u501";
+      key      = "x509up_u501";
       cadir    = "/home/merzky/.saga/certificates/";
       exe      = "/bin/sleep";
 
@@ -258,10 +278,7 @@ int main (int argc, char** argv)
   }
   
   
-  
   bool all = ( test == "all" ) ? true : false ;
-
-
 
 
   if ( all || test == "local"     ) { struct endpoint_local     ep; run_test ("local    ", ep) && err++; tot++; }
@@ -271,6 +288,7 @@ int main (int argc, char** argv)
   if ( all || test == "smoa.1"    ) { struct endpoint_smoa_1    ep; run_test ("smoa 1   ", ep) && err++; tot++; } 
   if ( all || test == "smoa.2"    ) { struct endpoint_smoa_2    ep; run_test ("smoa 2   ", ep) && err++; tot++; } 
   if ( all || test == "fg.sierra" ) { struct endpoint_fg_sierra ep; run_test ("fg sierra", ep) && err ++;tot++; }
+  if ( all || test == "fg.india"  ) { struct endpoint_fg_india  ep; run_test ("fg india ", ep) && err ++;tot++; }
 
 
   std::cout << " ==================================================================" << std::endl;

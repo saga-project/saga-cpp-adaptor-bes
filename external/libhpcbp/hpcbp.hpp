@@ -73,6 +73,7 @@ namespace hpcbp
       void set_executable        (std::string s);
       void set_input             (std::string s);
       void set_output            (std::string s);
+      void set_environment       (std::string s);
       void set_error             (std::string s);
       void set_working_directory (std::string s);
       void set_args              (std::vector <std::string> args);

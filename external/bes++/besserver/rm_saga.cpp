@@ -119,11 +119,13 @@ int rm_getJobStatus(struct soap * soap,
   if ( ! jobid || std::string (jobid).empty () )
   {
     // empty jobid - not sure what to do
+    std::cout << "empty job id!?" << std::endl;
     return BESE_BAD_ARG;
   }
 
   if ( ! jobStatus )
   {
+    std::cout << "null jobStatus!?" << std::endl;
     return BESE_BAD_ARG;
   }
 
@@ -131,6 +133,7 @@ int rm_getJobStatus(struct soap * soap,
 
   if ( activityStatus == NULL )
   {
+    std::cout << "null activityStatus!?" << std::endl;
     return BESE_MEM_ALLOC;
   }
 
@@ -143,16 +146,18 @@ int rm_getJobStatus(struct soap * soap,
     saga::job::service js;
     saga::job::job j = js.get_job (jobid);
 
+    std::cout << "status: ";
     switch ( j.get_state () )
     {
-      case saga::job::New:       activityStatus->state = Pending;   break;
-      case saga::job::Running:   activityStatus->state = Running;   break;
-      case saga::job::Suspended: activityStatus->state = Running;   break;
-      case saga::job::Canceled:  activityStatus->state = Cancelled; break;
-      case saga::job::Failed:    activityStatus->state = Failed;    break;
-      case saga::job::Done:      activityStatus->state = Finished;  break;
+      case saga::job::New:       std::cout << "New       "; activityStatus->state = Pending;   break;
+      case saga::job::Running:   std::cout << "Running   "; activityStatus->state = Running;   break;
+      case saga::job::Suspended: std::cout << "Suspended "; activityStatus->state = Running;   break;
+      case saga::job::Canceled:  std::cout << "Canceled  "; activityStatus->state = Cancelled; break;
+      case saga::job::Failed:    std::cout << "Failed    "; activityStatus->state = Failed;    break;
+      case saga::job::Done:      std::cout << "Done      "; activityStatus->state = Finished;  break;
       default:                   ok = false;                        break;
     }
+    std::cout << std::endl;
   }
   catch ( const saga::exception & e )
   {
@@ -171,6 +176,8 @@ int rm_getJobStatus(struct soap * soap,
       << std::endl;
     return BESE_BACKEND;
   }
+
+  
 
   *jobStatus = activityStatus;
 

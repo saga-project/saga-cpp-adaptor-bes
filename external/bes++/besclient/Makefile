@@ -11,7 +11,7 @@ SCHEMAS =	http://schemas.ggf.org/jsdl/2006/07/jsdl-hpcpa \
 		http://schemas.ggf.org/jsdl/2005/11/jsdl-posix
 
 CC      = gcc
-CFLAGS  = -g $(GSOAP_DEF) -I. $(GSOAP_INC) $(EXTRA_INC) $(EXTRA_CFLAGS)
+CFLAGS  = -g $(GSOAP_DEF) -I. $(GSOAP_INC) $(EXTRA_INC) $(EXTRA_CFLAGS) -fPIC
 LDFLAGS = -g -L. $(EXTRA_LIB) $(EXTRA_LDFLAGS)
 LIBS    = -lssl -lcrypto $(EXTRA_LIBS)
 LIBBES  = -lbes
@@ -49,7 +49,7 @@ libbes.a: bes.o jsdl.o $(CLIENT_OBJ)
 	ar -rsv $@  bes.o jsdl.o $(CLIENT_OBJ)
 
 libbes.$(SO): bes.o jsdl.o $(CLIENT_OBJ)
-	$(CC) -dynamiclib -o $@ bes.o jsdl.o $(CLIENT_OBJ) $(LIBS)
+	$(CC) $(LIBLDFLAG) -o $@ bes.o jsdl.o $(CLIENT_OBJ) $(LIBS)
 
 stdsoap2_ssl.o: $(GSOAP_TOP)/stdsoap2_ssl.c
 	$(CC) $(CFLAGS) -c $(GSOAP_TOP)/stdsoap2_ssl.c
