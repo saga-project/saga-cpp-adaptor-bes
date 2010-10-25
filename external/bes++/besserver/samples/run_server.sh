@@ -1,6 +1,6 @@
 #!/bin/sh
 
-root=/home/merzky/projects/saga/adaptors/ogf/trunk/external/bes++/
+root=/Users/merzky/projects/saga/adaptors/ogf/trunk/external/bes++/
 besserver=$root/besserver/besserver
 service_user=merzky
 host=localhost
@@ -22,7 +22,7 @@ generic_user=merzky
 # fi
 
 echo $besserver -u $service_user -h $host -p $port -e $endpoint -s $certfile -c $capath -g $generic_user -r saga
-sudo /usr/bin/env LD_LIBRARY_PATH=$LD_LIBRARY_PATH $besserver -u $service_user -h $host -p $port -e $endpoint -s $certfile -c $capath -g $generic_user -r saga
+sudo /usr/bin/env DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH $besserver -u $service_user -h $host -p $port -e $endpoint -s $certfile -c $capath -g $generic_user -r saga
 
 exit 0
 

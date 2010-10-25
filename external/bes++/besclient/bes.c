@@ -95,7 +95,7 @@ bes_init(struct bes_context **context)
     
     ctx = (struct bes_context *)malloc(sizeof(struct bes_context));
     if (ctx == NULL) {
-        fprintf (stderr, "err 1\n");
+        // fprintf (stderr, "err 1\n");
         return BESE_SYS_ERR;
     }
     memset(ctx, 0, sizeof(struct bes_context));
@@ -104,7 +104,7 @@ bes_init(struct bes_context **context)
     soap = soap_new1(SOAP_C_UTFSTRING);
     if (soap == NULL) {
         free(ctx);
-        fprintf (stderr, "err 2\n");
+        // fprintf (stderr, "err 2\n");
         return BESE_SYS_ERR;
     }
     soap_set_recv_logfile(soap, NULL);
@@ -401,7 +401,7 @@ bes_createActivityFromFile(struct bes_context *context,
     
     jsdl = open(jsdlfile, O_RDONLY, 0);
     if (jsdl == -1) {
-        fprintf (stderr, "err 3\n");
+        // fprintf (stderr, "err 3\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
@@ -483,7 +483,7 @@ bes_createActivityFromString(struct bes_context *context,
     }
     
     if ((jsdl_fd = mkstemp(filename)) < 0) {
-        fprintf (stderr, "err 4\n");
+        // fprintf (stderr, "err 4\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
@@ -491,14 +491,14 @@ bes_createActivityFromString(struct bes_context *context,
 
     if (write(jsdl_fd, jsdl, strlen(jsdl)) < 0) {
         close(jsdl_fd);
-        fprintf (stderr, "err 5\n");
+        // fprintf (stderr, "err 5\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
 
     if (lseek(jsdl_fd, 0, SEEK_SET) == -1) {
         close(jsdl_fd);
-        fprintf (stderr, "err 6\n");
+        // fprintf (stderr, "err 6\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
@@ -971,13 +971,13 @@ bes_writeEPRToFile(struct bes_context *context, char *filename, epr_t epr)
     
     fd = open(filename, O_WRONLY|O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR);
     if (fd == -1) {
-        fprintf (stderr, "err 7\n");
+        // fprintf (stderr, "err 7\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
     
     if (write(fd, tmpEPR->str, strlen(tmpEPR->str)) == -1) {
-        fprintf (stderr, "err 8\n");
+        // fprintf (stderr, "err 8\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
@@ -1000,7 +1000,7 @@ bes_readEPRFromFile(struct bes_context *context, char *filename, epr_t *epr)
     
     fd = open(filename, O_RDONLY, 0);
     if (fd == -1) {
-        fprintf (stderr, "err 9: %s\n", filename);
+        // fprintf (stderr, "err 9: %s\n", filename);
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
@@ -1032,7 +1032,7 @@ bes_readEPRFromFile(struct bes_context *context, char *filename, epr_t *epr)
     
     if (lseek(fd, 0, SEEK_SET) == -1) {
         free(tmpEPR);
-        fprintf (stderr, "err 10\n");
+        // fprintf (stderr, "err 10\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         ret = BESE_SYS_ERR;
         goto error_end;
@@ -1040,7 +1040,7 @@ bes_readEPRFromFile(struct bes_context *context, char *filename, epr_t *epr)
     
     if (fstat(fd, &fileStat)) {
         free(tmpEPR);
-        fprintf (stderr, "err 11\n");
+        // fprintf (stderr, "err 11\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         ret = BESE_SYS_ERR;
         goto error_end;
@@ -1058,7 +1058,7 @@ bes_readEPRFromFile(struct bes_context *context, char *filename, epr_t *epr)
     
     if (read(fd, tmpEPR->str, size) == -1) {
         free(tmpEPR);
-        fprintf (stderr, "err 12\n");
+        // fprintf (stderr, "err 12\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         ret = BESE_SYS_ERR;
         goto error_end;
@@ -1096,7 +1096,7 @@ bes_readEPRFromString(struct bes_context *context, char *str, epr_t *epr)
     
     fd = mkstemp(filename);
     if (fd == -1) {
-        fprintf (stderr, "err 13\n");
+        // fprintf (stderr, "err 13\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
@@ -1104,14 +1104,14 @@ bes_readEPRFromString(struct bes_context *context, char *str, epr_t *epr)
 
     if (write(fd, str, strlen(str)) < 0) {
         close(fd);
-        fprintf (stderr, "err 14\n");
+        // fprintf (stderr, "err 14\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
 
     if (lseek(fd, 0, SEEK_SET) == -1) {
         close(fd);
-        fprintf (stderr, "err 15\n");
+        // fprintf (stderr, "err 15\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         return BESE_SYS_ERR;
     }
@@ -1143,7 +1143,7 @@ bes_readEPRFromString(struct bes_context *context, char *str, epr_t *epr)
     
     if (lseek(fd, 0, SEEK_SET) == -1) {
         free(tmpEPR);
-        fprintf (stderr, "err 16\n");
+        // fprintf (stderr, "err 16\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         ret = BESE_SYS_ERR;
         goto error_end;
@@ -1151,7 +1151,7 @@ bes_readEPRFromString(struct bes_context *context, char *str, epr_t *epr)
     
     if (fstat(fd, &fileStat)) {
         free(tmpEPR);
-        fprintf (stderr, "err 17\n");
+        // fprintf (stderr, "err 17\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         ret = BESE_SYS_ERR;
         goto error_end;
@@ -1169,7 +1169,7 @@ bes_readEPRFromString(struct bes_context *context, char *str, epr_t *epr)
     
     if (read(fd, tmpEPR->str, size) == -1) {
         free(tmpEPR);
-        fprintf (stderr, "err 18\n");
+        // fprintf (stderr, "err 18\n");
         setErrorString(context, NULL, BESE_SYS_ERR);
         ret = BESE_SYS_ERR;
         goto error_end;
@@ -1498,9 +1498,9 @@ generateAddressingHeaders(struct bes_context *context,
                     struct soap_dom_attribute *last, *attr = refparam->atts;
                     while (attr) {
                         if (isAttribute(attr, WSA_NS, "IsReferenceParameter")) {
-                            attr->nstr = isrefparam->nstr;
-                            attr->name = isrefparam->name;
-                            attr->data = isrefparam->data;
+                            attr->nstr = soap_strdup (s, isrefparam->nstr);
+                            attr->name = soap_strdup (s, isrefparam->name);
+                            attr->data = soap_strdup (s, isrefparam->data);
                             break;
                         }
                         last = attr;
@@ -1526,9 +1526,9 @@ generateAddressingHeaders(struct bes_context *context,
             memset(refparams, 0, sizeof(struct soap_dom_element)*numrefparams);
             refparam = iter->elts;
             for (i = 0; i < numrefparams; i++) {
-                refparams[i].nstr = refparam->nstr;
-                refparams[i].name = refparam->name;
-                refparams[i].data = refparam->data;
+                refparams[i].nstr = soap_strdup (s, refparam->nstr);
+                refparams[i].name = soap_strdup (s, refparam->name);
+                refparams[i].data = soap_strdup (s, refparam->data);
                 refparams[i].atts = refparam->atts;
                 refparams[i].soap = refparam->soap;
                 refparams[i].elts = refparam->elts;

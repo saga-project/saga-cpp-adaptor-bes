@@ -171,9 +171,9 @@ namespace hpcbp
 
   void connector::set_host_epr (const std::string epr)
   {
-    std::cout << " ---------------- host epr ------------- " << std::endl;
-    std::cout << epr << std::endl;
-    std::cout << " --------------------------------------- " << std::endl;
+    // std::cout << " ---------------- host epr ------------- " << std::endl;
+    // std::cout << epr << std::endl;
+    // std::cout << " --------------------------------------- " << std::endl;
 
     char * endpoint_cs = ::strdup (epr.c_str ());
 
@@ -184,7 +184,7 @@ namespace hpcbp
       throw (bes_get_lasterror (bes_context_));
     }
 
-    std::cout << "epr init ok" << std::endl;
+    // std::cout << "epr init ok" << std::endl;
   }
 
   void connector::set_host_endpoint (const std::string host)

@@ -1534,9 +1534,9 @@ generateAddressingHeaders(struct bes_context *context,
                     struct soap_dom_attribute *last, *attr = refparam->atts;
                     while (attr) {
                         if (isAttribute(attr, WSA_NS, "IsReferenceParameter")) {
-                            attr->nstr = isrefparam->nstr;
-                            attr->name = isrefparam->name;
-                            attr->data = isrefparam->data;
+                            attr->nstr = soap_strdup (s, isrefparam->nstr);
+                            attr->name = soap_strdup (s, isrefparam->name);
+                            attr->data = soap_strdup (s, isrefparam->data);
                             break;
                         }
                         last = attr;
@@ -1562,9 +1562,9 @@ generateAddressingHeaders(struct bes_context *context,
             memset(refparams, 0, sizeof(struct soap_dom_element)*numrefparams);
             refparam = iter->elts;
             for (i = 0; i < numrefparams; i++) {
-                refparams[i].nstr = refparam->nstr;
-                refparams[i].name = refparam->name;
-                refparams[i].data = refparam->data;
+                refparams[i].nstr = soap_strdup (s, refparam->nstr);
+                refparams[i].name = soap_strdup (s, refparam->name);
+                refparams[i].data = soap_strdup (s, refparam->data);
                 refparams[i].atts = refparam->atts;
                 refparams[i].soap = refparam->soap;
                 refparams[i].elts = refparam->elts;
