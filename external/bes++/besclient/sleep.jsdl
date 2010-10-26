@@ -1,34 +1,14 @@
-<jsdl:JobDefinition xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
-  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:c14n="http://www.w3.org/2001/10/xml-exc-c14n#"
-  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-  xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
-  xmlns:http="http://tempuri.org/http.xsd"
-  xmlns:jsdl="http://schemas.ggf.org/jsdl/2005/11/jsdl"
-  xmlns:app="http://schemas.ggf.org/jsdl/2006/07/jsdl-hpcpa"
-  xmlns:posix="http://schemas.ggf.org/jsdl/2005/11/jsdl-posix"
-  xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-  xmlns:wsa="http://www.w3.org/2005/08/addressing"
-  xmlns:bes="http://schemas.ggf.org/bes/2006/08/bes-factory">
+<?xml version="1.0" ?> 
+<jsdl:JobDefinition xmlns:jsdl="http://schemas.ggf.org/jsdl/2005/11/jsdl"
+                    xmlns:app="http://schemas.ggf.org/jsdl/2006/07/jsdl-hpcpa"
+                    xmlns:posix="http://schemas.ggf.org/jsdl/2005/11/jsdl-posix">
   <jsdl:JobDescription>
-    <jsdl:JobIdentification>
-      <jsdl:JobName>SleepName</jsdl:JobName>
-      <jsdl:JobAnnotation>SleepAnnotation</jsdl:JobAnnotation>
-      <jsdl:JobProject>gridsam</jsdl:JobProject>
-    </jsdl:JobIdentification>
     <jsdl:Application>
       <app:HPCProfileApplication>
         <app:Executable>/bin/sleep</app:Executable>
         <app:Argument>10</app:Argument>
       </app:HPCProfileApplication>
     </jsdl:Application>
-    <jsdl:Resources>
-      <jsdl:TotalCPUCount>
-        <jsdl:Exact>1.000000</jsdl:Exact>
-      </jsdl:TotalCPUCount>
-    </jsdl:Resources>
   </jsdl:JobDescription>
 </jsdl:JobDefinition>
 
