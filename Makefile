@@ -6,7 +6,10 @@
 
 -include config/make.cfg
 
-SAGA_SUBDIRS = config external ogf_hpcbp_job
+SAGA_SUBDIRS += config
+SAGA_SUBDIRS += external
+SAGA_SUBDIRS += ogf_job_hpcbp
+SAGA_SUBDIRS += ogf_job_occi
 
 
 all:: config.summary
