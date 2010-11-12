@@ -116,18 +116,21 @@ class endpoint_gridsam : public endpoint
     endpoint_gridsam (void)
     {
       type     = "UserPass";
-      url      = "https://gridsam-test.oerc.ox.ac.uk:18443/gridsam/services/hpcbp";
-  //  url      = "https://localhost:10003";
+      url      = "https://demo.oerc.ox.ac.uk:8443/gridsam/services/hpcbp";
+   // url      = "https://gridsam-test.oerc.ox.ac.uk:18443/gridsam/services/hpcbp";
+   // url      = "https://localhost:10003";
       user     = "ogf";
       pass     = "ogf";
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
-      exe      = "/home/amerzky/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list");
-      args.push_back ("/applications/");
+      exe      = "/bin/sleep";
+   // exe      = "/home/amerzky/install/bin/saga-run.sh";
+     
+      args.push_back ("10");
+   // args.push_back ("saga-advert");
+   // args.push_back ("list");
+   // args.push_back ("/applications/");
     }
 };
 
