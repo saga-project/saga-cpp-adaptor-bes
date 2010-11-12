@@ -40,8 +40,10 @@ struct endpoint
 
 #ifdef SAGA_APPLE
 # define HOME "/Users/merzky/"
+# define UID  "503"
 #else
 # define HOME "/home/merzky/"
+# define UID  "501"
 #endif
 
 
@@ -97,8 +99,8 @@ class endpoint_unicore : public endpoint
    // url      = "https://localhost:10002";
       user     = "ogf";
       pass     = "ogf";
-      cert     = "/tmp/x509up_u503";
-      key      = "/tmp/x509up_u503";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/unicoreinterop/install/bin/saga-run.sh";
 
@@ -118,8 +120,8 @@ class endpoint_gridsam : public endpoint
   //  url      = "https://localhost:10003";
       user     = "ogf";
       pass     = "ogf";
-      cert     = "/tmp/x509up_u503";
-      key      = "/tmp/x509up_u503";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/amerzky/install/bin/saga-run.sh";
 
@@ -139,8 +141,8 @@ class endpoint_gram : public endpoint
       url      = "gram://qb1.loni.org/";
       user     = "";
       pass     = "";
-      cert     = "/tmp/x509up_u503";
-      key      = "/tmp/x509up_u503";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".globus/certificates/";
       exe      = "/home/merzky/install/bin/saga-run.sh";
 
@@ -161,8 +163,8 @@ class endpoint_arc : public endpoint
       url      = "https://localhost:10001/arex-ut";
       user     = "ogf30";
       pass     = "ogf30";
-      cert     = "/tmp/x509up_u503";
-      key      = "/tmp/x509up_u503";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/usr/local/saga/bin/saga-run.sh";
 
@@ -225,8 +227,8 @@ class endpoint_smoa_2 : public endpoint
    // url      = "https://localhost:10005";
       user     = "";
       pass     = "";
-      cert     = "/tmp/x509up_u503";
-      key      = "/tmp/x509up_u503";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/ogf/install/bin/saga-run.sh";
       pwd      = "/home/ogf/";
@@ -246,8 +248,8 @@ class endpoint_fg_sierra : public endpoint
       url      = "epr://localhost/" HOME ".saga/fg.sierra.short.epr";
       user     = "ogf30";
       pass     = "ogf30";
-      cert     = "/tmp/x509up_u503";
-      key      = "/tmp/x509up_u503";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
 
@@ -268,8 +270,8 @@ class endpoint_fg_ucsierra : public endpoint
       url      = "https://localhost:10002/DEMO-SITE/services/BESFactory?res=default_bes_factory";
       user     = "ogf30";
       pass     = "ogf30";
-      cert     = "/tmp/x509up_u503";
-      key      = "/tmp/x509up_u503";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
 
@@ -289,8 +291,8 @@ class endpoint_fg_india : public endpoint
       url      = "epr://localhost/" HOME ".saga/fg.india.short.epr";
       user     = "ogf30";
       pass     = "ogf30";
-      cert     = "/tmp/x509up_u503";
-      key      = "/tmp/x509up_u503";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
 
@@ -311,8 +313,8 @@ class endpoint_fg_ucindia : public endpoint
       url      = "https://localhost:10003/DEMO-SITE/services/BESFactory?res=default_bes_factory";
       user     = "ogf30";
       pass     = "ogf30";
-      cert     = "/tmp/x509up_u503";
-      key      = "/tmp/x509up_u503";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
 
