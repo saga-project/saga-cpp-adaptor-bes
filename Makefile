@@ -9,7 +9,7 @@
 SAGA_SUBDIRS += config
 SAGA_SUBDIRS += external
 SAGA_SUBDIRS += ogf_job_hpcbp
-SAGA_SUBDIRS += ogf_job_occi
+# SAGA_SUBDIRS += ogf_job_occi
 
 
 all:: config.summary
