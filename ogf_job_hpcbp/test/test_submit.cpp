@@ -167,7 +167,7 @@ class endpoint_arc : public endpoint
       exe      = "/usr/local/saga/bin/saga-run.sh";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -189,7 +189,7 @@ class endpoint_smoa_1 : public endpoint
       pwd      = "/home/ogf/";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -232,7 +232,7 @@ class endpoint_smoa_2 : public endpoint
       pwd      = "/home/ogf/";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -252,7 +252,7 @@ class endpoint_fg_sierra : public endpoint
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -274,7 +274,7 @@ class endpoint_fg_ucsierra : public endpoint
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -295,7 +295,7 @@ class endpoint_fg_india : public endpoint
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -317,7 +317,28 @@ class endpoint_fg_ucindia : public endpoint
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
+    }
+};
+
+
+class endpoint_ec2host : public endpoint
+{
+  public:
+    endpoint_ec2host (void)
+    {
+      type     = "ec2";
+      url      = "ec2://ec2-50-16-45-213.compute-1.amazonaws.com";
+      user     = "root";
+      pass     = "";
+      cert     = "";
+      key      = "";
+      cadir    = HOME ".saga/certificates/";
+      exe      = "/usr/local/saga/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -366,6 +387,8 @@ int run_test (std::string       name,
     saga::job::job j = js.create_job (jd);
 
     j.run ();
+
+    std::cout << j.get_job_id () << std::endl;
 
     std::cout << name << ": Submitted" << std::endl;
 
@@ -434,6 +457,7 @@ int main (int argc, char** argv)
     std::cout << " fg.india   " << std::endl;
     std::cout << " fg.ucsierra" << std::endl;
     std::cout << " fg.ucindia " << std::endl;
+    std::cout << " ec2host    " << std::endl;
     std::cout << "            " << std::endl;
 
     return 0;
@@ -456,6 +480,7 @@ int main (int argc, char** argv)
   if ( all || test == "fg.india"   ) { struct endpoint_fg_india    ep; run_test ("fg india     ", ep) && err++; tot++; }
   if ( all || test == "fg.ucsierra") { struct endpoint_fg_ucsierra ep; run_test ("fg uc sierra ", ep) && err++; tot++; }
   if ( all || test == "fg.ucindia" ) { struct endpoint_fg_ucindia  ep; run_test ("fg uc india  ", ep) && err++; tot++; }
+  if ( all || test == "ec2host"    ) { struct endpoint_ec2host     ep; run_test ("ec2 host     ", ep) && err++; tot++; }
 
 
   std::cout << " ==================================================================" << std::endl;

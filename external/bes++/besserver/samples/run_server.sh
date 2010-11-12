@@ -5,7 +5,7 @@ besserver=$root/besserver/besserver
 service_user=merzky
 host=localhost
 endpoint="https://${host}"
-certfile=$root/besserver/cert/host.pem
+certfile=$HOME/.saga/certificates/host.pem
 port=1235
 
 # needed for SSL mutual authentication
