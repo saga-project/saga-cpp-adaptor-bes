@@ -1,0 +1,809 @@
+Certificate Revocation List (CRL):
+        Version 1 (0x0)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: /C=IT/O=INFN/CN=INFN Certification Authority
+        Last Update: Sep 28 13:46:41 2007 GMT
+        Next Update: Oct 28 13:46:41 2007 GMT
+Revoked Certificates:
+    Serial Number: 0460
+        Revocation Date: Sep 16 17:31:13 2003 GMT
+    Serial Number: 0466
+        Revocation Date: Jan 23 17:22:25 2003 GMT
+    Serial Number: 0479
+        Revocation Date: Aug 27 15:50:43 2003 GMT
+    Serial Number: 047E
+        Revocation Date: Nov 25 17:21:13 2003 GMT
+    Serial Number: 049D
+        Revocation Date: Feb 24 17:42:31 2003 GMT
+    Serial Number: 04B7
+        Revocation Date: Jun  5 17:35:46 2003 GMT
+    Serial Number: 04BE
+        Revocation Date: Mar  9 11:52:20 2004 GMT
+    Serial Number: 04C7
+        Revocation Date: Jul 24 14:54:17 2003 GMT
+    Serial Number: 04EB
+        Revocation Date: Oct 21 17:22:06 2003 GMT
+    Serial Number: 04EC
+        Revocation Date: Apr 15 16:06:05 2003 GMT
+    Serial Number: 04FA
+        Revocation Date: Sep 16 17:31:49 2003 GMT
+    Serial Number: 050A
+        Revocation Date: Jul 11 17:41:19 2003 GMT
+    Serial Number: 050C
+        Revocation Date: Jul 25 10:27:43 2003 GMT
+    Serial Number: 0513
+        Revocation Date: Apr 24 17:00:04 2003 GMT
+    Serial Number: 0517
+        Revocation Date: May  6 17:12:02 2003 GMT
+    Serial Number: 051D
+        Revocation Date: May 20 17:23:48 2003 GMT
+    Serial Number: 0527
+        Revocation Date: Nov 28 16:00:18 2003 GMT
+    Serial Number: 0528
+        Revocation Date: Jun  6 16:17:30 2003 GMT
+    Serial Number: 0536
+        Revocation Date: May 21 17:35:50 2003 GMT
+    Serial Number: 053A
+        Revocation Date: Jun 20 15:31:57 2003 GMT
+    Serial Number: 0542
+        Revocation Date: Jun 20 15:31:46 2003 GMT
+    Serial Number: 0543
+        Revocation Date: Oct  9 17:27:26 2003 GMT
+    Serial Number: 0552
+        Revocation Date: Jul 24 14:54:36 2003 GMT
+    Serial Number: 0568
+        Revocation Date: Jul 14 17:32:49 2003 GMT
+    Serial Number: 056E
+        Revocation Date: Jul  4 14:20:49 2003 GMT
+    Serial Number: 0572
+        Revocation Date: Jun 23 13:03:54 2004 GMT
+    Serial Number: 0574
+        Revocation Date: Nov 21 17:33:32 2003 GMT
+    Serial Number: 0575
+        Revocation Date: Nov 21 17:33:37 2003 GMT
+    Serial Number: 0581
+        Revocation Date: Jun  8 15:32:22 2004 GMT
+    Serial Number: 0593
+        Revocation Date: Mar 17 14:05:55 2004 GMT
+    Serial Number: 05A6
+        Revocation Date: Jul 25 10:33:38 2003 GMT
+    Serial Number: 05AE
+        Revocation Date: Sep  1 17:33:08 2003 GMT
+    Serial Number: 05B2
+        Revocation Date: Apr  7 16:05:33 2004 GMT
+    Serial Number: 05B4
+        Revocation Date: Aug 18 15:52:32 2003 GMT
+    Serial Number: 05B5
+        Revocation Date: Aug 18 15:52:41 2003 GMT
+    Serial Number: 05B6
+        Revocation Date: Aug 18 15:52:44 2003 GMT
+    Serial Number: 05B7
+        Revocation Date: Aug 18 15:52:47 2003 GMT
+    Serial Number: 05C8
+        Revocation Date: Mar 19 14:26:28 2004 GMT
+    Serial Number: 05CA
+        Revocation Date: Mar 22 14:09:06 2004 GMT
+    Serial Number: 05CD
+        Revocation Date: Sep 16 17:33:00 2003 GMT
+    Serial Number: 05DA
+        Revocation Date: Sep 15 17:47:23 2003 GMT
+    Serial Number: 05F0
+        Revocation Date: Mar 11 17:14:42 2004 GMT
+    Serial Number: 05F5
+        Revocation Date: Sep 19 17:43:35 2003 GMT
+    Serial Number: 05FC
+        Revocation Date: Sep 19 18:07:13 2003 GMT
+    Serial Number: 05FD
+        Revocation Date: Sep 19 18:07:19 2003 GMT
+    Serial Number: 0632
+        Revocation Date: Nov 28 16:00:09 2003 GMT
+    Serial Number: 0633
+        Revocation Date: Nov 14 15:46:28 2003 GMT
+    Serial Number: 063F
+        Revocation Date: Nov  4 17:38:57 2003 GMT
+    Serial Number: 0640
+        Revocation Date: Sep 30 14:19:03 2004 GMT
+    Serial Number: 0643
+        Revocation Date: Oct 28 12:49:14 2003 GMT
+    Serial Number: 0666
+        Revocation Date: Oct 31 14:56:57 2003 GMT
+    Serial Number: 0673
+        Revocation Date: Nov 12 08:51:06 2003 GMT
+    Serial Number: 0674
+        Revocation Date: Nov 12 08:51:09 2003 GMT
+    Serial Number: 0675
+        Revocation Date: Nov 12 08:51:11 2003 GMT
+    Serial Number: 0676
+        Revocation Date: Nov 12 08:51:13 2003 GMT
+    Serial Number: 0677
+        Revocation Date: Nov 12 08:51:14 2003 GMT
+    Serial Number: 0678
+        Revocation Date: Nov 12 08:51:16 2003 GMT
+    Serial Number: 0679
+        Revocation Date: Nov 12 08:51:18 2003 GMT
+    Serial Number: 067A
+        Revocation Date: Nov 12 08:51:30 2003 GMT
+    Serial Number: 067B
+        Revocation Date: Nov 12 08:51:33 2003 GMT
+    Serial Number: 067C
+        Revocation Date: Nov 12 08:51:35 2003 GMT
+    Serial Number: 0683
+        Revocation Date: Nov 18 17:34:44 2003 GMT
+    Serial Number: 06A6
+        Revocation Date: Oct 26 14:38:03 2004 GMT
+    Serial Number: 06A7
+        Revocation Date: Jan  9 14:53:11 2004 GMT
+    Serial Number: 06A9
+        Revocation Date: Sep 28 14:53:34 2004 GMT
+    Serial Number: 06AA
+        Revocation Date: Dec  4 17:42:21 2003 GMT
+    Serial Number: 06B6
+        Revocation Date: Mar 17 14:06:04 2004 GMT
+    Serial Number: 06B7
+        Revocation Date: Oct 14 15:15:32 2004 GMT
+    Serial Number: 06B8
+        Revocation Date: Dec  2 17:30:11 2003 GMT
+    Serial Number: 06D4
+        Revocation Date: Jan 29 15:37:31 2004 GMT
+    Serial Number: 06D9
+        Revocation Date: Jan  9 14:53:19 2004 GMT
+    Serial Number: 06DB
+        Revocation Date: Dec 16 14:38:21 2003 GMT
+    Serial Number: 0713
+        Revocation Date: Oct  8 15:20:18 2004 GMT
+    Serial Number: 0736
+        Revocation Date: Jun 18 15:11:13 2004 GMT
+    Serial Number: 0737
+        Revocation Date: May 14 14:38:52 2004 GMT
+    Serial Number: 073B
+        Revocation Date: May 14 14:38:51 2004 GMT
+    Serial Number: 0747
+        Revocation Date: Sep 28 14:53:36 2004 GMT
+    Serial Number: 074B
+        Revocation Date: Mar  3 15:51:21 2004 GMT
+    Serial Number: 074D
+        Revocation Date: Feb 26 14:32:53 2004 GMT
+    Serial Number: 0780
+        Revocation Date: Oct 12 12:15:28 2004 GMT
+    Serial Number: 0784
+        Revocation Date: Jan 10 15:53:44 2005 GMT
+    Serial Number: 0787
+        Revocation Date: Mar  8 15:21:08 2005 GMT
+    Serial Number: 07C1
+        Revocation Date: May  5 14:42:28 2004 GMT
+    Serial Number: 07DF
+        Revocation Date: May  7 14:36:03 2004 GMT
+    Serial Number: 07E8
+        Revocation Date: Jul  6 12:02:51 2004 GMT
+    Serial Number: 07F3
+        Revocation Date: May 17 13:45:12 2004 GMT
+    Serial Number: 07FE
+        Revocation Date: May 12 14:56:27 2004 GMT
+    Serial Number: 07FF
+        Revocation Date: May 12 14:56:26 2004 GMT
+    Serial Number: 0800
+        Revocation Date: May 13 14:07:21 2004 GMT
+    Serial Number: 0807
+        Revocation Date: Sep 24 12:16:27 2004 GMT
+    Serial Number: 0810
+        Revocation Date: May 12 14:52:48 2004 GMT
+    Serial Number: 0814
+        Revocation Date: Oct 19 14:45:24 2004 GMT
+    Serial Number: 0835
+        Revocation Date: Jul 29 14:35:24 2004 GMT
+    Serial Number: 0849
+        Revocation Date: Sep 10 15:17:13 2004 GMT
+    Serial Number: 086E
+        Revocation Date: Feb  3 15:21:46 2005 GMT
+    Serial Number: 088F
+        Revocation Date: Jul 14 15:00:48 2004 GMT
+    Serial Number: 08BB
+        Revocation Date: Apr 26 14:28:17 2005 GMT
+    Serial Number: 08BC
+        Revocation Date: Apr 26 14:28:15 2005 GMT
+    Serial Number: 08C1
+        Revocation Date: Nov 12 14:54:29 2004 GMT
+    Serial Number: 08C2
+        Revocation Date: Jan 28 10:55:45 2005 GMT
+    Serial Number: 08E1
+        Revocation Date: Jun 30 14:38:45 2005 GMT
+    Serial Number: 08F2
+        Revocation Date: Sep 13 15:13:06 2004 GMT
+    Serial Number: 08FA
+        Revocation Date: Mar  7 14:40:50 2005 GMT
+    Serial Number: 08FC
+        Revocation Date: Jun 22 14:31:38 2005 GMT
+    Serial Number: 094E
+        Revocation Date: Feb 23 15:01:36 2005 GMT
+    Serial Number: 0959
+        Revocation Date: Oct 12 12:15:30 2004 GMT
+    Serial Number: 095C
+        Revocation Date: Jul  1 02:56:06 2005 GMT
+    Serial Number: 0961
+        Revocation Date: Nov  5 14:19:15 2004 GMT
+    Serial Number: 0964
+        Revocation Date: Dec 15 10:53:12 2004 GMT
+    Serial Number: 096F
+        Revocation Date: Oct 26 14:38:05 2004 GMT
+    Serial Number: 0973
+        Revocation Date: Feb  1 15:24:02 2005 GMT
+    Serial Number: 0985
+        Revocation Date: Mar 22 15:40:38 2005 GMT
+    Serial Number: 0990
+        Revocation Date: Jan 31 15:24:01 2005 GMT
+    Serial Number: 09AA
+        Revocation Date: Nov 10 15:38:27 2004 GMT
+    Serial Number: 09AF
+        Revocation Date: Jan 31 15:24:02 2005 GMT
+    Serial Number: 09B0
+        Revocation Date: Nov  5 14:19:14 2004 GMT
+    Serial Number: 09CB
+        Revocation Date: Oct 31 14:20:42 2005 GMT
+    Serial Number: 09CF
+        Revocation Date: Nov 17 15:40:10 2004 GMT
+    Serial Number: 0A16
+        Revocation Date: Dec  7 14:56:27 2004 GMT
+    Serial Number: 0A2E
+        Revocation Date: Dec 22 14:56:04 2004 GMT
+    Serial Number: 0A2F
+        Revocation Date: Nov  2 16:14:00 2005 GMT
+    Serial Number: 0A3E
+        Revocation Date: Jul 14 01:46:34 2005 GMT
+    Serial Number: 0A48
+        Revocation Date: Apr 20 14:57:23 2005 GMT
+    Serial Number: 0A5B
+        Revocation Date: Jan 17 15:38:33 2005 GMT
+    Serial Number: 0A5D
+        Revocation Date: Jun 14 14:23:01 2005 GMT
+    Serial Number: 0A6B
+        Revocation Date: Nov 18 15:10:35 2005 GMT
+    Serial Number: 0A70
+        Revocation Date: Feb 10 16:03:13 2005 GMT
+    Serial Number: 0A71
+        Revocation Date: Feb 10 16:03:11 2005 GMT
+    Serial Number: 0A83
+        Revocation Date: Apr 11 15:38:40 2005 GMT
+    Serial Number: 0AA9
+        Revocation Date: Feb 24 15:10:52 2005 GMT
+    Serial Number: 0AEE
+        Revocation Date: Feb 23 15:01:37 2005 GMT
+    Serial Number: 0AF8
+        Revocation Date: Jan 30 12:59:14 2006 GMT
+    Serial Number: 0B3A
+        Revocation Date: Mar 21 15:41:55 2005 GMT
+    Serial Number: 0B48
+        Revocation Date: Dec  6 15:53:40 2005 GMT
+    Serial Number: 0B5F
+        Revocation Date: Dec  6 15:53:39 2005 GMT
+    Serial Number: 0B81
+        Revocation Date: May  4 14:16:34 2005 GMT
+    Serial Number: 0B8A
+        Revocation Date: Mar 14 14:32:49 2006 GMT
+    Serial Number: 0BE1
+        Revocation Date: Oct 26 14:38:18 2005 GMT
+    Serial Number: 0BF5
+        Revocation Date: May  3 14:23:22 2005 GMT
+    Serial Number: 0C19
+        Revocation Date: Jul  7 03:25:50 2005 GMT
+    Serial Number: 0C1F
+        Revocation Date: Sep  7 02:53:00 2005 GMT
+    Serial Number: 0C34
+        Revocation Date: May 18 15:06:45 2005 GMT
+    Serial Number: 0C39
+        Revocation Date: Feb  2 12:32:23 2006 GMT
+    Serial Number: 0C3A
+        Revocation Date: May 26 14:02:10 2005 GMT
+    Serial Number: 0C46
+        Revocation Date: Jul  8 03:13:11 2005 GMT
+    Serial Number: 0C47
+        Revocation Date: Jul 20 02:06:51 2005 GMT
+    Serial Number: 0C5E
+        Revocation Date: Jun  1 14:59:48 2005 GMT
+    Serial Number: 0C64
+        Revocation Date: Sep 22 16:22:06 2005 GMT
+    Serial Number: 0C66
+        Revocation Date: May 25 15:34:00 2005 GMT
+    Serial Number: 0C72
+        Revocation Date: Jun  1 14:59:50 2005 GMT
+    Serial Number: 0CB4
+        Revocation Date: Jun 20 15:28:52 2005 GMT
+    Serial Number: 0CB5
+        Revocation Date: Jun 20 15:28:54 2005 GMT
+    Serial Number: 0CB6
+        Revocation Date: Jun 30 14:38:46 2005 GMT
+    Serial Number: 0CFF
+        Revocation Date: Jul 15 02:58:21 2005 GMT
+    Serial Number: 0D14
+        Revocation Date: Jul 20 02:06:51 2005 GMT
+    Serial Number: 0D21
+        Revocation Date: Sep 30 13:45:27 2005 GMT
+    Serial Number: 0D53
+        Revocation Date: Nov 30 14:02:54 2005 GMT
+    Serial Number: 0D57
+        Revocation Date: Sep  1 03:34:07 2005 GMT
+    Serial Number: 0D5F
+        Revocation Date: Jan 12 13:41:41 2006 GMT
+    Serial Number: 0D90
+        Revocation Date: Sep  2 02:48:50 2005 GMT
+    Serial Number: 0D92
+        Revocation Date: Feb  3 15:23:00 2006 GMT
+    Serial Number: 0D99
+        Revocation Date: Sep  8 02:51:36 2005 GMT
+    Serial Number: 0DC4
+        Revocation Date: Feb 23 15:06:48 2006 GMT
+    Serial Number: 0DF8
+        Revocation Date: Jan 31 15:12:45 2006 GMT
+    Serial Number: 0E38
+        Revocation Date: Oct 14 15:07:24 2005 GMT
+    Serial Number: 0E40
+        Revocation Date: Oct 17 16:03:06 2005 GMT
+    Serial Number: 0E58
+        Revocation Date: Jul 17 15:21:09 2006 GMT
+    Serial Number: 0E64
+        Revocation Date: Mar  9 14:48:05 2006 GMT
+    Serial Number: 0E74
+        Revocation Date: Dec 19 16:28:59 2005 GMT
+    Serial Number: 0E82
+        Revocation Date: Oct 26 14:38:18 2005 GMT
+    Serial Number: 0E87
+        Revocation Date: Apr 20 14:18:00 2006 GMT
+    Serial Number: 0EA2
+        Revocation Date: Jan 25 12:43:17 2006 GMT
+    Serial Number: 0EE7
+        Revocation Date: Dec 19 16:28:58 2005 GMT
+    Serial Number: 0EF2
+        Revocation Date: Apr  3 12:54:53 2006 GMT
+    Serial Number: 0F28
+        Revocation Date: Dec 21 15:03:27 2005 GMT
+    Serial Number: 0F5E
+        Revocation Date: Jun 20 16:37:15 2006 GMT
+    Serial Number: 0F7D
+        Revocation Date: Jan 27 14:04:26 2006 GMT
+    Serial Number: 0F80
+        Revocation Date: Mar 22 14:04:07 2006 GMT
+    Serial Number: 0F8A
+        Revocation Date: Feb  6 15:40:54 2006 GMT
+    Serial Number: 0F97
+        Revocation Date: Feb  6 15:40:54 2006 GMT
+    Serial Number: 0F9C
+        Revocation Date: Jan  4 16:33:53 2007 GMT
+    Serial Number: 0FBD
+        Revocation Date: Jan 30 12:59:14 2006 GMT
+    Serial Number: 0FD7
+        Revocation Date: Oct 25 15:52:52 2006 GMT
+    Serial Number: 0FDD
+        Revocation Date: Mar  7 13:49:38 2006 GMT
+    Serial Number: 0FF1
+        Revocation Date: Apr 18 14:13:27 2006 GMT
+    Serial Number: 0FF9
+        Revocation Date: Jun 15 14:18:08 2006 GMT
+    Serial Number: 100E
+        Revocation Date: Jun 15 14:18:08 2006 GMT
+    Serial Number: 101D
+        Revocation Date: Mar  1 14:41:24 2006 GMT
+    Serial Number: 1027
+        Revocation Date: Oct 17 15:27:24 2006 GMT
+    Serial Number: 1029
+        Revocation Date: Sep 21 15:02:58 2006 GMT
+    Serial Number: 1038
+        Revocation Date: Feb 21 12:31:09 2006 GMT
+    Serial Number: 1039
+        Revocation Date: Feb 21 12:31:10 2006 GMT
+    Serial Number: 103A
+        Revocation Date: Feb 21 12:31:10 2006 GMT
+    Serial Number: 1051
+        Revocation Date: May 12 15:16:52 2006 GMT
+    Serial Number: 105B
+        Revocation Date: Feb 27 16:21:57 2006 GMT
+    Serial Number: 1061
+        Revocation Date: Feb 23 15:06:48 2006 GMT
+    Serial Number: 1072
+        Revocation Date: Oct 11 15:32:48 2006 GMT
+    Serial Number: 10A3
+        Revocation Date: Jun  5 14:02:17 2006 GMT
+    Serial Number: 10AC
+        Revocation Date: Jan 19 17:06:39 2007 GMT
+    Serial Number: 10BE
+        Revocation Date: Apr 11 14:23:18 2006 GMT
+    Serial Number: 10E1
+        Revocation Date: Mar  6 17:47:50 2007 GMT
+    Serial Number: 10E4
+        Revocation Date: Oct 11 15:32:48 2006 GMT
+    Serial Number: 10E5
+        Revocation Date: Jan 25 13:23:20 2007 GMT
+    Serial Number: 10E6
+        Revocation Date: Jan 25 13:23:21 2007 GMT
+    Serial Number: 10E7
+        Revocation Date: Jan 25 13:23:22 2007 GMT
+    Serial Number: 10E8
+        Revocation Date: Jan 25 13:23:22 2007 GMT
+    Serial Number: 10ED
+        Revocation Date: Mar 16 15:07:59 2006 GMT
+    Serial Number: 10F0
+        Revocation Date: Sep  8 14:38:07 2006 GMT
+    Serial Number: 10FB
+        Revocation Date: Dec  7 16:06:05 2006 GMT
+    Serial Number: 10FC
+        Revocation Date: Dec  7 16:06:06 2006 GMT
+    Serial Number: 10FD
+        Revocation Date: Dec  7 16:06:06 2006 GMT
+    Serial Number: 10FE
+        Revocation Date: Dec  7 16:06:06 2006 GMT
+    Serial Number: 10FF
+        Revocation Date: Dec  7 16:06:06 2006 GMT
+    Serial Number: 112B
+        Revocation Date: Mar 24 14:11:45 2006 GMT
+    Serial Number: 1145
+        Revocation Date: Jun 28 14:49:17 2006 GMT
+    Serial Number: 1170
+        Revocation Date: Apr 11 14:23:18 2006 GMT
+    Serial Number: 1177
+        Revocation Date: Jun 26 14:33:42 2006 GMT
+    Serial Number: 1183
+        Revocation Date: May  9 17:12:02 2006 GMT
+    Serial Number: 1185
+        Revocation Date: Nov  3 15:09:10 2006 GMT
+    Serial Number: 11AC
+        Revocation Date: Nov  9 14:53:14 2006 GMT
+    Serial Number: 11BB
+        Revocation Date: Aug  1 16:47:09 2006 GMT
+    Serial Number: 11BF
+        Revocation Date: Jun 26 14:43:42 2006 GMT
+    Serial Number: 11D6
+        Revocation Date: May  2 12:39:58 2006 GMT
+    Serial Number: 122B
+        Revocation Date: Dec  7 16:06:06 2006 GMT
+    Serial Number: 1245
+        Revocation Date: Apr 23 15:03:33 2007 GMT
+    Serial Number: 125C
+        Revocation Date: May  9 15:24:11 2007 GMT
+    Serial Number: 126C
+        Revocation Date: Sep 20 16:00:36 2006 GMT
+    Serial Number: 127C
+        Revocation Date: May 29 12:47:50 2006 GMT
+    Serial Number: 129B
+        Revocation Date: Jun 15 14:18:08 2006 GMT
+    Serial Number: 12AB
+        Revocation Date: Jun 22 15:01:20 2006 GMT
+    Serial Number: 12B5
+        Revocation Date: Oct 17 15:27:24 2006 GMT
+    Serial Number: 12FE
+        Revocation Date: Jul  4 15:40:26 2006 GMT
+    Serial Number: 1302
+        Revocation Date: Jul 18 14:37:10 2006 GMT
+    Serial Number: 1339
+        Revocation Date: Aug  8 15:00:25 2006 GMT
+    Serial Number: 133A
+        Revocation Date: Aug  8 15:04:14 2006 GMT
+    Serial Number: 133B
+        Revocation Date: Aug  8 15:00:25 2006 GMT
+    Serial Number: 133D
+        Revocation Date: Aug  8 14:44:20 2006 GMT
+    Serial Number: 134D
+        Revocation Date: Sep  8 14:38:07 2006 GMT
+    Serial Number: 134E
+        Revocation Date: Sep  8 14:38:07 2006 GMT
+    Serial Number: 1375
+        Revocation Date: Aug  3 14:38:42 2006 GMT
+    Serial Number: 1388
+        Revocation Date: Oct 17 15:27:25 2006 GMT
+    Serial Number: 139F
+        Revocation Date: Apr 16 17:59:09 2007 GMT
+    Serial Number: 13BA
+        Revocation Date: Aug 30 15:31:28 2006 GMT
+    Serial Number: 13D3
+        Revocation Date: Mar 12 14:14:29 2007 GMT
+    Serial Number: 13FE
+        Revocation Date: Jan 16 15:45:07 2007 GMT
+    Serial Number: 142E
+        Revocation Date: May  9 15:24:11 2007 GMT
+    Serial Number: 1449
+        Revocation Date: Jan 18 17:08:40 2007 GMT
+    Serial Number: 1470
+        Revocation Date: Oct 10 15:48:44 2006 GMT
+    Serial Number: 1480
+        Revocation Date: Oct 11 15:32:48 2006 GMT
+    Serial Number: 148B
+        Revocation Date: Sep 21 15:02:58 2006 GMT
+    Serial Number: 1493
+        Revocation Date: Feb 27 14:16:04 2007 GMT
+    Serial Number: 149F
+        Revocation Date: Apr  3 13:15:59 2007 GMT
+    Serial Number: 14B5
+        Revocation Date: Sep 26 15:00:06 2006 GMT
+    Serial Number: 14B6
+        Revocation Date: Sep 26 15:00:06 2006 GMT
+    Serial Number: 14EC
+        Revocation Date: Oct 16 15:13:00 2006 GMT
+    Serial Number: 14F0
+        Revocation Date: Nov  3 15:09:10 2006 GMT
+    Serial Number: 1515
+        Revocation Date: Jan 23 17:22:33 2007 GMT
+    Serial Number: 151D
+        Revocation Date: Oct 30 16:30:03 2006 GMT
+    Serial Number: 152F
+        Revocation Date: Jan 23 17:22:33 2007 GMT
+    Serial Number: 1532
+        Revocation Date: Oct 10 15:48:45 2006 GMT
+    Serial Number: 154C
+        Revocation Date: Jan 16 15:45:07 2007 GMT
+    Serial Number: 155A
+        Revocation Date: Oct 16 15:13:00 2006 GMT
+    Serial Number: 157F
+        Revocation Date: Oct 25 15:52:52 2006 GMT
+    Serial Number: 15CE
+        Revocation Date: Nov 23 16:03:28 2006 GMT
+    Serial Number: 15D9
+        Revocation Date: Nov  9 14:53:14 2006 GMT
+    Serial Number: 15F0
+        Revocation Date: Nov 13 15:31:54 2006 GMT
+    Serial Number: 1609
+        Revocation Date: May  9 15:26:32 2007 GMT
+    Serial Number: 167E
+        Revocation Date: Dec 21 16:25:38 2006 GMT
+    Serial Number: 1698
+        Revocation Date: Jan  3 15:43:54 2007 GMT
+    Serial Number: 16AC
+        Revocation Date: Feb 14 16:12:08 2007 GMT
+    Serial Number: 16C9
+        Revocation Date: May 22 15:22:30 2007 GMT
+    Serial Number: 16DE
+        Revocation Date: Jan 10 16:56:25 2007 GMT
+    Serial Number: 16E9
+        Revocation Date: Mar 16 13:24:23 2007 GMT
+    Serial Number: 1700
+        Revocation Date: Jan  5 16:07:51 2007 GMT
+    Serial Number: 171E
+        Revocation Date: Jan 22 16:27:24 2007 GMT
+    Serial Number: 174B
+        Revocation Date: Jun  8 11:33:05 2007 GMT
+    Serial Number: 175E
+        Revocation Date: May  8 18:00:40 2007 GMT
+    Serial Number: 1788
+        Revocation Date: Feb  2 10:09:06 2007 GMT
+    Serial Number: 179B
+        Revocation Date: Feb  8 15:23:00 2007 GMT
+    Serial Number: 17B2
+        Revocation Date: Feb  7 17:40:58 2007 GMT
+    Serial Number: 1820
+        Revocation Date: Mar 21 17:52:19 2007 GMT
+    Serial Number: 1829
+        Revocation Date: Jun 22 14:44:12 2007 GMT
+    Serial Number: 1880
+        Revocation Date: Feb 21 15:20:27 2007 GMT
+    Serial Number: 1881
+        Revocation Date: Feb 21 15:20:27 2007 GMT
+    Serial Number: 188A
+        Revocation Date: Jun  1 16:04:08 2007 GMT
+    Serial Number: 18A7
+        Revocation Date: Feb 28 15:20:27 2007 GMT
+    Serial Number: 18BF
+        Revocation Date: Mar 21 17:52:19 2007 GMT
+    Serial Number: 18FA
+        Revocation Date: Mar  8 17:26:55 2007 GMT
+    Serial Number: 1935
+        Revocation Date: Mar 12 14:14:29 2007 GMT
+    Serial Number: 196F
+        Revocation Date: Mar 26 17:53:14 2007 GMT
+    Serial Number: 1972
+        Revocation Date: Sep 10 15:54:41 2007 GMT
+    Serial Number: 1977
+        Revocation Date: Apr 18 15:01:31 2007 GMT
+    Serial Number: 199B
+        Revocation Date: Mar 26 17:53:14 2007 GMT
+    Serial Number: 199D
+        Revocation Date: Aug 23 15:59:34 2007 GMT
+    Serial Number: 1A52
+        Revocation Date: Apr 23 15:03:33 2007 GMT
+    Serial Number: 1AA3
+        Revocation Date: Jul  3 14:48:21 2007 GMT
+    Serial Number: 1AAE
+        Revocation Date: May 15 15:03:57 2007 GMT
+    Serial Number: 1AD1
+        Revocation Date: May 31 16:41:57 2007 GMT
+    Serial Number: 1B31
+        Revocation Date: Jun 27 16:32:10 2007 GMT
+    Serial Number: 1B58
+        Revocation Date: May 29 14:58:24 2007 GMT
+    Serial Number: 1BA8
+        Revocation Date: Sep 20 16:45:22 2007 GMT
+    Serial Number: 1BB1
+        Revocation Date: Jun 11 12:03:47 2007 GMT
+    Serial Number: 1BD5
+        Revocation Date: Jul 17 16:00:57 2007 GMT
+    Serial Number: 1C14
+        Revocation Date: Jul 12 17:52:59 2007 GMT
+    Serial Number: 1C31
+        Revocation Date: Jun 29 15:01:38 2007 GMT
+    Serial Number: 1C43
+        Revocation Date: Jul  9 15:34:39 2007 GMT
+    Serial Number: 1C51
+        Revocation Date: Jun 22 14:44:12 2007 GMT
+    Serial Number: 1CA1
+        Revocation Date: Jul 17 16:00:57 2007 GMT
+    Serial Number: 1D2E
+        Revocation Date: Jul 18 13:50:02 2007 GMT
+    Serial Number: 1D82
+        Revocation Date: Sep 25 16:26:50 2007 GMT
+    Serial Number: 1DA5
+        Revocation Date: Aug  2 14:31:24 2007 GMT
+    Serial Number: 1DDA
+        Revocation Date: Jul 25 15:02:38 2007 GMT
+    Serial Number: 1E13
+        Revocation Date: Jul 27 16:59:56 2007 GMT
+    Serial Number: 1E1E
+        Revocation Date: Aug  3 15:07:49 2007 GMT
+    Serial Number: 1E4D
+        Revocation Date: Aug  3 15:07:49 2007 GMT
+    Serial Number: 1E62
+        Revocation Date: Aug 24 14:30:41 2007 GMT
+    Serial Number: 1F3A
+        Revocation Date: Sep 18 15:44:58 2007 GMT
+    Serial Number: 1F44
+        Revocation Date: Sep 21 15:59:57 2007 GMT
+    Signature Algorithm: sha1WithRSAEncryption
+        7e:5b:c6:80:78:09:e0:49:3f:57:e7:02:76:fa:aa:b4:c8:86:
+        c2:62:9a:ea:c8:9f:f6:b9:62:34:2d:09:b4:28:e4:f6:b5:f9:
+        06:21:47:18:bf:2b:fc:98:75:7f:ae:47:0f:4e:b2:c1:b8:1b:
+        5f:b9:fd:b8:b7:b9:95:6f:a0:39:c2:28:ba:e7:24:7a:fe:bf:
+        5d:9e:2e:75:d8:cb:b6:9b:f2:fa:a4:81:19:10:3c:6c:08:73:
+        8f:91:b5:da:ba:60:c9:bb:63:e9:e6:7a:08:26:31:47:1f:8d:
+        a0:d0:e7:a9:44:65:37:47:5c:38:26:75:87:0a:09:38:43:03:
+        a2:58:49:cf:8d:a4:2a:f0:27:e7:ae:e9:dc:1c:52:05:ac:2d:
+        63:a9:5e:a6:55:f3:c6:84:25:cb:4a:7a:09:f0:24:df:66:bf:
+        9f:a6:f2:15:30:ad:d7:d9:ae:9f:79:a1:47:28:ea:e7:e0:e3:
+        91:2c:df:03:e7:43:60:b1:02:a8:18:4b:69:1f:5f:af:d8:c5:
+        c3:5e:df:53:3d:a0:41:47:de:63:1b:51:41:f4:a8:4e:43:01:
+        70:c5:93:cd:f8:8f:06:f3:45:58:7c:38:8b:36:6f:ad:2f:fe:
+        5c:8f:64:94:30:8e:f2:90:b9:8f:d6:8f:f5:a9:86:b2:f5:21:
+        b1:06:34:dc
+-----BEGIN X509 CRL-----
+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
+L/5cj2SUMI7ykLmP1o/1qYay9SGxBjTc
+-----END X509 CRL-----
