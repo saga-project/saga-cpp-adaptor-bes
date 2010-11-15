@@ -1,0 +1,101 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 0 (0x0)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=DE, O=GermanGrid, CN=GridKa-CA
+        Validity
+            Not Before: Jun 11 13:45:54 2003 GMT
+            Not After : Jun 10 13:45:54 2014 GMT
+        Subject: C=DE, O=GermanGrid, CN=GridKa-CA
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (2048 bit)
+                Modulus (2048 bit):
+                    00:ea:23:a7:ff:96:7a:4d:8b:a6:26:f7:f5:00:a1:
+                    1d:ab:69:0a:9f:f2:5c:7f:31:6e:22:2d:e5:5d:ba:
+                    e3:2b:ed:fe:75:b8:40:56:c1:91:2a:19:d0:f5:15:
+                    0a:94:35:bb:e9:48:cc:9f:99:1f:37:e7:ed:6b:34:
+                    23:6f:8e:e8:0a:5c:c9:ec:a3:99:12:fc:f8:5f:c0:
+                    7a:e2:81:a7:5c:65:12:aa:de:82:57:74:3e:27:e5:
+                    42:75:cf:78:79:9d:95:d9:f1:d0:ff:c0:4d:1b:9d:
+                    75:a2:2e:19:20:c9:22:60:9b:42:36:bf:dc:4f:01:
+                    93:c4:92:ac:62:83:70:bf:c2:9c:d9:b3:4e:ad:fa:
+                    4f:67:e1:5c:1e:2f:cb:e4:c1:51:70:79:7d:fd:f5:
+                    ef:51:01:8a:ab:4b:da:1e:8e:fb:af:50:92:68:95:
+                    f6:4d:09:0b:fa:f3:fb:e2:ab:1f:19:0e:ab:82:82:
+                    a6:c1:86:27:87:7e:eb:dd:92:4b:89:ce:d7:0f:5a:
+                    d8:f5:c8:f6:b8:0a:3e:e9:2b:6f:97:58:6b:e7:91:
+                    15:d3:f8:c3:a5:a3:f5:cb:8d:fa:6b:2b:20:a2:5d:
+                    58:31:30:63:ff:7e:d4:2b:dc:64:b6:00:00:21:1a:
+                    1f:a8:25:82:0c:41:97:d2:6e:c2:84:86:2b:49:1d:
+                    17:57
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+            X509v3 Subject Key Identifier: 
+                C6:75:C9:28:AC:D1:0B:FC:3C:FF:B9:B5:1E:D3:5F:3B:80:62:12:34
+            X509v3 Authority Key Identifier: 
+                keyid:C6:75:C9:28:AC:D1:0B:FC:3C:FF:B9:B5:1E:D3:5F:3B:80:62:12:34
+                DirName:/C=DE/O=GermanGrid/CN=GridKa-CA
+                serial:00
+
+            X509v3 Key Usage: critical
+                Certificate Sign, CRL Sign
+            X509v3 Issuer Alternative Name: 
+                email:gridka-ca@iwr.fzk.de
+            X509v3 CRL Distribution Points: 
+                URI:http://grid.fzk.de/ca/gridka-crl.pem
+
+            Netscape Cert Type: 
+                SSL CA, S/MIME CA, Object Signing CA
+            Netscape CA Revocation Url: 
+                http://grid.fzk.de/ca/gridka-crl.pem
+            Netscape Base Url: 
+                http://grid.fzk.de/ca
+            Netscape CA Policy Url: 
+                http://grid.fzk.de/ca/gridka-cps.pdf
+    Signature Algorithm: sha1WithRSAEncryption
+        e0:7f:c9:9f:a6:f9:6c:7e:82:08:6e:12:cb:d4:52:3a:91:39:
+        7a:31:66:6a:53:de:4f:28:08:13:6d:3c:a7:38:f2:a3:eb:05:
+        4c:54:ae:cf:20:ec:b8:90:2b:02:52:15:d5:8b:e9:b2:87:ce:
+        cd:8a:31:78:49:3b:00:5a:72:94:3a:33:be:c9:4f:fa:92:44:
+        c8:71:1a:cc:aa:06:e2:da:85:3f:7d:4f:21:fa:68:67:f8:b1:
+        4e:3f:33:d0:11:1f:af:27:b9:4e:98:66:29:57:2f:44:e7:66:
+        e1:e6:02:58:1d:92:2a:c4:dc:5e:22:4f:29:e7:c2:52:45:0c:
+        53:8c:67:02:d2:db:aa:f7:6e:52:2f:eb:1e:25:5b:a3:96:ef:
+        cb:4f:ac:66:79:7f:61:c0:02:71:4d:bb:07:fb:eb:22:b8:7a:
+        9e:c0:4f:92:20:78:5b:21:c7:f9:e2:78:fd:d8:9f:5d:75:a7:
+        d5:f5:cc:8b:bf:af:a4:ee:16:df:91:4e:60:18:10:a1:98:ab:
+        e7:cd:d5:8f:d5:ac:6f:ef:7d:36:32:9e:e5:9a:a4:8e:c8:42:
+        56:6e:13:f7:6f:77:56:84:30:be:9f:45:2c:86:23:a0:1c:e3:
+        f1:22:a8:d1:b4:ea:c1:bc:c3:45:eb:32:1b:e8:b0:42:ab:9a:
+        ef:40:fd:99
+-----BEGIN CERTIFICATE-----
+MIIEiDCCA3CgAwIBAgIBADANBgkqhkiG9w0BAQUFADA2MQswCQYDVQQGEwJERTET
+MBEGA1UEChMKR2VybWFuR3JpZDESMBAGA1UEAxMJR3JpZEthLUNBMB4XDTAzMDYx
+MTEzNDU1NFoXDTE0MDYxMDEzNDU1NFowNjELMAkGA1UEBhMCREUxEzARBgNVBAoT
+Ckdlcm1hbkdyaWQxEjAQBgNVBAMTCUdyaWRLYS1DQTCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAOojp/+Wek2Lpib39QChHatpCp/yXH8xbiIt5V264yvt
+/nW4QFbBkSoZ0PUVCpQ1u+lIzJ+ZHzfn7Ws0I2+O6ApcyeyjmRL8+F/AeuKBp1xl
+Eqregld0PiflQnXPeHmdldnx0P/ATRuddaIuGSDJImCbQja/3E8Bk8SSrGKDcL/C
+nNmzTq36T2fhXB4vy+TBUXB5ff3171EBiqtL2h6O+69QkmiV9k0JC/rz++KrHxkO
+q4KCpsGGJ4d+692SS4nO1w9a2PXI9rgKPukrb5dYa+eRFdP4w6Wj9cuN+msrIKJd
+WDEwY/9+1CvcZLYAACEaH6glggxBl9JuwoSGK0kdF1cCAwEAAaOCAZ8wggGbMA8G
+A1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFMZ1ySis0Qv8PP+5tR7TXzuAYhI0MF4G
+A1UdIwRXMFWAFMZ1ySis0Qv8PP+5tR7TXzuAYhI0oTqkODA2MQswCQYDVQQGEwJE
+RTETMBEGA1UEChMKR2VybWFuR3JpZDESMBAGA1UEAxMJR3JpZEthLUNBggEAMA4G
+A1UdDwEB/wQEAwIBBjAfBgNVHRIEGDAWgRRncmlka2EtY2FAaXdyLmZ6ay5kZTA1
+BgNVHR8ELjAsMCqgKKAmhiRodHRwOi8vZ3JpZC5memsuZGUvY2EvZ3JpZGthLWNy
+bC5wZW0wEQYJYIZIAYb4QgEBBAQDAgAHMDMGCWCGSAGG+EIBBAQmFiRodHRwOi8v
+Z3JpZC5memsuZGUvY2EvZ3JpZGthLWNybC5wZW0wJAYJYIZIAYb4QgECBBcWFWh0
+dHA6Ly9ncmlkLmZ6ay5kZS9jYTAzBglghkgBhvhCAQgEJhYkaHR0cDovL2dyaWQu
+ZnprLmRlL2NhL2dyaWRrYS1jcHMucGRmMA0GCSqGSIb3DQEBBQUAA4IBAQDgf8mf
+pvlsfoIIbhLL1FI6kTl6MWZqU95PKAgTbTynOPKj6wVMVK7PIOy4kCsCUhXVi+my
+h87NijF4STsAWnKUOjO+yU/6kkTIcRrMqgbi2oU/fU8h+mhn+LFOPzPQER+vJ7lO
+mGYpVy9E52bh5gJYHZIqxNxeIk8p58JSRQxTjGcC0tuq925SL+seJVujlu/LT6xm
+eX9hwAJxTbsH++siuHqewE+SIHhbIcf54nj92J9ddafV9cyLv6+k7hbfkU5gGBCh
+mKvnzdWP1axv7302Mp7lmqSOyEJWbhP3b3dWhDC+n0UshiOgHOPxIqjRtOrBvMNF
+6zIb6LBCq5rvQP2Z
+-----END CERTIFICATE-----
