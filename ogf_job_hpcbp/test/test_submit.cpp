@@ -116,9 +116,9 @@ class endpoint_gridsam : public endpoint
     endpoint_gridsam (void)
     {
       type     = "UserPass";
-      url      = "https://demo.oerc.ox.ac.uk:8443/gridsam/services/hpcbp";
+   // url      = "https://demo.oerc.ox.ac.uk:8443/gridsam/services/hpcbp";
    // url      = "https://gridsam-test.oerc.ox.ac.uk:18443/gridsam/services/hpcbp";
-   // url      = "https://localhost:10003";
+      url      = "https://localhost:10004";
       user     = "ogf";
       pass     = "ogf";
       cert     = "/tmp/x509up_u" UID;
@@ -312,8 +312,8 @@ class endpoint_fg_ucindia : public endpoint
     endpoint_fg_ucindia (void)
     {
       type     = "UserPass";
-   // url      = "https://198.202.120.85:8080/DEMO-SITE/services/BESFactory?res=default_bes_factory";
-      url      = "https://localhost:10003/DEMO-SITE/services/BESFactory?res=default_bes_factory";
+      url      = "https://198.202.120.85:8080/DEMO-SITE/services/BESFactory?res=default_bes_factory";
+   // url      = "https://localhost:10003/DEMO-SITE/services/BESFactory?res=default_bes_factory";
       user     = "ogf30";
       pass     = "ogf30";
       cert     = "/tmp/x509up_u" UID;
