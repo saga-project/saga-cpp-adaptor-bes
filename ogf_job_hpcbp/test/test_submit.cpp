@@ -7,18 +7,20 @@
 // local.fork     x      x      x
 // local.bes      x      x      x 
 // ssh            x      x      x
-// gram           x      x      x
-// unicore        x      x      -
+// graml.loni     x      x      x
+// graml.lrz      x      x      x
+// graml.lrz      x      x      x
+// unicore        -      -      - SF
 // gridsam        -      -      -
 // arc            x      x      x
 // smoa.1         x      x      x
 // smoa.2         x      x      x
-// fg.sierra      x      x      x
-// fg.india       x      x      x
-// fg.sierra.uc   x      x      -
-// fg.india.uc    x      x      -
-// -------------------------------
+// fg.sierra      x      x      x SF
+// fg.india       x      x      x SF
+// fg.sierra.uc   -      x      - 
+// fg.india.uc    -      x      -
 // ec2            -      -      -
+// -------------------------------
 // occi           -      -      -
 // -------------------------------
 
@@ -59,10 +61,10 @@ class endpoint_localfork : public endpoint
       cert     = "";
       key      = "";
       cadir    = "";
-      exe      = "/Users/merzky/install/bin/saga-run.sh";
+      exe      = HOME "/saga/install/bin/saga-run.sh";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -79,11 +81,32 @@ class endpoint_localbes : public endpoint
       pass     = "aaa";
       cert     = "";
       key      = "";
-      cadir    = HOME ".saga/certificates/";
-      exe      = "/Users/merzky/install/bin/saga-run.sh";
+      cadir    = HOME "/.saga/certificates/";
+      exe      = HOME "/saga/install/bin/saga-run.sh";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
+    }
+};
+
+
+class endpoint_ssh_cyder : public endpoint
+{
+  public:
+    endpoint_ssh_cyder (void)
+    {
+      type     = "ssh";
+      url      = "ssh://cyder.cct.lsu.edu/";
+      user     = "amerzky";
+      pass     = "";
+      cert     = "";
+      key      = "";
+      cadir    = HOME ".saga/certificates/";
+      exe      = "/home/amerzky/install/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -104,8 +127,9 @@ class endpoint_unicore : public endpoint
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/unicoreinterop/install/bin/saga-run.sh";
 
-      args.push_back ("sleep");
-      args.push_back ("10");
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -129,16 +153,16 @@ class endpoint_gridsam : public endpoint
      
       args.push_back ("10");
    // args.push_back ("saga-advert");
-   // args.push_back ("list");
+   // args.push_back ("list_directory");
    // args.push_back ("/applications/");
     }
 };
 
 
-class endpoint_gram : public endpoint
+class endpoint_gram_loni : public endpoint
 {
   public:
-    endpoint_gram (void)
+    endpoint_gram_loni (void)
     {
       type     = "x509";
       url      = "gram://qb1.loni.org/";
@@ -150,7 +174,49 @@ class endpoint_gram : public endpoint
       exe      = "/home/merzky/install/bin/saga-run.sh";
 
       args.push_back ("saga-advert");
-      args.push_back ("list");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
+    }
+};
+
+
+class endpoint_gram_lrz : public endpoint
+{
+  public:
+    endpoint_gram_lrz (void)
+    {
+      type     = "x509";
+      url      = "gram://lxgt2.lrz-muenchen.de/";
+      user     = "";
+      pass     = "";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
+      cadir    = HOME ".globus/certificates/";
+      exe      = "/home/cluster/pr95ho/lu26kov/install/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
+    }
+};
+
+
+class endpoint_gram_unido : public endpoint
+{
+  public:
+    endpoint_gram_unido (void)
+    {
+      type     = "x509";
+      url      = "gram://udo-gt01.grid.tu-dortmund.de/";
+      user     = "";
+      pass     = "";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
+      cadir    = HOME ".globus/certificates/";
+      exe      = "/home/hp/hp0250/install/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
       args.push_back ("/applications/");
     }
 };
@@ -162,8 +228,8 @@ class endpoint_arc : public endpoint
     endpoint_arc (void)
     {
       type     = "UserPass";
-   // url      = "https://interop.grid.niif.hu:60000/arex-ut";
-      url      = "https://localhost:10001/arex-ut";
+      url      = "https://interop.grid.niif.hu:60000/arex-ut";
+   // url      = "https://localhost:10001/arex-ut";
       user     = "ogf30";
       pass     = "ogf30";
       cert     = "/tmp/x509up_u" UID;
@@ -196,27 +262,6 @@ class endpoint_smoa_1 : public endpoint
       args.push_back ("saga-advert");
       args.push_back ("list_directory");
       args.push_back ("/applications/");
-    }
-};
-
-class endpoint_smoa_k : public endpoint
-{
-  public:
-    endpoint_smoa_k (void)
-    {
-      type     = "UserPass";
-      url      = "https://grass1.man.poznan.pl:19021";
-   // url      = "https://localhost:10004";
-      user     = "ogf";
-      pass     = "smoa-project.org";
-      cert     = "";
-      key      = "";
-      cadir    = HOME ".saga/certificates/";
-      exe      = "/usr/bin/killall";
-      pwd      = "/home/ogf/";
-
-      args.push_back ("-9");
-      args.push_back ("mandelbrot_client");
     }
 };
 
@@ -451,12 +496,14 @@ int main (int argc, char** argv)
     std::cout << "            " << std::endl;
     std::cout << " local.fork " << std::endl;
     std::cout << " local.bes  " << std::endl;
+    std::cout << " ssh.cyder  " << std::endl;
     std::cout << " unicore    " << std::endl;
     std::cout << " gridsam    " << std::endl;
-    std::cout << " gram       " << std::endl;
+    std::cout << " gram.loni  " << std::endl;
+    std::cout << " gram.lrz   " << std::endl;
+    std::cout << " gram.unido " << std::endl;
     std::cout << " arc        " << std::endl;
     std::cout << " smoa.1     " << std::endl;
-    std::cout << " smoa.k     " << std::endl;
     std::cout << " smoa.2     " << std::endl;
     std::cout << " fg.sierra  " << std::endl;
     std::cout << " fg.india   " << std::endl;
@@ -474,12 +521,14 @@ int main (int argc, char** argv)
 
   if ( all || test == "local.fork" ) { struct endpoint_localfork   ep; run_test ("local fork   ", ep) && err++; tot++; }
   if ( all || test == "local.bes"  ) { struct endpoint_localbes    ep; run_test ("local bes    ", ep) && err++; tot++; }
+  if ( all || test == "ssh.cyder"  ) { struct endpoint_ssh_cyder   ep; run_test ("ssh cyder    ", ep) && err++; tot++; }
   if ( all || test == "unicore"    ) { struct endpoint_unicore     ep; run_test ("unicore      ", ep) && err++; tot++; } 
   if ( all || test == "gridsam"    ) { struct endpoint_gridsam     ep; run_test ("gridsam      ", ep) && err++; tot++; } 
-  if ( all || test == "gram"       ) { struct endpoint_gram        ep; run_test ("gram         ", ep) && err++; tot++; } 
+  if ( all || test == "gram.loni"  ) { struct endpoint_gram_loni   ep; run_test ("gram loni    ", ep) && err++; tot++; } 
+  if ( all || test == "gram.lrz"   ) { struct endpoint_gram_lrz    ep; run_test ("gram lrz     ", ep) && err++; tot++; } 
+  if ( all || test == "gram.unido" ) { struct endpoint_gram_unido  ep; run_test ("gram unido   ", ep) && err++; tot++; } 
   if ( all || test == "arc"        ) { struct endpoint_arc         ep; run_test ("arc          ", ep) && err++; tot++; } 
   if ( all || test == "smoa.1"     ) { struct endpoint_smoa_1      ep; run_test ("smoa 1       ", ep) && err++; tot++; } 
-  if ( all || test == "smoa.k"     ) { struct endpoint_smoa_k      ep; run_test ("smoa k       ", ep) && err++; tot++; } 
   if ( all || test == "smoa.2"     ) { struct endpoint_smoa_2      ep; run_test ("smoa 2       ", ep) && err++; tot++; } 
   if ( all || test == "fg.sierra"  ) { struct endpoint_fg_sierra   ep; run_test ("fg sierra    ", ep) && err++; tot++; }
   if ( all || test == "fg.india"   ) { struct endpoint_fg_india    ep; run_test ("fg india     ", ep) && err++; tot++; }

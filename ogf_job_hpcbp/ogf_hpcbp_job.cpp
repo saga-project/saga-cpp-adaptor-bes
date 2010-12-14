@@ -46,7 +46,8 @@ namespace ogf_hpcbp_job
     instance_data     idata (this);
     adaptor_data_type adata (this);
 
-    rm_ = idata->rm_;
+    rm_   = idata->rm_;
+    rm_s_ = rm_.get_string ();
 
     // check if URL is usable
     if ( ! rm_.get_scheme ().empty ()    &&
@@ -334,7 +335,11 @@ namespace ogf_hpcbp_job
     }
 
     job_epr_ = bp_.run (jsdl_);
-    jobid_   = "[" + rm_.get_string () + "]-[" + job_epr_->str + "]";
+
+    std::string s1 (rm_s_);
+    std::string s2 (::strdup (job_epr_->str));
+
+    jobid_ = std::string ("[") + s1 + "]-[" + s2 + "]";
 
     {
       adaptor_data_type adata (this); // scoped lock

@@ -1325,7 +1325,24 @@ calcDomSize(struct soap_dom_element *node,
         attr = attr->next;
     }
 
-    return size;
+    // fprintf (stdout, "calcDomSize\n----\n");
+    // printDom (node, current_nstr, 0);
+    // fprintf (stdout, "---- %d -- \n", size);
+
+    // FIXME: for some reason, the computed size value is wrong.  I found the
+    // following values:
+    // computed_size  actual_size number_of_lines size_diff
+    // 
+    // 137 142  3 5
+    // 208 213  3 5
+    // 316 333  5 17
+    // 583 617 10 34
+    //
+    // the 'fix' below opts for wasting space, and simply doubles the size.
+    // Someone needs to fix the function proper, but that needs some
+    // understanding of the code which I do not have :-P
+
+    return (2 * size);
 }
 
 void

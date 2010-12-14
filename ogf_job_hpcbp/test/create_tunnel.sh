@@ -2,7 +2,7 @@
 
 # kill old tunnels
 echo "close  stale        tunnels"
-ps -Eefw | grep TUNNEL | grep TUNNEL | grep -v grep | grep ssh | cut -c 6-12 | xargs kill -9
+ps -efw | grep ssh | grep -e '-fNn -L' | grep -v grep | cut -c 7-14 | xargs kill -9
 
 # echo "create advert       tunnel : advert.cct.lsu.edu:8080"
 # env TAG=SSHTUNNEL ssh -fNn -L 10000:advert.cct.lsu.edu:8080 amerzky@cyder.cct.lsu.edu

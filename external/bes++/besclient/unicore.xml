@@ -1,4 +1,4 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 <wsa:EndpointReference xmlns:wsa="http://www.w3.org/2005/08/addressing">
-    <wsa:Address>https://zam1161v01.zam.kfa-juelich.de:8002/DEMO-SITE/services/BESFactory?res=default_bes_factory</wsa:Address>
+  <wsa:Address>https://zam1161v01.zam.kfa-juelich.de:8002/DEMO-SITE/services/BESFactory?res=default_bes_factory</wsa:Address>
 </wsa:EndpointReference>

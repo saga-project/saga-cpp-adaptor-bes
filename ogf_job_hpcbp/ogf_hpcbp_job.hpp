@@ -46,6 +46,7 @@ namespace ogf_hpcbp_job
 
       saga::session           session_;
       saga::url               rm_;
+      std::string             rm_s_;
       saga::job::description  jd_;
       saga::job::state        state_;
       std::string             jobid_;
