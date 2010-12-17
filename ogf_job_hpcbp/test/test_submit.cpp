@@ -45,7 +45,7 @@ struct endpoint
 # define UID  "503"
 #else
 # define HOME "/home/merzky/"
-# define UID  "501"
+# define UID  "1000"
 #endif
 
 
@@ -428,6 +428,13 @@ int run_test (std::string       name,
 
     jd.set_attribute        (sja::description_executable, ep.exe);
     jd.set_vector_attribute (sja::description_arguments,  ep.args);
+
+    // std::cout << " command       : " << ep.exe;
+    // for ( unsigned int i = 0; i < ep.args.size (); i++ )
+    // {
+    //   std::cout << " " << ep.args[i];
+    // }
+    // std::cout << std::endl;
 
     if ( ep.pwd != "" )
     {
