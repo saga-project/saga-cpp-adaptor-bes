@@ -8,7 +8,7 @@ DEPENDENCIES:
 DIRS:
   config/
   external/
-  ogf_hpcbp_job/
+  ogf_job_hpcbp/
 
 FILES:
   PACKAGE
