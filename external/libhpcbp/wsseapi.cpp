@@ -1269,7 +1269,7 @@ soap_wsse_BinarySecurityToken(struct soap *soap, const char *id)
 @return SOAP_OK or SOAP_FAULT with wsse:SecurityTokenUnavailable fault
 */
 int
-soap_wsse_get_BinarySecurityToken(struct soap *soap, const char *id, char **valueType, unsigned char **data, int *size)
+soap_wsse_get_BinarySecurityToken(struct soap *soap, const char *id, char **valueType, const unsigned char **data, int *size)
 { _wsse__BinarySecurityToken *token = soap_wsse_BinarySecurityToken(soap, id);
   DBGFUN1("soap_wsse_get_BinarySecurityToken", "id=%s", id?id:"");
   if (token)
@@ -1301,15 +1301,15 @@ soap_wsse_get_BinarySecurityTokenX509(struct soap *soap, const char *id)
   const unsigned char *data;
   int size;
   DBGFUN1("soap_wsse_get_BinarySecurityTokenX509", "id=%s", id?id:"");
-#ifdef SAGA_CONST_FIX
-  if (!soap_wsse_get_BinarySecurityToken(soap, id, &valueType, (unsigned char **)(&data), &size)
-      && valueType
-      && !strcmp(valueType, wsse_X509v3URI))
-#else // SAGA_CONST_FIX
+// #ifdef SAGA_CONST_FIX
+//   if (!soap_wsse_get_BinarySecurityToken(soap, id, &valueType, (unsigned char **)(&data), &size)
+//       && valueType
+//       && !strcmp(valueType, wsse_X509v3URI))
+// #else // SAGA_CONST_FIX
   if (!soap_wsse_get_BinarySecurityToken(soap, id, &valueType, &data, &size)
       && valueType
       && !strcmp(valueType, wsse_X509v3URI))
-#endif // SAGA_CONST_FIX
+// #endif // SAGA_CONST_FIX
   {
     cert = d2i_X509(NULL, &data, size);
   }

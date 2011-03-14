@@ -142,7 +142,7 @@ int soap_wsse_add_BinarySecurityToken(struct soap *soap, const char *id, const c
 int soap_wsse_add_BinarySecurityTokenX509(struct soap *soap, const char *id, X509 *cert);
 int soap_wsse_add_BinarySecurityTokenPEM(struct soap *soap, const char *id, const char *filename);
 struct _wsse__BinarySecurityToken *soap_wsse_BinarySecurityToken(struct soap *soap, const char *id);
-int soap_wsse_get_BinarySecurityToken(struct soap *soap, const char *id, char **valueType, unsigned char **data, int *size);
+int soap_wsse_get_BinarySecurityToken(struct soap *soap, const char *id, char **valueType, const unsigned char **data, int *size);
 X509 *soap_wsse_get_BinarySecurityTokenX509(struct soap *soap, const char *id);
 int soap_wsse_verify_X509(struct soap *soap, X509 *cert);
 
