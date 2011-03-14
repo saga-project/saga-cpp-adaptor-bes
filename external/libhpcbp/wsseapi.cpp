@@ -1311,7 +1311,7 @@ soap_wsse_get_BinarySecurityTokenX509(struct soap *soap, const char *id)
       && !strcmp(valueType, wsse_X509v3URI))
 // #endif // SAGA_CONST_FIX
   {
-    cert = d2i_X509(NULL, (unsigned char**) &data, size);
+    cert = d2i_X509(NULL, &data, size);
   }
   /* verify the certificate */
   if (!cert || soap_wsse_verify_X509(soap, cert))
