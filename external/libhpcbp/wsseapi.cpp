@@ -1298,20 +1298,24 @@ X509*
 soap_wsse_get_BinarySecurityTokenX509(struct soap *soap, const char *id)
 { X509 *cert = NULL;
   char *valueType;
-  const unsigned char *data;
+  unsigned char *data;
   int size;
   DBGFUN1("soap_wsse_get_BinarySecurityTokenX509", "id=%s", id?id:"");
-// #ifdef SAGA_CONST_FIX
-//   if (!soap_wsse_get_BinarySecurityToken(soap, id, &valueType, (unsigned char **)(&data), &size)
-//       && valueType
-//       && !strcmp(valueType, wsse_X509v3URI))
-// #else // SAGA_CONST_FIX
-  if (!soap_wsse_get_BinarySecurityToken(soap, id, &valueType, &data, &size)
+#if __GNUC__ < 4
+  if (!soap_wsse_get_BinarySecurityToken(soap, id, &valueType, (const unsigned char **)(&data), &size)
       && valueType
       && !strcmp(valueType, wsse_X509v3URI))
-// #endif // SAGA_CONST_FIX
+#else // __GNUC__
+  if (!soap_wsse_get_BinarySecurityToken(soap, id, &valueType, (const unsigned char**) &data, &size)
+      && valueType
+      && !strcmp(valueType, wsse_X509v3URI))
+#endif // __GNUC__
   {
-    cert = d2i_X509(NULL, &data, size);
+#if __GNUC__ < 4
+    cert = d2i_X509(NULL, (unsigned char**) &data, size);
+#else // __GNUC__
+    cert = d2i_X509(NULL, (const unsigned char**) &data, size);
+#endif // __GNUC__
   }
   /* verify the certificate */
   if (!cert || soap_wsse_verify_X509(soap, cert))
