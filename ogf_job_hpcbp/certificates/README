@@ -1,15 +1,16 @@
-CURRENT (as of October 17, 2007) TERAGRID APPROVED CAs:
+CURRENT (as of April 23, 2010) TERAGRID APPROVED CAs:
 
 
 DOE SCIENCE GRID:
 -----------------
 
 [Updated signing certificates (validity dates extended) & signing_policies for DOEGrids and ESnet, and crl_url for ESnet, Nov 3, 2006]
+[Updated CRL URL for DOEGrids CA 1, May 1, 2008 (mccreary)]
 
 1c3f2ca8.0
 /DC=org/DC=DOEGrids/OU=Certificate Authorities/CN=DOEGrids CA 1
 1c3f2ca8.crl_url
-http://pki1.doegrids.org/CRL/doegrids.crl
+http://crl.doegrids.org/1c3f2ca8/1c3f2ca8.r0
 1c3f2ca8.signing_policy
 
 d1b603c3.0
@@ -30,43 +31,53 @@ http://www.irisgrid.es/pki/crl/cacrl.pem
 NCSA:
 -----
 
-[ EXPIRING Jun. 18, 2009 (cab) ]
-4a6cd8b1.0
-/C=US/O=National Center for Supercomputing Applications/CN=Certification Authority
-4a6cd8b1.crl_url
-http://ca.ncsa.uiuc.edu/4a6cd8b1.r0
-4a6cd8b1.signing_policy
-
+[ Verified 13May09 by mccreary, see NCSA_CACL_provenance for details ]
 9b95bbf2.0
 C=US, O=National Center for Supercomputing Applications, OU=Certificate Authorities, CN=CACL
 http://ca.ncsa.uiuc.edu/9b95bbf2.r0
 9b95bbf2.signing_policy
 
+[ Verified 07Oct09 by mccreary, see NCSA_MyProxy_provenance for details ]
 f2e89fe3.0
 C=US, O=National Center for Supercomputing Applications, OU=Certificate Authorities, CN=MyProxy
+http://ca.ncsa.uiuc.edu/f2e89fe3.r0
 f2e89fe3.signing_policy
+
+[ Added 13May09 by mccreary, see NCSA_GridShib_provenance for details ]
+e8ac4b61.0
+/C=US/O=National Center for Supercomputing Applications/OU=Certificate Authorities/CN=GridShib CA
+e8ac4b61.crl_url
+http://ca.ncsa.uiuc.edu/e8ac4b61.r0
+e8ac4b61.signing_policy
 
 PITTSBURGH SUPERCOMPUTING CENTER:
 ---------------------------------
 
-[NEW PSC CA certificates August 17, 2006]
-
+[ Verified 23Apr10 by mccreary, see PSC_provenance for details ]
 9b88e95b.0
 subject= /C=US/O=Pittsburgh Supercomputing Center/CN=PSC Root CA
 9b88e95b.crl_url
-http://www.psc.edu/ca/crl/9b88e95b.r0
+http://www.psc.edu/ca/crl/9b88e95b.crl
+9b88e95b.psc-root.cadesc
 9b88e95b.signing_policy
 
+[ Verified 23Apr10 by mccreary, see PSC_provenance for details ]
 acc06fda.0
 subject= /C=US/O=Pittsburgh Supercomputing Center/CN=PSC Hosts CA
 acc06fda.crl_url
-http://www.psc.edu/ca/crl/acc06fda.r0
+http://www.psc.edu/ca/crl/acc06fda.crl
+acc06fda.psc-host.cadesc
 acc06fda.signing_policy
 
-290a3b29.0
-subject= /C=US/O=Pittsburgh Supercomputing Center/CN=PSC Kerberos CA 1
-290a3b29.signing_policy
-
+[ Added 23Apr10 by mccreary, see PSC_provenance for details ]
+4b2783ac.0
+subject= /C=US/O=Pittsburgh Supercomputing Center/CN=PSC MyProxy CA
+4b2783ac.crl_url
+http://www.psc.edu/ca/crl/4b2783ac.crl
+4b2783ac.psc-myproxy.cadesc
+4b2783ac.signing_policy
+4b2783ac.info
+4b2783ac.namespaces
 
 Purdue University:
 ------------------
@@ -111,9 +122,44 @@ TACC:
 http://www.tacc.utexas.edu/CA/CRL
 9a1da9f9.signing_policy
 
+[ New TACC root and classic CA added, Dec 2008 (mccreary) ]
+684261aa.0 
+/DC=EDU/DC=UTEXAS/DC=TACC/O=UT-AUSTIN/CN=TACC Root CA
+684261aa.crl_url 
+http://www.tacc.utexas.edu/CA/684261aa.r0
+684261aa.signing_policy
+684261aa.tacc.cadesc
+684261aa.tacc.cadesc.sig
+
+e5cc84c2.0 
+/DC=EDU/DC=UTEXAS/DC=TACC/O=UT-AUSTIN/CN=TACC Classic CA
+e5cc84c2.crl_url
+http://www.tacc.utexas.edu/CA/e5cc84c2.r0
+e5cc84c2.signing_policy
+e5cc84c2.tacc.cadesc
+e5cc84c2.tacc.cadesc.sig
+
+See TACC_provenance for signed statement of certificate origin
+
+[ Added 13May09 by mccreary, see TACC_MICS_provenance for details ]
+2ac09305.0
+/DC=EDU/DC=UTEXAS/DC=TACC/O=UT-AUSTIN/CN=TACC MICS CA
+2ac09305.crl_url
+http://www.tacc.utexas.edu/CA/2ac09305.r0
+2ac09305.signing_policy
 
 UK E-Science CA:
 ----------------
+
+[ removal of old UK eScience certificates and urls, Aug 2008 (shelmire) ]
+
+Files 
+adcbc9ef.0
+                adcbc9ef.signing_policy
+                8175c1cd.0
+                8175c1cd.signing_policy
+
+have been removed. The host that was holding these certificates may have been compromised. The UK E-Science CA is no longer honoring them. 
 
 [ Replacement UK eScience certificates, May 2008 (mccreary) ]
 
@@ -240,6 +286,7 @@ http://security.fi.infn.it/CA/crl.pem
 
 [ added on Oct. 1, 2007 to reflect the issuing of a new CA (cab) ]
 [ Renamed the CRL URL to reflect an upublished PEM encoded file (cab) ]
+[ Updated signing policy, May 1, 2009 (mccreary) ]
 2f3fadf6.0
 /C=IT/O=INFN/CN=INFN CA
 http://security.fi.infn.it/CA/INFNCA_crl.pem
