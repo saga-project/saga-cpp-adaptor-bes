@@ -17,7 +17,7 @@ AX_SAGA_CONFIG()
 AC_CONFIG_FILES([config/make.cfg])
 
 SAGA_CONFIGURE_OK=yes
-if test "$HAVE_SAGA" = "no"; then SAGA_CONFIGURE_OK=no; fi
+if ! test "$HAVE_SAGA" = "yes"; then SAGA_CONFIGURE_OK=no; fi
 AC_SUBST([SAGA_CONFIGURE_OK])
 
 AC_OUTPUT()
@@ -33,6 +33,8 @@ echo " ========================================================        " >> $OUT
 echo "                                                                 " >> $OUT
 echo " Using SAGA from       : $SAGA_LOCATION                          " >> $OUT
 echo "       SAGA version    : $SAGA_VERSION                           " >> $OUT
+echo "                                                                 " >> $OUT
+echo " Adaptor Version       : $SAGA_LIB_VERSION                       " >> $OUT
 echo "                                                                 " >> $OUT
 echo " ========================================================        " >> $OUT
 echo "                                                                 " >> $OUT
