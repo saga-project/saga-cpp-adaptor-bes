@@ -8,3 +8,6 @@
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
 
+distclean::
+	@rm -f make.cfg
+

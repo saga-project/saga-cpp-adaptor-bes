@@ -16,6 +16,10 @@ AX_SAGA_CONFIG()
 # create output files
 AC_CONFIG_FILES([config/make.cfg])
 
+SAGA_CONFIGURE_OK=yes
+if test "$HAVE_SAGA" = "no"; then SAGA_CONFIGURE_OK=no; fi
+AC_SUBST([SAGA_CONFIGURE_OK])
+
 AC_OUTPUT()
 
 OUT=config.summary
@@ -27,7 +31,8 @@ echo " ========================================================        " >> $OUT
 echo " SAGA OGF ADAPTORS - Configuration Summary                       " >> $OUT
 echo " ========================================================        " >> $OUT
 echo "                                                                 " >> $OUT
-echo " Using SAGA from       : $TMP_SAGA_LOCATION ($TMP_SAGA_INSTTYPE) " >> $OUT
+echo " Using SAGA from       : $SAGA_LOCATION                          " >> $OUT
+echo "       SAGA version    : $SAGA_VERSION                           " >> $OUT
 echo "                                                                 " >> $OUT
 echo " ========================================================        " >> $OUT
 echo "                                                                 " >> $OUT
