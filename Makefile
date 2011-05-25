@@ -12,9 +12,9 @@ SAGA_SUBDIRS += ogf_job_hpcbp
 # SAGA_SUBDIRS += ogf_job_occi
 
 
-all:: config.summary
+all:: config/make.cfg
 
-config.summary:
+config/make.cfg: 
 	@echo ""
 	@echo " ================================= "
 	@echo "  you need to run configure first  "
