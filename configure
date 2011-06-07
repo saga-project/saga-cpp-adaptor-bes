@@ -1854,12 +1854,15 @@ $as_echo "$SAGA_PACKAGE_VERSION" >&6; }
 
 
 
+# wsseapi.cpp needs a check for an soap call arg constness
+
+
 # create output files
 ac_config_files="$ac_config_files config/make.cfg"
 
 
 SAGA_CONFIGURE_OK=yes
-if test "$HAVE_SAGA" = "no"; then SAGA_CONFIGURE_OK=no; fi
+if ! test "$HAVE_SAGA" = "yes"; then SAGA_CONFIGURE_OK=no; fi
 
 
 cat >confcache <<\_ACEOF
@@ -3026,6 +3029,8 @@ echo " ========================================================        " >> $OUT
 echo "                                                                 " >> $OUT
 echo " Using SAGA from       : $SAGA_LOCATION                          " >> $OUT
 echo "       SAGA version    : $SAGA_VERSION                           " >> $OUT
+echo "                                                                 " >> $OUT
+echo " Adaptor Version       : $SAGA_LIB_VERSION                       " >> $OUT
 echo "                                                                 " >> $OUT
 echo " ========================================================        " >> $OUT
 echo "                                                                 " >> $OUT

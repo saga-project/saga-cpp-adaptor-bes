@@ -13,6 +13,9 @@ AC_INIT()
 
 AX_SAGA_CONFIG()
 
+# wsseapi.cpp needs a check for an soap call arg constness
+
+
 # create output files
 AC_CONFIG_FILES([config/make.cfg])
 
