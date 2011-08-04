@@ -13,6 +13,8 @@ AC_INIT()
 
 AX_SAGA_CONFIG()
 
+SAGA_DEP_FILES="$SAGA_LOCATION/include/saga/saga.hpp"
+
 # wsseapi.cpp needs a check for an soap call arg constness
 
 
@@ -22,6 +24,9 @@ AC_CONFIG_FILES([config/make.cfg])
 SAGA_CONFIGURE_OK=yes
 if ! test "$HAVE_SAGA" = "yes"; then SAGA_CONFIGURE_OK=no; fi
 AC_SUBST([SAGA_CONFIGURE_OK])
+
+# debian package support
+AX_SAGA_CHECK_DEBDEPS([$SAGA_DEP_FILES])
 
 AC_OUTPUT()
 

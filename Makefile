@@ -24,6 +24,7 @@ config/make.cfg:
 
 
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.mk
+-include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
 
 # directory dependencies
 ogf_job_hpcbp: external

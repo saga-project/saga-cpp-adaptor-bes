@@ -1318,7 +1318,7 @@ soap_wsse_get_BinarySecurityTokenX509(struct soap *soap, const char *id)
     cert = d2i_X509(NULL, (const unsigned char**) &data, size);
 # else // __GNUC__ == 4
 #  if __GNUC_MINOR__ > 3
-    cert = d2i_X509(NULL, (unsigned char**) &data, size);
+    cert = d2i_X509(NULL, (const unsigned char**) &data, size);
 #  else
     cert = d2i_X509(NULL, (const unsigned char**) &data, size);
 #  endif
