@@ -60,23 +60,38 @@ namespace hpcbp
       struct jsdl_job_definition * jsdl_;
 
     public:
+
+      enum staging_flag
+      {
+        Overwrite     = 1,
+        Append        = 2,
+        DontOverwrite = 4
+      };
+
       job_description  (void);
       ~job_description (void);
 
       struct jsdl_job_definition   * get_jsdl (void) const;
       struct jsdl_hpcp_application * get_app  (void);
 
-      void set_job_name          (std::string s);
-      void set_job_annotation    (std::string s);
-      void set_job_project       (std::string s);
-      void set_total_cpu_count   (std::string s);
-      void set_executable        (std::string s);
-      void set_input             (std::string s);
-      void set_output            (std::string s);
-      void set_environment       (std::string s);
-      void set_error             (std::string s);
-      void set_working_directory (std::string s);
-      void set_args              (std::vector <std::string> args);
+      void set_job_name          (std::string  s);
+      void set_job_annotation    (std::string  s);
+      void set_job_project       (std::string  s);
+      void set_total_cpu_count   (std::string  s);
+      void set_executable        (std::string  s);
+      void set_input             (std::string  s);
+      void set_output            (std::string  s);
+      void set_environment       (std::string  s);
+      void set_error             (std::string  s);
+      void set_working_directory (std::string  s);
+      void set_args              (std::vector  <std::string> args);
+      void add_staging           (std::string  fname, 
+                                  std::string  fsysname, 
+                                  staging_flag flag,
+                                  bool         cleanup,
+                                  std::string  src, 
+                                  std::string  tgt, 
+                                  std::string  context_hint);
   };
 
 

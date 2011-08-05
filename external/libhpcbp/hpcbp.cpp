@@ -89,6 +89,86 @@ namespace hpcbp
     get_app ()->WorkingDirectory = ::strdup (s.c_str ());
   }
 
+  // struct jsdl_data_staging 
+  // {
+  //   struct jsdl_data_staging * next;
+  //   char                     * name;
+  //   char                     * FileName;
+  //   char                     * FileSystemName;
+  //   enum jsdl_creation_flags   CreationFlag;
+  //   int                        DeleteOnTermination;
+  //   char                     * SourceURI;
+  //   char                     * TargetURI;
+  //   struct hpcp_credential   * Credential;
+  // };
+  void job_description::add_staging (std::string  fname, 
+                                     std::string  fsysname, 
+                                     staging_flag flag,
+                                     bool         cleanup,
+                                     std::string  src, 
+                                     std::string  tgt, 
+                                     std::string  context_hint)
+  {
+    struct jsdl_data_staging * file = new struct jsdl_data_staging;
+
+    file->FileName = ::strdup (fname.c_str ());
+    if ( file->FileName == NULL )
+    {	
+      throw "strdup error";
+    }
+
+    file->FileSystemName = ::strdup (fsysname.c_str ());
+    if ( file->FileSystemName == NULL )
+    {	
+      throw "strdup error";
+    }
+
+    if      ( flag & Overwrite     ) { file->CreationFlag        = jsdl_overwrite;     }
+    else if ( flag & Append        ) { file->CreationFlag        = jsdl_append;        }
+    else if ( flag & DontOverwrite ) { file->CreationFlag        = jsdl_dontOverwrite; }
+
+    if      ( cleanup              ) { file->DeleteOnTermination = 1;                  }
+
+    file->SourceURI = ::strdup (src.c_str ());
+    if ( file->SourceURI == NULL )
+    {
+      throw "strdup error";
+    }
+
+    file->TargetURI = ::strdup (src.c_str ());
+    if ( file->TargetURI == NULL )
+    {
+      throw "strdup error";
+    }
+
+    if ( ! context_hint.empty () )
+    {
+      throw "no credential support for file staging, yet";
+       // struct hpcp_credential * cred = NULL;
+       // if ( (rc = jsdl_processCredential(cur, &cred)) != BESE_OK )
+       // {
+       //   jsdl_freeDataStaging(file);
+       //   return rc;
+       // }
+       // file->Credential = cred;
+    }
+        
+    struct jsdl_data_staging * cur_file = jsdl_->DataStaging;
+    if ( cur_file ) 
+    {
+      while ( cur_file->next ) 
+      {
+        cur_file = cur_file->next;
+      }
+      cur_file->next = file;
+    }
+    else 
+    {
+      jsdl_->DataStaging = file;
+    }
+  }
+
+
   void job_description::set_args (std::vector <std::string> args)
   {
     char ** c_args = NULL;
