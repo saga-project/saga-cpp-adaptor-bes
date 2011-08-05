@@ -429,6 +429,20 @@ int run_test (std::string       name,
     jd.set_attribute        (sja::description_executable, ep.exe);
     jd.set_vector_attribute (sja::description_arguments,  ep.args);
 
+    std::vector <std::string> file_transfers;
+
+    file_transfers.push_back ("http://host.1/data/1.dat >  http://host.1/data/2.dat");
+    // file_transfers.push_back ("http://host.1/data/1.dat >  1.dat");
+    // file_transfers.push_back ("http://host.2/data/2.dat >> 2.dat");
+    // file_transfers.push_back ("3.dat <  http://host.3/data/3.dat");
+    // file_transfers.push_back ("4.dat << http://host.4/data/4.dat");
+    // file_transfers.push_back ("userpass @ http://host.1/data/1.dat >  1.dat");
+    // file_transfers.push_back ("userpass @ http://host.2/data/2.dat >> 2.dat");
+    // file_transfers.push_back ("userpass @ 3.dat <  http://host.3/data/3.dat");
+    // file_transfers.push_back ("userpass @ 4.dat << http://host.4/data/4.dat");
+
+    jd.set_vector_attribute (sja::description_file_transfer,  file_transfers);
+
     // std::cout << " command       : " << ep.exe;
     // for ( unsigned int i = 0; i < ep.args.size (); i++ )
     // {

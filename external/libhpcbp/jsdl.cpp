@@ -1227,9 +1227,9 @@ jsdl_freeJobDefinition(struct jsdl_job_definition *jsdl)
 int
 jsdl_newJobDefinition(enum jsdl_application_type app_type, struct jsdl_job_definition **jsdl)
 {
-    struct jsdl_job_definition *jd;
+    struct jsdl_job_definition    *jd;
     struct jsdl_posix_application *posix;
-    struct jsdl_hpcp_application *hpcp;
+    struct jsdl_hpcp_application  *hpcp;
     void *app;
    
     if (jsdl == NULL) {
@@ -2815,6 +2815,7 @@ jsdl_generateJobDefinitionDOM(struct jsdl_job_definition *jd, struct soap_dom_el
 void
 jsdl_freeJobDefinitionDOM(struct soap_dom_element *dom)
 {
+    bes_printDom (dom, "test_am", 0);
     struct soap *s;
 
     if (dom == NULL) {
@@ -2823,4 +2824,6 @@ jsdl_freeJobDefinitionDOM(struct soap_dom_element *dom)
     s = dom->soap;
     soap_end(s);
     soap_free(s);
+
+
 }

@@ -76,7 +76,6 @@ struct Namespace epr_namespaces[] = {
 int isElement(struct soap_dom_element *, char *, char *);
 int isAttribute(struct soap_dom_attribute *, const char *, const char *);
 int generateAddressingHeaders(struct bes_context *, epr_t, const char *, char **);
-void printDom(struct soap_dom_element*, char *, int); 
 void cleanDom(struct soap_dom_element*);
 void setErrorString(struct bes_context *, struct soap *, int);
 char *generateEPRString(struct soap_dom_element *, char *);
@@ -1236,9 +1235,9 @@ bes_getEPRString(epr_t epr)
 }
 
 void
-printDom(struct soap_dom_element *node, 
-         char *current_nstr, 
-         int depth) 
+bes_printDom(struct soap_dom_element *node, 
+             char *current_nstr, 
+             int depth) 
 {
     struct soap_dom_attribute *attr;
     int i;
@@ -1272,14 +1271,14 @@ printDom(struct soap_dom_element *node,
     }
     
     if (node->elts)
-        printDom(node->elts, (char*)node->nstr, depth+1);
+        bes_printDom(node->elts, (char*)node->nstr, depth+1);
     
     for (i = 0; i < depth; i++)
         fprintf(stdout, "   ");
     fprintf(stdout, "</%s>\n", node->name);
     
     if (node->next)
-        printDom(node->next, current_nstr, depth);
+        bes_printDom(node->next, current_nstr, depth);
     
 }
 
@@ -1326,7 +1325,7 @@ calcDomSize(struct soap_dom_element *node,
     }
 
     // fprintf (stdout, "calcDomSize\n----\n");
-    // printDom (node, current_nstr, 0);
+    // bes_printDom (node, current_nstr, 0);
     // fprintf (stdout, "---- %d -- \n", size);
 
     // FIXME: for some reason, the computed size value is wrong.  I found the

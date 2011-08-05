@@ -119,5 +119,7 @@ int          bes_initEPRFromString            (struct bes_context *, const char 
 char       * bes_getEPRString                 (epr_t);
 void         bes_freeActivityStatus           (struct bes_activity_status *);
 
+void         bes_printDom                     (struct soap_dom_element*, char *, int); 
+
 #endif /* _BES_H */
 

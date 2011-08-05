@@ -1,6 +1,8 @@
 
 #include "hpcbp.hpp"
 
+#include <regex.h>
+
 
 namespace hpcbp
 {
@@ -11,12 +13,19 @@ namespace hpcbp
 
     if ( jsdl_newJobDefinition (JSDL_HPC_PROFILE_APPLICATION, &jsdl_) )
     {
-      throw "Canot create jd";
+      throw "Cannot create jd";
     }
+
+    jsdl_->DataStaging = NULL;
   }
 
   job_description::~job_description (void)
   {
+    if ( jsdl_ != NULL )
+    {
+      jsdl_freeJobDefinition (jsdl_);
+      jsdl_ = NULL;
+    }
   }
 
   struct jsdl_job_definition * job_description::get_jsdl (void) const
@@ -101,71 +110,202 @@ namespace hpcbp
   //   char                     * TargetURI;
   //   struct hpcp_credential   * Credential;
   // };
-  void job_description::add_staging (std::string  fname, 
-                                     std::string  fsysname, 
-                                     staging_flag flag,
-                                     bool         cleanup,
-                                     std::string  src, 
-                                     std::string  tgt, 
-                                     std::string  context_hint)
+  void job_description::set_file_transfers (std::vector <std::string> specs)
   {
-    struct jsdl_data_staging * file = new struct jsdl_data_staging;
+    // "           http://host.one/data/one >> ftp://host.two/stage/two"
+    // "UserPass @ http://host.one/data/one >  ftp://host.two/stage/two"
+    std::string spec_pattern = "^(([^ ]+) +@ +)?([^ ><]+) *(>|>>|<|<<) *([^ ><]+)$";
+    regex_t     regex;
 
-    file->FileName = ::strdup (fname.c_str ());
-    if ( file->FileName == NULL )
-    {	
-      throw "strdup error";
-    }
-
-    file->FileSystemName = ::strdup (fsysname.c_str ());
-    if ( file->FileSystemName == NULL )
-    {	
-      throw "strdup error";
-    }
-
-    if      ( flag & Overwrite     ) { file->CreationFlag        = jsdl_overwrite;     }
-    else if ( flag & Append        ) { file->CreationFlag        = jsdl_append;        }
-    else if ( flag & DontOverwrite ) { file->CreationFlag        = jsdl_dontOverwrite; }
-
-    if      ( cleanup              ) { file->DeleteOnTermination = 1;                  }
-
-    file->SourceURI = ::strdup (src.c_str ());
-    if ( file->SourceURI == NULL )
+    if ( 0 != regcomp (&regex, spec_pattern.c_str (), REG_EXTENDED) )
     {
-      throw "strdup error";
+      throw "regcomp() failed"; // FIXME errno
     }
 
-    file->TargetURI = ::strdup (src.c_str ());
-    if ( file->TargetURI == NULL )
-    {
-      throw "strdup error";
-    }
 
-    if ( ! context_hint.empty () )
+    for ( unsigned int i = 0; i < specs.size (); i++ )
     {
-      throw "no credential support for file staging, yet";
-       // struct hpcp_credential * cred = NULL;
-       // if ( (rc = jsdl_processCredential(cur, &cred)) != BESE_OK )
-       // {
-       //   jsdl_freeDataStaging(file);
-       //   return rc;
-       // }
-       // file->Credential = cred;
-    }
-        
-    struct jsdl_data_staging * cur_file = jsdl_->DataStaging;
-    if ( cur_file ) 
-    {
-      while ( cur_file->next ) 
+      std::string spec   = specs[i];
+      size_t      nmatch = 6;
+      regmatch_t  pmatch[6];
+
+      std::cout << "parsing '" << spec << "' against '" << spec_pattern << "'" << std::endl;
+
+      if ( 0 != regexec (&regex, spec.c_str (), nmatch, pmatch, 0) )
       {
-        cur_file = cur_file->next;
+        throw "regexec() failed"; // FIXME errno
       }
-      cur_file->next = file;
+
+      std::vector <std::string> matches;
+
+      for ( unsigned int j = 0; j < nmatch; j++ )
+      {
+        if ( pmatch[j].rm_so != -1 )
+        {
+          std::string match;
+
+          for ( int k = pmatch[j].rm_so; k < pmatch[j].rm_eo; k++ )
+          {
+            match += spec[k];
+          }
+
+          std::cout << " spec match " << j << " : " << match << std::endl;
+          matches.push_back (match);
+        }
+      }
+
+      std::string  fname;
+      std::string  fsysname;
+      staging_flag flag;
+      bool         cleanup = false;
+      std::string  src;
+      std::string  tgt; 
+      std::string  context_hint;
+
+      std::cout << "matches: " << matches.size () << std::endl;
+
+      std::string start_uri = "<jsdl:URI>";
+      std::string end_uri   = "</jsdl:URI>";
+
+      // 0 1 2                   3              4              5
+      // "^( ([^\\s]+)\\s+@\\s+)?([^\\><s]+)\\s*(>|>>|<|<<)\\s*([^\\><s]+)$";
+      if ( matches.size () == 6 )
+      {
+        context_hint = matches[2];
+
+        if ( matches[4] == ">"  || matches[4] == ">>" )
+        {
+          src = start_uri    + matches[3] + end_uri;
+          tgt = start_uri    + matches[5] + end_uri;
+        }
+        else 
+        if ( matches[4] == "<" || matches[4] == "<<" )
+        {
+          tgt = start_uri    + matches[3] + end_uri;
+          src = start_uri    + matches[5] + end_uri;
+        }
+        else
+        {
+          throw "invalid file transfer operation"; // FIXME: details
+        }
+
+             if ( matches[4] == ">"  ) { flag = Overwrite; }
+        else if ( matches[4] == ">>" ) { flag = Append;    }
+        else if ( matches[4] == "<"  ) { flag = Overwrite; }
+        else if ( matches[4] == "<<" ) { flag = Append;    }
+      }
+      // 0 1 2                   3              4              5
+      // "^( ([^\\s]+)\\s+@\\s+)?([^\\><s]+)\\s*(>|>>|<|<<)\\s*([^\\><s]+)$";
+      else if ( matches.size () == 4 )
+      {
+        if ( matches[2] == ">"  || matches[2] == ">>" )
+        {
+          src = start_uri    + matches[1] + end_uri;
+          tgt = start_uri    + matches[3] + end_uri;
+        }
+        else 
+        if ( matches[2] == "<" || matches[2] == "<<" )
+        {
+          tgt = start_uri    + matches[1] + end_uri;
+          src = start_uri    + matches[3] + end_uri;
+        }
+        else
+        {
+          throw "invalid file transfer operation"; // FIXME: details
+        }
+
+             if ( matches[2] == ">"  ) { flag = Overwrite; }
+        else if ( matches[2] == ">>" ) { flag = Append;    }
+        else if ( matches[2] == "<"  ) { flag = Overwrite; }
+        else if ( matches[2] == "<<" ) { flag = Append;    }
+      }
+      else
+      {
+        throw "file transfer spec parse error"; // FIXME: details
+      }
+
+      struct jsdl_data_staging * file = new struct jsdl_data_staging;
+
+      file->next                = NULL;
+      file->name                = NULL;
+      file->FileName            = NULL;
+      file->FileSystemName      = NULL;
+      file->CreationFlag        = jsdl_nocreationflag;
+      file->DeleteOnTermination = 0;
+      file->SourceURI           = NULL;
+      file->TargetURI           = NULL;
+      file->Credential          = NULL;
+
+
+      if ( ! fname.empty () )
+      {
+        file->FileName = ::strdup (fname.c_str ());
+        if ( file->FileName == NULL )
+        {	
+          throw "strdup error";
+        }
+      }
+
+      if ( ! fsysname.empty () )
+      {
+        file->FileSystemName = ::strdup (fsysname.c_str ());
+        if ( file->FileSystemName == NULL )
+        {	
+          throw "strdup error";
+        }
+      }
+
+      if      ( flag & Overwrite     ) { file->CreationFlag        = jsdl_overwrite;     }
+      else if ( flag & Append        ) { file->CreationFlag        = jsdl_append;        }
+      else if ( flag & DontOverwrite ) { file->CreationFlag        = jsdl_dontOverwrite; }
+
+      if ( cleanup ) 
+      { 
+        file->DeleteOnTermination = 1;
+      }
+
+      file->SourceURI = ::strdup (src.c_str ());
+      if ( file->SourceURI == NULL )
+      {
+        throw "strdup error";
+      }
+
+      file->TargetURI = ::strdup (tgt.c_str ());
+      if ( file->TargetURI == NULL )
+      {
+        throw "strdup error";
+      }
+
+      if ( ! context_hint.empty () )
+      {
+        std::cout <<  "no credential support for file staging, yet: " << context_hint << std::endl;
+        // throw "no credential support for file staging, yet";
+        // struct hpcp_credential * cred = NULL;
+        // if ( (rc = jsdl_processCredential(cur, &cred)) != BESE_OK )
+        // {
+        //   jsdl_freeDataStaging(file);
+        //   return rc;
+        // }
+        // file->Credential = cred;
+      }
+
+      struct jsdl_data_staging * cur_file = jsdl_->DataStaging;
+      if ( cur_file ) 
+      {
+        while ( cur_file->next ) 
+        {
+          cur_file = cur_file->next;
+        }
+        cur_file->next = file;
+      }
+      else 
+      {
+        jsdl_->DataStaging = file;
+      }
     }
-    else 
-    {
-      jsdl_->DataStaging = file;
-    }
+
+    regfree (&regex); // FIXME: we should re-use the compiled regex
+
   }
 
 

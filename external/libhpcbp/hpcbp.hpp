@@ -85,13 +85,7 @@ namespace hpcbp
       void set_error             (std::string  s);
       void set_working_directory (std::string  s);
       void set_args              (std::vector  <std::string> args);
-      void add_staging           (std::string  fname, 
-                                  std::string  fsysname, 
-                                  staging_flag flag,
-                                  bool         cleanup,
-                                  std::string  src, 
-                                  std::string  tgt, 
-                                  std::string  context_hint);
+      void set_file_transfers    (std::vector  <std::string> specs);
   };
 
 

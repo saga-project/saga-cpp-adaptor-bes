@@ -200,12 +200,6 @@ namespace ogf_hpcbp_job
         jsdl_.set_args (jd_.get_vector_attribute (sja::description_arguments));
       }
 
-      // if ( jd_.attribute_exists (sja::description_job_name) )
-      // {
-      //   jsdl_.set_job_name       (jd_.get_attribute (sja::description_job_name));
-      //   jsdl_.set_job_annotation (jd_.get_attribute (sja::description_job_name));
-      // }
-
       if ( jd_.attribute_exists (sja::description_job_project) )
       {
         jsdl_.set_job_project (jd_.get_attribute (sja::description_job_project));
@@ -234,6 +228,11 @@ namespace ogf_hpcbp_job
       if ( jd_.attribute_exists (sja::description_working_directory) )
       {
         jsdl_.set_working_directory (jd_.get_attribute (sja::description_working_directory));
+      }
+
+      if ( jd_.attribute_exists (sja::description_file_transfer) )
+      {
+        jsdl_.set_file_transfers (jd_.get_vector_attribute (sja::description_file_transfer));
       }
     }
 
