@@ -137,21 +137,19 @@ namespace hpcbp
       }
 
       std::vector <std::string> matches;
+      matches.resize (6, "");
 
       for ( unsigned int j = 0; j < nmatch; j++ )
       {
         if ( pmatch[j].rm_so != -1 )
         {
-          std::string match;
-
           for ( int k = pmatch[j].rm_so; k < pmatch[j].rm_eo; k++ )
           {
-            match += spec[k];
+            matches[j] += spec[k];
           }
-
-          std::cout << " spec match " << j << " : " << match << std::endl;
-          matches.push_back (match);
         }
+
+        std::cout << " spec match " << j << " : " << matches[j] << std::endl;
       }
 
       std::string  fname;
@@ -167,61 +165,37 @@ namespace hpcbp
       std::string start_uri = "<jsdl:URI>";
       std::string end_uri   = "</jsdl:URI>";
 
+      std::string start_file = "<jsdl:FileName>";
+      std::string end_file   = "</jsdl:FileName>";
+
       // 0 1 2                   3              4              5
       // "^( ([^\\s]+)\\s+@\\s+)?([^\\><s]+)\\s*(>|>>|<|<<)\\s*([^\\><s]+)$";
-      if ( matches.size () == 6 )
+
+      context_hint = matches[2];
+
+      if ( matches[4] == ">"  ||
+           matches[4] == ">>" )
       {
-        context_hint = matches[2];
+        // stage in
+        src   = start_uri  + matches[3] + end_uri;
+        fname = start_file + matches[5] + end_file;
 
-        if ( matches[4] == ">"  || matches[4] == ">>" )
-        {
-          src = start_uri    + matches[3] + end_uri;
-          tgt = start_uri    + matches[5] + end_uri;
-        }
-        else 
-        if ( matches[4] == "<" || matches[4] == "<<" )
-        {
-          tgt = start_uri    + matches[3] + end_uri;
-          src = start_uri    + matches[5] + end_uri;
-        }
-        else
-        {
-          throw "invalid file transfer operation"; // FIXME: details
-        }
-
-             if ( matches[4] == ">"  ) { flag = Overwrite; }
-        else if ( matches[4] == ">>" ) { flag = Append;    }
-        else if ( matches[4] == "<"  ) { flag = Overwrite; }
-        else if ( matches[4] == "<<" ) { flag = Append;    }
+        if ( matches[4] == ">"  ) { flag = Overwrite; }
+        else                      { flag = Append;    }
       }
-      // 0 1 2                   3              4              5
-      // "^( ([^\\s]+)\\s+@\\s+)?([^\\><s]+)\\s*(>|>>|<|<<)\\s*([^\\><s]+)$";
-      else if ( matches.size () == 4 )
+      else if ( matches[4] == "<"  || 
+                matches[4] == "<<" )
       {
-        if ( matches[2] == ">"  || matches[2] == ">>" )
-        {
-          src = start_uri    + matches[1] + end_uri;
-          tgt = start_uri    + matches[3] + end_uri;
-        }
-        else 
-        if ( matches[2] == "<" || matches[2] == "<<" )
-        {
-          tgt = start_uri    + matches[1] + end_uri;
-          src = start_uri    + matches[3] + end_uri;
-        }
-        else
-        {
-          throw "invalid file transfer operation"; // FIXME: details
-        }
+        // stage out
+        tgt   = start_uri  + matches[3] + end_uri;
+        fname = start_file + matches[5] + end_file;
 
-             if ( matches[2] == ">"  ) { flag = Overwrite; }
-        else if ( matches[2] == ">>" ) { flag = Append;    }
-        else if ( matches[2] == "<"  ) { flag = Overwrite; }
-        else if ( matches[2] == "<<" ) { flag = Append;    }
+        if ( matches[4] == "<"  ) { flag = Overwrite; }
+        else                      { flag = Append;    }
       }
       else
       {
-        throw "file transfer spec parse error"; // FIXME: details
+        throw "invalid file transfer operation"; // FIXME: details
       }
 
       struct jsdl_data_staging * file = new struct jsdl_data_staging;

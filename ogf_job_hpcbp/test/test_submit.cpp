@@ -431,15 +431,14 @@ int run_test (std::string       name,
 
     std::vector <std::string> file_transfers;
 
-    file_transfers.push_back ("http://host.1/data/1.dat >  http://host.1/data/2.dat");
-    // file_transfers.push_back ("http://host.1/data/1.dat >  1.dat");
-    // file_transfers.push_back ("http://host.2/data/2.dat >> 2.dat");
-    // file_transfers.push_back ("3.dat <  http://host.3/data/3.dat");
-    // file_transfers.push_back ("4.dat << http://host.4/data/4.dat");
-    // file_transfers.push_back ("userpass @ http://host.1/data/1.dat >  1.dat");
-    // file_transfers.push_back ("userpass @ http://host.2/data/2.dat >> 2.dat");
-    // file_transfers.push_back ("userpass @ 3.dat <  http://host.3/data/3.dat");
-    // file_transfers.push_back ("userpass @ 4.dat << http://host.4/data/4.dat");
+    file_transfers.push_back ("http://host.1/data/1.dat >  1.dat");
+    file_transfers.push_back ("http://host.2/data/2.dat >> 2.dat");
+    file_transfers.push_back ("http://host.3/data/3.dat <  3.dat");
+    file_transfers.push_back ("http://host.4/data/4.dat << 4.dat");
+    file_transfers.push_back ("userpass @ http://host.1/data/1.dat >  1.dat");
+    file_transfers.push_back ("userpass @ http://host.2/data/2.dat >> 2.dat");
+    file_transfers.push_back ("userpass @ http://host.3/data/3.dat <  3.dat");
+    file_transfers.push_back ("userpass @ http://host.4/data/4.dat << 4.dat");
 
     jd.set_vector_attribute (sja::description_file_transfer,  file_transfers);
 
