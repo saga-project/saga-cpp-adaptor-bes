@@ -463,7 +463,15 @@ namespace hpcbp
     combined_state cs;
 
     cs.state    = static_cast <state> (status.state);
-    cs.substate = status.substate;
+
+    if ( NULL != status.substate )
+    {
+      cs.substate = status.substate;
+    }
+    else
+    {
+      cs.substate = "";
+    }
 
     // FIXME: run thread which monitors job state asynchronously, 
     // and which sets attribs and metrics

@@ -68,6 +68,11 @@ namespace ogf_hpcbp_job
 
     std::string get_saga_substate (const hpcbp::combined_state & cs) const
     {
+      if ( cs.substate.empty () )
+      {
+        return "";
+      }
+
       std::string ret;
       std::string tmp = cs.substate;
 
