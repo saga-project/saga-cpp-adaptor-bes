@@ -990,8 +990,8 @@ jsdl_freeDataStaging(struct jsdl_data_staging *file)
     if (file->name) free(file->name);
     if (file->FileName) free(file->FileName);
     if (file->FileSystemName) free(file->FileSystemName);
-    if (file->SourceURI) free(file->SourceURI);
-    if (file->TargetURI) free(file->TargetURI);
+    if (file->Source) free(file->Source);
+    if (file->Target) free(file->Target);
     if (file->Credential) {
         if (file->Credential->username) free(file->Credential->username);
         if (file->Credential->password) free(file->Credential->password);
@@ -1051,8 +1051,8 @@ jsdl_processDataStaging(struct soap_dom_element *dom,
         }
         else if (isElement(cur, JSDL_NS, "Source")) {
             if (isElement(cur->elts, JSDL_NS, "URI")) {
-                file->SourceURI = strdup(cur->elts->data);
-                if (file->SourceURI == NULL) {
+                file->Source = strdup(cur->elts->data);
+                if (file->Source == NULL) {
                     jsdl_freeDataStaging(file);
                     return BESE_MEM_ALLOC;
                 }
@@ -1064,8 +1064,8 @@ jsdl_processDataStaging(struct soap_dom_element *dom,
         }
         else if (isElement(cur, JSDL_NS, "Target")) {
             if (isElement(cur->elts, JSDL_NS, "URI")) {
-                file->TargetURI = strdup(cur->elts->data);
-                if (file->TargetURI == NULL) {
+                file->Target = strdup(cur->elts->data);
+                if (file->Target == NULL) {
                     jsdl_freeDataStaging(file);
                     return BESE_MEM_ALLOC;
                 }
@@ -2555,24 +2555,24 @@ jsdl_generateHPCPCredential(struct soap *s, struct hpcp_credential *cred)
 struct soap_dom_element *
 jsdl_generateDataStaging(struct soap *s, struct jsdl_data_staging *ds)
 {
-    struct soap_dom_element *data, *first, *cur, *dom;
+    struct soap_dom_element *stage, *first, *cur, *dom, *uri;
 
     if (ds == NULL) {
         return NULL;
     }
 
-    data = jsdl_generateDomElement(s, JSDL_NS, "DataStaging");
-    if (data == NULL) {
+    stage = jsdl_generateDomElement(s, JSDL_NS, "DataStaging");
+    if (stage == NULL) {
         return NULL;
     }
 
     if (ds->name) {
-        data->atts = jsdl_generateDomAttribute(s, "name");
-        if (data->atts == NULL) {
+        stage->atts = jsdl_generateDomAttribute(s, "name");
+        if (stage->atts == NULL) {
             return NULL;
         }
-        data->atts->data = soap_strdup(s, ds->name);
-        if (data->atts->data == NULL) {
+        stage->atts->data = soap_strdup(s, ds->name);
+        if (stage->atts->data == NULL) {
             return NULL;
         }
     }
@@ -2588,7 +2588,7 @@ jsdl_generateDataStaging(struct soap *s, struct jsdl_data_staging *ds)
         if (dom->data == NULL) {
             return NULL;
         }
-        dom->prnt = data;
+        dom->prnt = stage;
         if (!first) {
             first = dom;
         }
@@ -2607,7 +2607,7 @@ jsdl_generateDataStaging(struct soap *s, struct jsdl_data_staging *ds)
         if (dom->data == NULL) {
             return NULL;
         }
-        dom->prnt = data;
+        dom->prnt = stage;
         if (!first) {
             first = dom;
         }
@@ -2622,7 +2622,7 @@ jsdl_generateDataStaging(struct soap *s, struct jsdl_data_staging *ds)
         if (dom == NULL) {
             return NULL;
         }
-        dom->prnt = data;
+        dom->prnt = stage;
         switch (ds->CreationFlag) {
         case jsdl_overwrite:
             dom->data = "overwrite";
@@ -2654,7 +2654,7 @@ jsdl_generateDataStaging(struct soap *s, struct jsdl_data_staging *ds)
         if (dom->data == NULL) {
             return NULL;
         }
-        dom->prnt = data;
+        dom->prnt = stage;
         if (!first) {
             first = dom;
         }
@@ -2664,16 +2664,26 @@ jsdl_generateDataStaging(struct soap *s, struct jsdl_data_staging *ds)
         cur = dom;
     }
 
-    if (ds->SourceURI) {
-        dom = jsdl_generateDomElement(s, JSDL_NS, "SourceURI");
+    if (ds->Source) {
+        dom = jsdl_generateDomElement(s, JSDL_NS, "Source");
         if (dom == NULL) {
             return NULL;
         }
-        dom->data = soap_strdup(s, ds->SourceURI);
-        if (dom->data == NULL) {
+
+        uri = jsdl_generateDomElement(s, JSDL_NS, "URI");
+        if (uri == NULL) {
             return NULL;
         }
-        dom->prnt = data;
+
+        uri->data = soap_strdup(s, ds->Source);
+        if (uri->data == NULL) {
+            return NULL;
+        }
+
+        uri->prnt = dom;
+        dom->elts = uri;
+        dom->prnt = stage;
+
         if (!first) {
             first = dom;
         }
@@ -2683,16 +2693,17 @@ jsdl_generateDataStaging(struct soap *s, struct jsdl_data_staging *ds)
         cur = dom;
     }
 
-    if (ds->TargetURI) {
-        dom = jsdl_generateDomElement(s, JSDL_NS, "TargetURI");
+    if (ds->Target) {
+        dom = jsdl_generateDomElement(s, JSDL_NS, "Target");
         if (dom == NULL) {
             return NULL;
         }
-        dom->data = soap_strdup(s, ds->TargetURI);
+        else
+        dom->data = soap_strdup(s, ds->Target);
         if (dom->data == NULL) {
             return NULL;
         }
-        dom->prnt = data;
+        dom->prnt = stage;
         if (!first) {
             first = dom;
         }
@@ -2707,7 +2718,7 @@ jsdl_generateDataStaging(struct soap *s, struct jsdl_data_staging *ds)
         if (dom == NULL) {
             return NULL;
         }
-        dom->prnt = data;
+        dom->prnt = stage;
         if (!first) {
             first = dom;
         }
@@ -2721,9 +2732,9 @@ jsdl_generateDataStaging(struct soap *s, struct jsdl_data_staging *ds)
         return NULL;
     }
 
-    data->elts = first;
+    stage->elts = first;
 
-    return data;
+    return stage;
 }
 
 int
@@ -2813,9 +2824,21 @@ jsdl_generateJobDefinitionDOM(struct jsdl_job_definition *jd, struct soap_dom_el
 }
 
 void
+jsdl_printJobDefinition (struct jsdl_job_definition * jsdl)
+{
+  struct soap_dom_element *jsdl_dom;
+
+  if ( jsdl_generateJobDefinitionDOM (jsdl, &jsdl_dom) )
+  {
+    return;
+  }
+
+  bes_printDom (jsdl_dom, NULL, 0);
+}
+
+void
 jsdl_freeJobDefinitionDOM(struct soap_dom_element *dom)
 {
-    bes_printDom (dom, "test_am", 0);
     struct soap *s;
 
     if (dom == NULL) {

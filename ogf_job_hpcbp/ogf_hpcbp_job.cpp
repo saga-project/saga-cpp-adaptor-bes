@@ -252,7 +252,16 @@ namespace ogf_hpcbp_job
   {
     adaptor_data_type adata (this);
 
-    state_ = adata->get_saga_state (bp_.get_state (job_epr_));
+    hpcbp::combined_state cs = bp_.get_state (job_epr_);
+
+    state_ = adata->get_saga_state (cs);
+
+    saga::adaptors::attribute jobattr (this);
+
+    // FIXME: need to set metric, not attribute.  How?
+    // jobattr.set_attribute (saga::job::attributes::substate, adata->get_saga_substate (cs));
+
+    // std::cout << "  substate   : " << adata->get_saga_substate (cs) << std::endl;
 
     ret = state_;
   }
@@ -333,6 +342,8 @@ namespace ogf_hpcbp_job
       SAGA_ADAPTOR_THROW ("can run only 'New' jobs", saga::IncorrectState);
     }
 
+    jsdl_.dump ();
+
     job_epr_ = bp_.run (jsdl_);
 
     std::string s1 (rm_s_);
@@ -379,7 +390,7 @@ namespace ogf_hpcbp_job
 
     while ( time < timeout ) 
     {
-      state_ = adata->get_saga_state (bp_.get_state (job_epr_));
+      adata->get_saga_state (bp_.get_state (job_epr_));
 
       if ( state_ == saga::job::Canceled ||
            state_ == saga::job::Failed   ||

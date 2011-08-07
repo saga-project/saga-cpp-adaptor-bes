@@ -63,11 +63,11 @@ int main (int argc, char * argv[])
 
     while ( true ) 
     {
-      hpcbp::state state = bp.get_state (job_epr);
+      hpcbp::combined_state cs = bp.get_state (job_epr);
 
-      if ( state == hpcbp::Canceled  ||
-           state == hpcbp::Failed    ||
-           state == hpcbp::Finished  )
+      if ( cs.state == hpcbp::Canceled  ||
+           cs.state == hpcbp::Failed    ||
+           cs.state == hpcbp::Finished  )
       {
         break;
       }

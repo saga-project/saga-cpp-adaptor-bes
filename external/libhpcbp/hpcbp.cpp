@@ -106,8 +106,8 @@ namespace hpcbp
   //   char                     * FileSystemName;
   //   enum jsdl_creation_flags   CreationFlag;
   //   int                        DeleteOnTermination;
-  //   char                     * SourceURI;
-  //   char                     * TargetURI;
+  //   char                     * Source;
+  //   char                     * Target;
   //   struct hpcp_credential   * Credential;
   // };
   void job_description::set_file_transfers (std::vector <std::string> specs)
@@ -152,33 +152,27 @@ namespace hpcbp
         std::cout << " spec match " << j << " : " << matches[j] << std::endl;
       }
 
-      std::string  fname;
-      std::string  fsysname;
+      std::string  fname ("");
+      std::string  fsys  ("");
+      std::string  src   ("");
+      std::string  tgt   (""); 
+      std::string  ctx   ("");
       staging_flag flag;
       bool         cleanup = false;
-      std::string  src;
-      std::string  tgt; 
-      std::string  context_hint;
 
       std::cout << "matches: " << matches.size () << std::endl;
-
-      std::string start_uri = "<jsdl:URI>";
-      std::string end_uri   = "</jsdl:URI>";
-
-      std::string start_file = "<jsdl:FileName>";
-      std::string end_file   = "</jsdl:FileName>";
 
       // 0 1 2                   3              4              5
       // "^( ([^\\s]+)\\s+@\\s+)?([^\\><s]+)\\s*(>|>>|<|<<)\\s*([^\\><s]+)$";
 
-      context_hint = matches[2];
+      ctx = matches[2];
 
       if ( matches[4] == ">"  ||
            matches[4] == ">>" )
       {
         // stage in
-        src   = start_uri  + matches[3] + end_uri;
-        fname = start_file + matches[5] + end_file;
+        src   = matches[3];
+        fname = matches[5];
 
         if ( matches[4] == ">"  ) { flag = Overwrite; }
         else                      { flag = Append;    }
@@ -187,8 +181,8 @@ namespace hpcbp
                 matches[4] == "<<" )
       {
         // stage out
-        tgt   = start_uri  + matches[3] + end_uri;
-        fname = start_file + matches[5] + end_file;
+        tgt   = matches[3];
+        fname = matches[5];
 
         if ( matches[4] == "<"  ) { flag = Overwrite; }
         else                      { flag = Append;    }
@@ -206,8 +200,8 @@ namespace hpcbp
       file->FileSystemName      = NULL;
       file->CreationFlag        = jsdl_nocreationflag;
       file->DeleteOnTermination = 0;
-      file->SourceURI           = NULL;
-      file->TargetURI           = NULL;
+      file->Source              = NULL;
+      file->Target              = NULL;
       file->Credential          = NULL;
 
 
@@ -220,9 +214,9 @@ namespace hpcbp
         }
       }
 
-      if ( ! fsysname.empty () )
+      if ( ! fsys.empty () )
       {
-        file->FileSystemName = ::strdup (fsysname.c_str ());
+        file->FileSystemName = ::strdup (fsys.c_str ());
         if ( file->FileSystemName == NULL )
         {	
           throw "strdup error";
@@ -238,21 +232,27 @@ namespace hpcbp
         file->DeleteOnTermination = 1;
       }
 
-      file->SourceURI = ::strdup (src.c_str ());
-      if ( file->SourceURI == NULL )
+      if ( ! src.empty () )
       {
-        throw "strdup error";
+        file->Source = ::strdup (src.c_str ());
+        if ( file->Source == NULL )
+        {
+          throw "strdup error";
+        }
       }
 
-      file->TargetURI = ::strdup (tgt.c_str ());
-      if ( file->TargetURI == NULL )
+      if ( ! tgt.empty () )
       {
-        throw "strdup error";
+        file->Target = ::strdup (tgt.c_str ());
+        if ( file->Target == NULL )
+        {
+          throw "strdup error";
+        }
       }
 
-      if ( ! context_hint.empty () )
+      if ( ! ctx.empty () )
       {
-        std::cout <<  "no credential support for file staging, yet: " << context_hint << std::endl;
+        std::cout <<  "no credential support for file staging, yet: " << ctx << std::endl;
         // throw "no credential support for file staging, yet";
         // struct hpcp_credential * cred = NULL;
         // if ( (rc = jsdl_processCredential(cur, &cred)) != BESE_OK )
@@ -301,6 +301,13 @@ namespace hpcbp
     get_app ()->Argument = c_args;
   }
 
+  void job_description::dump (void)
+  {
+    jsdl_printJobDefinition (jsdl_);
+  }
+
+
+  //////////////////////////////////////////////////////////////////////
   void connector::init_security_ (void)
   {
     char * x509cert;
@@ -441,7 +448,7 @@ namespace hpcbp
     return;
   }
 
-  state connector::get_state (job_handle & job_epr)
+  combined_state connector::get_state (job_handle & job_epr)
   {
     init_security_ (); 
 
@@ -453,10 +460,15 @@ namespace hpcbp
       throw (bes_get_lasterror (bes_context_));
     }
 
-    // FIXME: set state and substate attribs FIXME: run thread which
-    // monitors job state asynchronously, and which sets attribs and
-    // metrics
-    return (state) status.state; 
+    combined_state cs;
+
+    cs.state    = static_cast <state> (status.state);
+    cs.substate = status.substate;
+
+    // FIXME: run thread which monitors job state asynchronously, 
+    // and which sets attribs and metrics
+
+    return cs;
   }
 
 } // namespace hpcbp

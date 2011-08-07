@@ -108,15 +108,16 @@ bes_init(struct bes_context **context)
         fprintf (stderr, "err 2\n");
         return BESE_SYS_ERR;
     }
-#ifdef DEBUG
-    soap_set_recv_logfile(soap, NULL);
-    soap_set_sent_logfile(soap, NULL);
-    soap_set_test_logfile(soap, NULL);
-#endif
+// #ifdef DEBUG
+//     soap_set_recv_logfile(soap, NULL);
+//     soap_set_sent_logfile(soap, NULL);
+//     soap_set_test_logfile(soap, NULL);
+// #endif
+
     soap_register_plugin(soap, soap_wsse);
     soap_set_namespaces(soap, default_namespaces);
     soap_header(soap);
-  
+
     ctx->soap = soap;
     *context = ctx;
 
@@ -1245,9 +1246,12 @@ bes_printDom(struct soap_dom_element *node,
     if (node == NULL) {
         return;
     }
-    
+
+    bool sameline = true;
+
     for (i = 0; i < depth; i++)
-        fprintf(stdout, "   ");
+      fprintf(stdout, "   ");
+
     fprintf(stdout, "<%s", node->name);
     /* if we don't have a current namespace, or if the current */
     /* namespace is different from this node, emit an xmlns attribute */
@@ -1262,25 +1266,39 @@ bes_printDom(struct soap_dom_element *node,
         }
         attr = attr->next;
     }
-    fprintf(stdout, ">\n");
+    fprintf(stdout, ">");
     
     if (node->data && strlen(node->data)) {
-        for (i = 0; i < depth; i++)
-            fprintf(stdout, "   ");
-        fprintf(stdout, " %s\n", node->data);
+        fprintf(stdout, "%s", node->data);
+    }
+    else
+    {
+      if ( ! node->elts )
+      {
+        fprintf(stdout, "\n");
+        sameline = false;
+      }
     }
     
     if (node->elts)
-        bes_printDom(node->elts, (char*)node->nstr, depth+1);
-    
-    for (i = 0; i < depth; i++)
+    {
+      fprintf(stdout, "\n");
+      sameline = false;
+      bes_printDom(node->elts, (char*)node->nstr, depth+1);
+    }
+
+    if ( ! sameline )
+    {
+      for (i = 0; i < depth; i++)
         fprintf(stdout, "   ");
+    }
+
     fprintf(stdout, "</%s>\n", node->name);
     
     if (node->next)
         bes_printDom(node->next, current_nstr, depth);
-    
 }
+    
 
 int
 calcDomSize(struct soap_dom_element *node, 

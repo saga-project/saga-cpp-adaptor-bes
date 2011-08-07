@@ -160,8 +160,8 @@ struct jsdl_data_staging
   char                     * FileSystemName;
   enum jsdl_creation_flags   CreationFlag;
   int                        DeleteOnTermination;
-  char                     * SourceURI;
-  char                     * TargetURI;
+  char                     * Source;
+  char                     * Target;
   struct hpcp_credential   * Credential;
 };
 
@@ -213,6 +213,7 @@ int  jsdl_processJobDefinition     (struct soap_dom_element *, struct jsdl_job_d
 void jsdl_freeJobDefinition        (struct jsdl_job_definition *);
 int  jsdl_generateJobDefinitionDOM (struct jsdl_job_definition *, struct soap_dom_element **);
 void jsdl_freeJobDefinitionDOM     (struct soap_dom_element *);
+void jsdl_printJobDefinition       (struct jsdl_job_definition *);
 
 #endif /* _JSDL_H */
 

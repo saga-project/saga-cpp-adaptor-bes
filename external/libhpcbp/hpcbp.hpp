@@ -52,6 +52,12 @@ namespace hpcbp
     State_Num = BES_State_Num
   };
 
+  struct combined_state
+  {
+    enum state   state;
+    std::string  substate;
+  };
+
   typedef struct bes_epr * job_handle;
 
   class job_description
@@ -86,6 +92,8 @@ namespace hpcbp
       void set_working_directory (std::string  s);
       void set_args              (std::vector  <std::string> args);
       void set_file_transfers    (std::vector  <std::string> specs);
+
+      void dump                  (void);
   };
 
 
@@ -115,7 +123,7 @@ namespace hpcbp
       void             set_host_endpoint  (const std::string host);
       job_handle       run                (const job_description & jd);
       void             terminate          (job_handle & job_epr);
-      state            get_state          (job_handle & job_epr);
+      combined_state   get_state          (job_handle & job_epr);
       job_description  get_description    (job_handle & job_epr);
   };
 

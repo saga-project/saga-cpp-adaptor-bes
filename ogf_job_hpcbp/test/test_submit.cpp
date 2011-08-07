@@ -235,11 +235,13 @@ class endpoint_arc : public endpoint
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
-      exe      = "/usr/local/saga/bin/saga-run.sh";
+      exe      = "/bin/sleep";
+    //exe      = "/usr/local/saga/bin/saga-run.sh";
 
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
+      args.push_back ("3");
+    //args.push_back ("saga-advert");
+    //args.push_back ("list_directory");
+    //args.push_back ("/applications/");
     }
 };
 
@@ -351,6 +353,26 @@ class endpoint_fg_india : public endpoint
 };
 
 
+class endpoint_test : public endpoint
+{
+  public:
+    endpoint_test (void)
+    {
+      type     = "UserPass";
+      url      = "https://198.202.120.85:8080/DEMO-SITE/services/BESFactory?res=default_bes_factory";
+   // url      = "https://localhost:10003/DEMO-SITE/services/BESFactory?res=default_bes_factory";
+      user     = "ogf30";
+      pass     = "ogf30";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
+      cadir    = HOME ".saga/certificates/";
+      exe      = "/bin/sleep";
+
+      args.push_back ("3");
+    }
+};
+
+
 class endpoint_fg_ucindia : public endpoint
 {
   public:
@@ -431,14 +453,17 @@ int run_test (std::string       name,
 
     std::vector <std::string> file_transfers;
 
-    file_transfers.push_back ("http://host.1/data/1.dat >  1.dat");
-    file_transfers.push_back ("http://host.2/data/2.dat >> 2.dat");
-    file_transfers.push_back ("http://host.3/data/3.dat <  3.dat");
-    file_transfers.push_back ("http://host.4/data/4.dat << 4.dat");
-    file_transfers.push_back ("userpass @ http://host.1/data/1.dat >  1.dat");
-    file_transfers.push_back ("userpass @ http://host.2/data/2.dat >> 2.dat");
-    file_transfers.push_back ("userpass @ http://host.3/data/3.dat <  3.dat");
-    file_transfers.push_back ("userpass @ http://host.4/data/4.dat << 4.dat");
+    // file_transfers.push_back ("http://www.google.com/index.html >  /tmp/test.dat");
+    // file_transfers.push_back ("doh://www.google.com/index.html >  /tmp/test.dat");
+       file_transfers.push_back ("file:///bin/sleep >  /tmp/test.dat");
+    // file_transfers.push_back ("http://host.1/data/1.dat >  1.dat");
+    // file_transfers.push_back ("http://host.2/data/2.dat >> 2.dat");
+    // file_transfers.push_back ("http://host.3/data/3.dat <  3.dat");
+    // file_transfers.push_back ("http://host.4/data/4.dat << 4.dat");
+    // file_transfers.push_back ("userpass @ http://host.1/data/1.dat >  1.dat");
+    // file_transfers.push_back ("userpass @ http://host.2/data/2.dat >> 2.dat");
+    // file_transfers.push_back ("userpass @ http://host.3/data/3.dat <  3.dat");
+    // file_transfers.push_back ("userpass @ http://host.4/data/4.dat << 4.dat");
 
     jd.set_vector_attribute (sja::description_file_transfer,  file_transfers);
 
@@ -530,6 +555,7 @@ int main (int argc, char** argv)
     std::cout << " fg.ucsierra" << std::endl;
     std::cout << " fg.ucindia " << std::endl;
     std::cout << " ec2host    " << std::endl;
+    std::cout << " test       " << std::endl;
     std::cout << "            " << std::endl;
 
     return 0;
@@ -555,6 +581,7 @@ int main (int argc, char** argv)
   if ( all || test == "fg.ucsierra") { struct endpoint_fg_ucsierra ep; run_test ("fg uc sierra ", ep) && err++; tot++; }
   if ( all || test == "fg.ucindia" ) { struct endpoint_fg_ucindia  ep; run_test ("fg uc india  ", ep) && err++; tot++; }
   if ( all || test == "ec2host"    ) { struct endpoint_ec2host     ep; run_test ("ec2 host     ", ep) && err++; tot++; }
+  if ( all || test == "test"       ) { struct endpoint_test        ep; run_test ("test         ", ep) && err++; tot++; }
 
 
   std::cout << " ==================================================================" << std::endl;
