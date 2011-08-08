@@ -455,7 +455,7 @@ int run_test (std::string       name,
 
     // file_transfers.push_back ("http://www.google.com/index.html >  /tmp/test.dat");
     // file_transfers.push_back ("doh://www.google.com/index.html >  /tmp/test.dat");
-       file_transfers.push_back ("file:///bin/sleep >  /tmp/test.dat");
+       file_transfers.push_back ("file:///bin/sleep > test.dat");
     // file_transfers.push_back ("http://host.1/data/1.dat >  1.dat");
     // file_transfers.push_back ("http://host.2/data/2.dat >> 2.dat");
     // file_transfers.push_back ("http://host.3/data/3.dat <  3.dat");
