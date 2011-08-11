@@ -29,3 +29,7 @@ config/make.cfg:
 # directory dependencies
 ogf_job_hpcbp: external
 
+
+# allow for 'make srcdist' before configure
+-include $(SAGA_LOCATION)/share/saga/make/saga.dist.mk
+
