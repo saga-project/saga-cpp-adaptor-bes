@@ -6,6 +6,8 @@
 
 -include ../config/make.cfg
 
+SAGA_SUBDIRS      = test
+
 SAGA_SRC          = $(wildcard *.cpp)
 SAGA_OBJ          = $(SAGA_SRC:%.cpp=%.o)
 
