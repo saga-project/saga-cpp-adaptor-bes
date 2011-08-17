@@ -1877,139 +1877,145 @@ if ! test "$HAVE_SAGA" = "yes"; then SAGA_CONFIGURE_OK=no; fi
 
   headers=$SAGA_DEP_FILES
 
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package dependencies" >&5
-$as_echo_n "checking debian package dependencies... " >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package dependencies - $SAGA_DPKG" >&5
+$as_echo_n "checking debian package dependencies - $SAGA_DPKG... " >&6; }
 
-  SAGA_DEB_DEPENDENCIES=""
-  first=yes
-  oldpackage="NONE"
+  if test "$SAGA_DPKG" = ""; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: DPKG not found - not a debian system?" >&5
+$as_echo "DPKG not found - not a debian system?" >&6; }
+  else
 
-  for  header in $headers;
-  do
+    SAGA_DEB_DEPENDENCIES=""
+    first=yes
+    oldpackage="NONE"
 
-    header=`echo $header | sed -e 's|//|/|g'`
-    package=`dpkg -S $header 2>>/dev/null | cut -f 1 -d ':'`
+    for  header in $headers;
+    do
 
-    if test "" = "$package"; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package for $header" >&5
+      header=`echo $header | sed -e 's|//|/|g'`
+      package=`$SAGA_DPKG -S $header 2>>/dev/null | cut -f 1 -d ':'`
+
+      if test "" = "$package"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package for $header" >&5
 $as_echo "Cannot find debian package for $header" >&6; }
-      continue
-    fi
+        continue
+      fi
 
-    if test "$oldpackage" = "$package"; then
-      # avoid repetetetive entries, to some extend
-      continue;
-    fi
+      if test "$oldpackage" = "$package"; then
+        # avoid repetetetive entries, to some extend
+        continue;
+      fi
 
-    version=`dpkg -p $package 2>>/dev/null | grep -e '^Version:' | cut -f 2 -d ' '`
+      version=`$SAGA_DPKG -p $package 2>>/dev/null | grep -e '^Version:' | cut -f 2 -d ' '`
 
-    if test "" = "$version"; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package version for $header" >&5
+      if test "" = "$version"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package version for $header" >&5
 $as_echo "Cannot find debian package version for $header" >&6; }
-      continue
-    fi
+        continue
+      fi
 
-    vmajor=`echo $version | cut -f 1 -d '.'`
-    vminor=`echo $version | cut -f 2 -d '.'`
-    vmin="$vmajor.$vminor"
+      vmajor=`echo $version | cut -f 1 -d '.'`
+      vminor=`echo $version | cut -f 2 -d '.'`
+      vmin="$vmajor.$vminor"
 
-    # boost version can only differ by sub-minor version, other packages can
-    # differ by minor versions...
-    boostmatch=`expr "$package" ":" ".*boost.*"`
+      # boost version can only differ by sub-minor version, other packages can
+      # differ by minor versions...
+      boostmatch=`expr "$package" ":" ".*boost.*"`
 
-    if test "0" = "$boostmatch"; then
-      vmax="`expr 1 + $vmajor`.0"
-    else
-      vmax="$vmajor.`expr 1 + $vminor`"
-    fi
+      if test "0" = "$boostmatch"; then
+        vmax="`expr 1 + $vmajor`.0"
+      else
+        vmax="$vmajor.`expr 1 + $vminor`"
+      fi
 
-    if ! test "$first" == "yes"; then
-      SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES, "
-    fi
+      if ! test "$first" == "yes"; then
+        SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES, "
+      fi
 
-    SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES$package (>= $vmin)"
+      SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES$package (>= $vmin)"
 
-    if ! test "." = `expr substr $vmax 1 1`; then
-      SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES, $package (<< $vmax)"
-    fi
+      if ! test "." = `expr substr $vmax 1 1`; then
+        SAGA_DEB_DEPENDENCIES="$SAGA_DEB_DEPENDENCIES, $package (<< $vmax)"
+      fi
 
-    first=no
-    oldpackage=$package
-  done
+      first=no
+      oldpackage=$package
+    done
 
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_DEPENDENCIES" >&5
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_DEPENDENCIES" >&5
 $as_echo "$SAGA_DEB_DEPENDENCIES" >&6; }
 
 
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian architecture" >&5
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian architecture" >&5
 $as_echo_n "checking debian architecture... " >&6; }
-  arch=`uname -m`
-  debarch=`dpkg --print-architecture`
-  if test "$deb_arch" == ""; then
-    SAGA_DEB_ARCH=$arch
-  else
-    SAGA_DEB_ARCH=$debarch
-  fi
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_ARCH" >&5
+    arch=`uname -m`
+    debarch=`$SAGA_DPKG --print-architecture`
+    if test "$deb_arch" == ""; then
+      SAGA_DEB_ARCH=$arch
+    else
+      SAGA_DEB_ARCH=$debarch
+    fi
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_ARCH" >&5
 $as_echo "$SAGA_DEB_ARCH" >&6; }
 
 
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package version" >&5
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package version" >&5
 $as_echo_n "checking debian package version... " >&6; }
-  SAGA_DEB_VERSION=$SAGA_VERSION
-  test -f PACKAGE && SAGA_DEB_VERSION=`grep -e '^VERSION:' PACKAGE | cut -f 2 -d ' '`
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_VERSION" >&5
+    SAGA_DEB_VERSION=$SAGA_VERSION
+    test -f PACKAGE && SAGA_DEB_VERSION=`grep -e '^VERSION:' PACKAGE | cut -f 2 -d ' '`
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_VERSION" >&5
 $as_echo "$SAGA_DEB_VERSION" >&6; }
 
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package name" >&5
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package name" >&5
 $as_echo_n "checking debian package name... " >&6; }
-  SAGA_DEB_PACKAGE="NONE"
-  test -f PACKAGE && SAGA_DEB_PACKAGE=`grep -e '^PACKAGE:' PACKAGE | cut -f 2 -d ' '`
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_PACKAGE" >&5
+    SAGA_DEB_PACKAGE="NONE"
+    test -f PACKAGE && SAGA_DEB_PACKAGE=`grep -e '^PACKAGE:' PACKAGE | cut -f 2 -d ' '`
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_PACKAGE" >&5
 $as_echo "$SAGA_DEB_PACKAGE" >&6; }
 
-  ###########################################################
-  #
-  # with the thus gathered information, we can actually
-  # create a debian control file
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package control file" >&5
+    ###########################################################
+    #
+    # with the thus gathered information, we can actually
+    # create a debian control file
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package control file" >&5
 $as_echo_n "checking debian package control file... " >&6; }
-  SAGA_DEB_CONTROL=$SAGA_DEB_PACKAGE.deb.ctrl
+    SAGA_DEB_CONTROL=$SAGA_DEB_PACKAGE.deb.ctrl
 
-  if test -e $SAGA_DEB_CONTROL; then
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: overwriting $SAGA_DEB_CONTROL, saving .bak" >&5
+    if test -e $SAGA_DEB_CONTROL; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: overwriting $SAGA_DEB_CONTROL, saving .bak" >&5
 $as_echo "overwriting $SAGA_DEB_CONTROL, saving .bak" >&6; }
-    cp $SAGA_DEB_CONTROL $SAGA_DEB_CONTROL.bak
-  else
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: creating $SAGA_DEB_CONTROL" >&5
+      cp $SAGA_DEB_CONTROL $SAGA_DEB_CONTROL.bak
+    else
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: creating $SAGA_DEB_CONTROL" >&5
 $as_echo "creating $SAGA_DEB_CONTROL" >&6; }
-  fi
+    fi
 
-  echo "Package:        $SAGA_DEB_PACKAGE"                       >  $SAGA_DEB_CONTROL
-  echo "Version:        $SAGA_DEB_VERSION"                       >> $SAGA_DEB_CONTROL
-  echo "Section:        devel"                                   >> $SAGA_DEB_CONTROL
-  echo "Priority:       optional"                                >> $SAGA_DEB_CONTROL
-  echo "Architecture:   $SAGA_DEB_ARCH"                          >> $SAGA_DEB_CONTROL
-  echo "Essential:      no"                                      >> $SAGA_DEB_CONTROL
-  echo "Depends:        $SAGA_DEB_DEPENDENCIES"                  >> $SAGA_DEB_CONTROL
-  echo "Pre-Depends: "                                           >> $SAGA_DEB_CONTROL
-  echo "Recommends: "                                            >> $SAGA_DEB_CONTROL
-  echo "Suggests: "                                              >> $SAGA_DEB_CONTROL
-  echo "Installed-Size: ###SIZE###"                              >> $SAGA_DEB_CONTROL
-  echo "Maintainer:     Andre Merzky [andre--saga@merzky.net]" >> $SAGA_DEB_CONTROL
-  echo "Conflicts: "                                             >> $SAGA_DEB_CONTROL
-  echo "Replaces: "                                              >> $SAGA_DEB_CONTROL
-  echo "Provides: "                                              >> $SAGA_DEB_CONTROL
-  echo "Description:    http://www.saga-project.org/"            >> $SAGA_DEB_CONTROL
-  echo ""                                                        >> $SAGA_DEB_CONTROL
+    echo "Package:        $SAGA_DEB_PACKAGE"                       >  $SAGA_DEB_CONTROL
+    echo "Version:        $SAGA_DEB_VERSION"                       >> $SAGA_DEB_CONTROL
+    echo "Section:        devel"                                   >> $SAGA_DEB_CONTROL
+    echo "Priority:       optional"                                >> $SAGA_DEB_CONTROL
+    echo "Architecture:   $SAGA_DEB_ARCH"                          >> $SAGA_DEB_CONTROL
+    echo "Essential:      no"                                      >> $SAGA_DEB_CONTROL
+    echo "Depends:        $SAGA_DEB_DEPENDENCIES"                  >> $SAGA_DEB_CONTROL
+    echo "Pre-Depends: "                                           >> $SAGA_DEB_CONTROL
+    echo "Recommends: "                                            >> $SAGA_DEB_CONTROL
+    echo "Suggests: "                                              >> $SAGA_DEB_CONTROL
+    echo "Installed-Size: ###SIZE###"                              >> $SAGA_DEB_CONTROL
+    echo "Maintainer:     Andre Merzky [andre--saga@merzky.net]" >> $SAGA_DEB_CONTROL
+    echo "Conflicts: "                                             >> $SAGA_DEB_CONTROL
+    echo "Replaces: "                                              >> $SAGA_DEB_CONTROL
+    echo "Provides: "                                              >> $SAGA_DEB_CONTROL
+    echo "Description:    http://www.saga-project.org/"            >> $SAGA_DEB_CONTROL
+    echo ""                                                        >> $SAGA_DEB_CONTROL
+    #
+    ###########################################################
+  fi # SAGA_DPKG != ""
 
 
-  #
-  ###########################################################
+
+
+
+
 
 
 cat >confcache <<\_ACEOF
