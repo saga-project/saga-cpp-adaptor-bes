@@ -1,6 +1,7 @@
 
-PACKAGE: saga-adaptors-ogf
-VERSION: 1.0.0
+PACKAGE:  saga-adaptors-ogf
+VERSION:  1.0.0
+REVISION: $Revision$
 
 DEPENDENCIES:
   saga-core
