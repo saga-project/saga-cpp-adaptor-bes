@@ -42,7 +42,8 @@ echo "                                                                 " >> $OUT
 echo " Using SAGA from       : $SAGA_LOCATION                          " >> $OUT
 echo "       SAGA version    : $SAGA_VERSION                           " >> $OUT
 echo "                                                                 " >> $OUT
-echo " Adaptor Version       : $SAGA_LIB_VERSION                       " >> $OUT
+echo " Adaptor Version       : $SAGA_PACKAGE_VERSION                   " >> $OUT
+echo " Adaptor Revision      : $SAGA_PACKAGE_REVISION                  " >> $OUT
 echo "                                                                 " >> $OUT
 echo " ========================================================        " >> $OUT
 echo "                                                                 " >> $OUT

@@ -575,6 +575,7 @@ SAGA_INC_DIR
 SAGA_CONF_DIR
 SAGA_MAKE_DIR
 HAVE_SAGA
+SAGA_PACKAGE_REVISION
 SAGA_PACKAGE_VERSION
 SAGA_VERSION_SUBMINOR
 SAGA_VERSION_MINOR
@@ -1783,11 +1784,15 @@ $as_echo "$SAGA_VERSION_MAJOR.$SAGA_VERSION_MINOR.$SAGA_VERSION_SUBMINOR" >&6; }
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking saga package version" >&5
 $as_echo_n "checking saga package version... " >&6; }
   SAGA_PACKAGE_VERSION=$SAGA_VERSION
-  test -f PACKAGE && SAGA_PACKAGE_VERSION=`grep -e '^VERSION:' PACKAGE | cut -f 2 -d ' '`
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_VERSION" >&5
-$as_echo "$SAGA_PACKAGE_VERSION" >&6; }
+  test -f PACKAGE && SAGA_PACKAGE_VERSION=` grep -e '^VERSION:'  PACKAGE | rev | cut -f 1 -d ' ' | rev`
+  test -f PACKAGE && SAGA_PACKAGE_REVISION=`grep -e '^REVISION:' PACKAGE | rev | cut -f 2 -d ' ' | rev`
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&5
+$as_echo "$SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&6; }
+
 
   export  SAGA_PACKAGE_VERSION
+
+  export  SAGA_PACKAGE_REVISION
 
 
 
@@ -1876,7 +1881,7 @@ if ! test "$HAVE_SAGA" = "yes"; then SAGA_CONFIGURE_OK=no; fi
 
 # debian package support
 
-  headers=$SAGA_DEP_FILES
+  depfiles=$SAGA_DEP_FILES
 
   # Extract the first word of "dpkg", so it can be a program name with args.
 set dummy dpkg; ac_word=$2
@@ -1930,17 +1935,20 @@ $as_echo "DPKG not found - not a debian system?" >&6; }
     first=yes
     oldpackage="NONE"
 
-    for  header in $headers;
+    for  depfile in $depfiles;
     do
 
-      header=`echo $header | sed -e 's|//|/|g'`
-      package=`$SAGA_DPKG -S $header 2>>/dev/null | cut -f 1 -d ':'`
+      depfile=`echo $depfile | sed -e 's|//|/|g'`
+      package=`$SAGA_DPKG -S $depfile 2>>/dev/null | cut -f 1 -d ':'`
 
       if test "" = "$package"; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package for $header" >&5
-$as_echo "Cannot find debian package for $header" >&6; }
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package for $depfile" >&5
+$as_echo "Cannot find debian package for $depfile" >&6; }
         continue
       fi
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: $depfile: $package" >&5
+$as_echo "$as_me: $depfile: $package" >&6;}
 
       if test "$oldpackage" = "$package"; then
         # avoid repetetetive entries, to some extend
@@ -1950,8 +1958,8 @@ $as_echo "Cannot find debian package for $header" >&6; }
       version=`$SAGA_DPKG -p $package 2>>/dev/null | grep -e '^Version:' | cut -f 2 -d ' '`
 
       if test "" = "$version"; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package version for $header" >&5
-$as_echo "Cannot find debian package version for $header" >&6; }
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Cannot find debian package version for $depfile" >&5
+$as_echo "Cannot find debian package version for $depfile" >&6; }
         continue
       fi
 
@@ -3231,7 +3239,8 @@ echo "                                                                 " >> $OUT
 echo " Using SAGA from       : $SAGA_LOCATION                          " >> $OUT
 echo "       SAGA version    : $SAGA_VERSION                           " >> $OUT
 echo "                                                                 " >> $OUT
-echo " Adaptor Version       : $SAGA_LIB_VERSION                       " >> $OUT
+echo " Adaptor Version       : $SAGA_PACKAGE_VERSION                   " >> $OUT
+echo " Adaptor Revision      : $SAGA_PACKAGE_REVISION                  " >> $OUT
 echo "                                                                 " >> $OUT
 echo " ========================================================        " >> $OUT
 echo "                                                                 " >> $OUT
