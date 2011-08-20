@@ -1,12 +1,11 @@
-#  Copyright (c) 2005-2007 Andre Merzky (andre@merzky.net)
-# 
-#  Distributed under the Boost Software License, Version 1.0. 
-#  (See accompanying file LICENSE or copy at 
-#  http://www.boost.org/LICENSE_1_0.txt)
+
+#  Copyright (c) 2009-2011 Andre Merzky <andre@merzky.net>
+#  Distributed under the GPLv.2 - see accompanying LICENSE file.
+
 
 -include ../config/make.cfg
 
-SAGA_SUBDIRS      = test
+SAGA_SUBDIRS     += test
 
 SAGA_SRC          = $(wildcard *.cpp)
 SAGA_OBJ          = $(SAGA_SRC:%.cpp=%.o)

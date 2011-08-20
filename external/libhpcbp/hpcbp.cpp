@@ -1,4 +1,7 @@
 
+//  Copyright (c) 2009-2011 Andre Merzky <andre@merzky.net>
+//  Distributed under the GPLv.2 - see accompanying LICENSE file.
+
 #include "hpcbp.hpp"
 
 #include <regex.h>

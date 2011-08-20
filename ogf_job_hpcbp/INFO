@@ -11,7 +11,7 @@
 
 :LICENSE:
 
-  Distributed under the Boost Software License, Version 1.0.
+  Distributed under the GPLv.2
   
 :ADAPTOR LIBRARY NAME:
   
@@ -24,14 +24,16 @@
 :DESCRIPTION:
 
   The adaptor allows job submission, control and monitoring using via
-  BES services
+  BES services.
 
-  BES: Basic Execution Service, see http://ogf.org/documents/GFD.108.pdf
+  BES:   Basic Execution Service, see http://ogf.org/documents/GFD.108.pdf
   HPCBP: HPC Basic Profile of BES, see http://ogf.org/documents/GFD.114.pdf 
 
   For BES implementations, check http://ogf.org/gf/page.php?page=Standards::Implementations
-  The adaptor has been tested agains ARC, SMOA, Unicore, GridSAM and BESPP.  
-  Please report any other working backens, and also problems with such.
+
+  The adaptor has been tested agains ARC, SMOA, Unicore, GridSAM, BESPP
+  and Gensis-II.  Please report any other working backens, and also problems 
+  with such.
 
   Note that the used SAGA session should contain a UserPass context, 
   pointing to gthe respective certification tokens.

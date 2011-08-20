@@ -1,0 +1,14 @@
+
+FILES:
+  PACKAGE
+  INFO
+  Makefile
+  ogf_hpcbp_job_adaptor.cpp
+  ogf_hpcbp_job_adaptor.hpp
+  ogf_hpcbp_job_adaptor.ini
+  ogf_hpcbp_job.cpp
+  ogf_hpcbp_job.hpp
+  ogf_hpcbp_job_service.cpp
+  ogf_hpcbp_job_service.hpp
+  test
+
