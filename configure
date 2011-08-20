@@ -1784,8 +1784,8 @@ $as_echo "$SAGA_VERSION_MAJOR.$SAGA_VERSION_MINOR.$SAGA_VERSION_SUBMINOR" >&6; }
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking saga package version" >&5
 $as_echo_n "checking saga package version... " >&6; }
   SAGA_PACKAGE_VERSION=$SAGA_VERSION
-  test -f PACKAGE && SAGA_PACKAGE_VERSION=` grep -e '^VERSION:'  PACKAGE | rev | cut -f 1 -d ' ' | rev`
-  test -f PACKAGE && SAGA_PACKAGE_REVISION=`grep -e '^REVISION:' PACKAGE | rev | cut -f 2 -d ' ' | rev`
+  test -f PACKAGE && SAGA_PACKAGE_VERSION=` grep -e '^VERSION:'  PACKAGE | sed -e 's/^.*\s\(\S*\)\s*/\1/'`
+  test -f PACKAGE && SAGA_PACKAGE_REVISION=`grep -e '^REVISION:' PACKAGE | sed -e 's/^.*$Revision:\s\(S*\)\s.*$/\1/'`
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&5
 $as_echo "$SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&6; }
 
@@ -2025,14 +2025,14 @@ $as_echo "$SAGA_DEB_ARCH" >&6; }
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package version" >&5
 $as_echo_n "checking debian package version... " >&6; }
     SAGA_DEB_VERSION=$SAGA_VERSION
-    test -f PACKAGE && SAGA_DEB_VERSION=`grep -e '^VERSION:' PACKAGE | cut -f 2 -d ' '`
+    test -f PACKAGE && SAGA_DEB_VERSION=`grep '^VERSION:' PACKAGE | sed -e 's/^.*\s\(\S*\)\s*/\1/'`
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_VERSION" >&5
 $as_echo "$SAGA_DEB_VERSION" >&6; }
 
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking debian package name" >&5
 $as_echo_n "checking debian package name... " >&6; }
     SAGA_DEB_PACKAGE="NONE"
-    test -f PACKAGE && SAGA_DEB_PACKAGE=`grep -e '^PACKAGE:' PACKAGE | cut -f 2 -d ' '`
+    test -f PACKAGE && SAGA_DEB_PACKAGE=`grep '^PACKAGE:' PACKAGE | sed -e 's/^.*\s\(\S*\)\s*/\1/'`
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_DEB_PACKAGE" >&5
 $as_echo "$SAGA_DEB_PACKAGE" >&6; }
 
