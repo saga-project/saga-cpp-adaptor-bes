@@ -1778,7 +1778,7 @@ $as_echo "$SAGA_VERSION_MAJOR.$SAGA_VERSION_MINOR.$SAGA_VERSION_SUBMINOR" >&6; }
   fi
 
 
-  # We set SAGA_LIB_VERSION to SAGA_VERSION by default.  If a local PACKAGE file is
+  # We set SAGA_PACKAGE_VERSION to SAGA_VERSION by default.  If a local PACKAGE file is
   # present though, for example for an adaptor, we use its version info instead.
 
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking saga package version" >&5
@@ -1788,6 +1788,13 @@ $as_echo_n "checking saga package version... " >&6; }
   test -f PACKAGE && SAGA_PACKAGE_REVISION=`grep -e '^REVISION:' PACKAGE | rev | cut -f 2 -d ' ' | rev`
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&5
 $as_echo "$SAGA_PACKAGE_VERSION (r$SAGA_PACKAGE_REVISION)" >&6; }
+
+  # svn info supercedes the revision info from the PACKAGE file
+  svnrevision=`svn info 2>&1 | grep Revision | cut -f 2 -d ' '`
+
+  if ! test "$svnrevision" = ""; then
+    SAGA_PACKAGE_REVISION=$svnrevision
+  fi
 
 
   export  SAGA_PACKAGE_VERSION
