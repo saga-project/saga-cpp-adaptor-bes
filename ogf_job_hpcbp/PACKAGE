@@ -1,4 +1,7 @@
 
+DIRS:
+  test/
+
 FILES:
   PACKAGE
   INFO
@@ -10,5 +13,4 @@ FILES:
   ogf_hpcbp_job.hpp
   ogf_hpcbp_job_service.cpp
   ogf_hpcbp_job_service.hpp
-  test
 
