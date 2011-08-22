@@ -11,8 +11,8 @@ SAGA_SRC          = $(wildcard *.cpp)
 SAGA_OBJ          = $(SAGA_SRC:%.cpp=%.o)
 
 SAGA_ADAPTOR_TYPE = job
-SAGA_ADAPTOR_NAME = ogf_hpcbp_job
-SAGA_ADAPTOR_INI  = ogf_hpcbp_job_adaptor.ini
+SAGA_ADAPTOR_NAME = bes_hpcbp_job
+SAGA_ADAPTOR_INI  = bes_hpcbp_job_adaptor.ini
 SAGA_ADAPTOR_OBJ  = $(SAGA_OBJ)
 
 SAGA_ADAPTOR_PACKAGES = job

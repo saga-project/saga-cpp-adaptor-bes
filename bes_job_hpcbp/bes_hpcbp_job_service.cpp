@@ -23,11 +23,11 @@
 #include <saga/saga/packages/job/adaptors/job_self.hpp>
 
 // adaptor includes
-#include "ogf_hpcbp_job_service.hpp"
+#include "bes_hpcbp_job_service.hpp"
 
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_hpcbp_job
+namespace bes_hpcbp_job
 {
   // TODO:
   //
@@ -220,6 +220,6 @@ namespace ogf_hpcbp_job
     SAGA_ADAPTOR_THROW ("Not Implemented", saga::NotImplemented);
   }
 
-} // namespace ogf_hpcbp_job
+} // namespace bes_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 

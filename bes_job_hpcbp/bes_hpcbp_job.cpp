@@ -24,12 +24,12 @@
 #include <saga/saga/packages/job/job_description.hpp>
 
 // adaptor includes
-#include "ogf_hpcbp_job.hpp"
+#include "bes_hpcbp_job.hpp"
 
 namespace sja = saga::job::attributes;
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_hpcbp_job
+namespace bes_hpcbp_job
 {
   // constructor
   job_cpi_impl::job_cpi_impl (proxy                           * p, 
@@ -404,6 +404,6 @@ namespace ogf_hpcbp_job
 
   // TODO: add state polling and metrics support
 
-} // namespace ogf_hpcbp_job
+} // namespace bes_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 

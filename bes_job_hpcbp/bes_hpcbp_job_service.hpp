@@ -26,11 +26,11 @@
 #include <saga/impl/packages/job/job_service_cpi.hpp>
 
 // adaptor includes
-#include "ogf_hpcbp_job_adaptor.hpp"
+#include "bes_hpcbp_job_adaptor.hpp"
 
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_hpcbp_job
+namespace bes_hpcbp_job
 {
   class job_service_cpi_impl 
     : public saga::adaptors::v1_0::job_service_cpi <job_service_cpi_impl>
@@ -74,7 +74,7 @@ namespace ogf_hpcbp_job
 
   };  // class job_service_cpi_impl
 
-} // namespace ogf_hpcbp_job
+} // namespace bes_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 
 #endif // ADAPTORS_OGF_HPCBP_JOB_SERVICE_HPP

@@ -13,7 +13,7 @@
 #include <hpcbp.hpp>
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_hpcbp_job
+namespace bes_hpcbp_job
 {
   struct adaptor : public saga::adaptor
   {
@@ -115,7 +115,7 @@ namespace ogf_hpcbp_job
     }
   };
 
-} // namespace ogf_hpcbp_job
+} // namespace bes_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 
 #endif // ADAPTORS_OGF_HPCBP_JOB_ADAPTOR_HPP

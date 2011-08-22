@@ -1,5 +1,5 @@
 
-PACKAGE:  saga-adaptors-ogf
+PACKAGE:  saga-adaptors-bes
 VERSION:  1.0.0
 REVISION: $Revision$
 
@@ -9,7 +9,7 @@ DEPENDENCIES:
 DIRS:
   config/
   external/
-  ogf_job_hpcbp/
+  bes_job_hpcbp/
 
 FILES:
   PACKAGE

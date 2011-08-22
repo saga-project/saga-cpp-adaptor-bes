@@ -11,8 +11,7 @@
 
 SAGA_SUBDIRS += config
 SAGA_SUBDIRS += external
-SAGA_SUBDIRS += ogf_job_hpcbp
-# SAGA_SUBDIRS += ogf_job_occi
+SAGA_SUBDIRS += bes_job_hpcbp
 
 
 all:: config/make.cfg
@@ -32,6 +31,6 @@ endif
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.dist.mk
 
 # directory dependencies
-ogf_job_hpcbp: external
+bes_job_hpcbp: external
 
 
