@@ -1,9 +1,6 @@
-//  Copyright (c) 2005-2007 Hartmut Kaiser 
-//  Copyright (c) 2005-2007 Andre Merzky   (andre@merzky.net)
-// 
-//  Distributed under the Boost Software License, Version 1.0. 
-//  (See accompanying file LICENSE or copy at 
-//   http://www.boost.org/LICENSE_1_0.txt)
+
+//  Copyright (c) 2009-2011 Andre Merzky <andre@merzky.net>
+//  Distributed under the GPLv.2 - see accompanying LICENSE file.
 
 // saga includes
 #include <saga/saga.hpp>
@@ -14,15 +11,15 @@
 #include <saga/saga/adaptors/adaptor.hpp>
 
 // adaptor includes
-#include "ogf_hpcbp_job_adaptor.hpp"
-#include "ogf_hpcbp_job_service.hpp"
-#include "ogf_hpcbp_job.hpp"
+#include "bes_hpcbp_job_adaptor.hpp"
+#include "bes_hpcbp_job_service.hpp"
+#include "bes_hpcbp_job.hpp"
 
-SAGA_ADAPTOR_REGISTER (ogf_hpcbp_job::adaptor);
+SAGA_ADAPTOR_REGISTER (bes_hpcbp_job::adaptor);
 
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_hpcbp_job
+namespace bes_hpcbp_job
 {
   // register function for the SAGA engine
   saga::impl::adaptor_selector::adaptor_info_list_type
@@ -49,6 +46,6 @@ namespace ogf_hpcbp_job
     return (list);
   }
 
-} // namespace ogf_hpcbp_job
+} // namespace bes_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 

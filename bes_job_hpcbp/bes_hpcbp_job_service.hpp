@@ -1,9 +1,7 @@
-//  Copyright (c) 2005-2007 Hartmut Kaiser 
-//  Copyright (c) 2005-2007 Andre Merzky   (andre@merzky.net)
-// 
-//  Distributed under the Boost Software License, Version 1.0. 
-//  (See accompanying file LICENSE or copy at 
-//   http://www.boost.org/LICENSE_1_0.txt)
+
+//  Copyright (c) 2009-2011 Andre Merzky <andre@merzky.net>
+//  Distributed under the GPLv.2 - see accompanying LICENSE file.
+
 
 #ifndef ADAPTORS_OGF_HPCBP_JOB_SERVICE_HPP
 #define ADAPTORS_OGF_HPCBP_JOB_SERVICE_HPP
@@ -28,11 +26,11 @@
 #include <saga/impl/packages/job/job_service_cpi.hpp>
 
 // adaptor includes
-#include "ogf_hpcbp_job_adaptor.hpp"
+#include "bes_hpcbp_job_adaptor.hpp"
 
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_hpcbp_job
+namespace bes_hpcbp_job
 {
   class job_service_cpi_impl 
     : public saga::adaptors::v1_0::job_service_cpi <job_service_cpi_impl>
@@ -76,7 +74,7 @@ namespace ogf_hpcbp_job
 
   };  // class job_service_cpi_impl
 
-} // namespace ogf_hpcbp_job
+} // namespace bes_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 
 #endif // ADAPTORS_OGF_HPCBP_JOB_SERVICE_HPP

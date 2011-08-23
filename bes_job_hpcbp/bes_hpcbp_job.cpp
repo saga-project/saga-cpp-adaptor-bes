@@ -1,9 +1,7 @@
-//  Copyright (c) 2005-2007 Hartmut Kaiser 
-//  Copyright (c) 2005-2007 Andre Merzky   (andre@merzky.net)
-// 
-//  Distributed under the Boost Software License, Version 1.0. 
-//  (See accompanying file LICENSE or copy at 
-//   http://www.boost.org/LICENSE_1_0.txt)
+
+//  Copyright (c) 2009-2011 Andre Merzky <andre@merzky.net>
+//  Distributed under the GPLv.2 - see accompanying LICENSE file.
+
 
 // system includes
 #include <string.h>
@@ -26,12 +24,12 @@
 #include <saga/saga/packages/job/job_description.hpp>
 
 // adaptor includes
-#include "ogf_hpcbp_job.hpp"
+#include "bes_hpcbp_job.hpp"
 
 namespace sja = saga::job::attributes;
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_hpcbp_job
+namespace bes_hpcbp_job
 {
   // constructor
   job_cpi_impl::job_cpi_impl (proxy                           * p, 
@@ -406,6 +404,6 @@ namespace ogf_hpcbp_job
 
   // TODO: add state polling and metrics support
 
-} // namespace ogf_hpcbp_job
+} // namespace bes_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 

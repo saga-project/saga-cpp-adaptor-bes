@@ -1,9 +1,7 @@
-//  Copyright (c) 2005-2007 Hartmut Kaiser 
-//  Copyright (c) 2005-2007 Andre Merzky   (andre@merzky.net)
-// 
-//  Distributed under the Boost Software License, Version 1.0. 
-//  (See accompanying file LICENSE or copy at 
-//   http://www.boost.org/LICENSE_1_0.txt)
+
+//  Copyright (c) 2009-2011 Andre Merzky <andre@merzky.net>
+//  Distributed under the GPLv.2 - see accompanying LICENSE file.
+
 
 // stl includes
 #include <vector>
@@ -25,11 +23,11 @@
 #include <saga/saga/packages/job/adaptors/job_self.hpp>
 
 // adaptor includes
-#include "ogf_hpcbp_job_service.hpp"
+#include "bes_hpcbp_job_service.hpp"
 
 
 ////////////////////////////////////////////////////////////////////////
-namespace ogf_hpcbp_job
+namespace bes_hpcbp_job
 {
   // TODO:
   //
@@ -222,6 +220,6 @@ namespace ogf_hpcbp_job
     SAGA_ADAPTOR_THROW ("Not Implemented", saga::NotImplemented);
   }
 
-} // namespace ogf_hpcbp_job
+} // namespace bes_hpcbp_job
 ////////////////////////////////////////////////////////////////////////
 

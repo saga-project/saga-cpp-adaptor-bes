@@ -1,19 +1,18 @@
-#  Copyright (c) 2005-2007 Andre Merzky (andre@merzky.net)
-# 
-#  Distributed under the Boost Software License, Version 1.0. 
-#  (See accompanying file LICENSE or copy at 
-#  http://www.boost.org/LICENSE_1_0.txt)
+
+#  Copyright (c) 2009-2011 Andre Merzky <andre@merzky.net>
+#  Distributed under the GPLv.2 - see accompanying LICENSE file.
+
 
 -include ../config/make.cfg
 
-SAGA_SUBDIRS      = test
+SAGA_SUBDIRS     += test
 
 SAGA_SRC          = $(wildcard *.cpp)
 SAGA_OBJ          = $(SAGA_SRC:%.cpp=%.o)
 
 SAGA_ADAPTOR_TYPE = job
-SAGA_ADAPTOR_NAME = ogf_hpcbp_job
-SAGA_ADAPTOR_INI  = ogf_hpcbp_job_adaptor.ini
+SAGA_ADAPTOR_NAME = bes_hpcbp_job
+SAGA_ADAPTOR_INI  = bes_hpcbp_job_adaptor.ini
 SAGA_ADAPTOR_OBJ  = $(SAGA_OBJ)
 
 SAGA_ADAPTOR_PACKAGES = job
