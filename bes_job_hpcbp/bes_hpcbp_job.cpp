@@ -41,6 +41,21 @@ namespace bes_hpcbp_job
     , session_ (p->get_session ())
     , state_   (saga::job::New)
   {
+    try 
+    {
+      bp_.initialize ();
+    }
+    catch ( const char & m )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not initialize backend library: ") + m).c_str (), 
+                          saga::NoSuccess);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not initialize backend library: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
+    }
+
     instance_data     idata (this);
     adaptor_data_type adata (this);
 
@@ -279,6 +294,20 @@ namespace bes_hpcbp_job
   // destructor
   job_cpi_impl::~job_cpi_impl (void)
   {
+    try 
+    {
+      bp_.finalize ();
+    }
+    catch ( const char & m )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not finalize backend library: ") + m).c_str (), 
+                          saga::NoSuccess);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not finalize backend library: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
+    }
   }
 
 

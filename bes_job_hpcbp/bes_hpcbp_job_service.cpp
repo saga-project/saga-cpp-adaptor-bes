@@ -43,6 +43,21 @@ namespace bes_hpcbp_job
     : base_cpi (p, info, adaptor, cpi::Noflags)
     , session_ (p->get_session ())
   {
+    try 
+    {
+      bp_.initialize ();
+    }
+    catch ( const char & m )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not initialize backend library: ") + m).c_str (), 
+                          saga::NoSuccess);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not initialize backend library: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
+    }
+
     instance_data idata (this);
 
     rm_ = idata->rm_;
@@ -123,64 +138,77 @@ namespace bes_hpcbp_job
     bool context_found = false;
     std::vector <saga::context> contexts = session_.list_contexts ();
 
-    for ( unsigned int i = 0; i < contexts.size (); i++ )
+    try
     {
-      saga::context c = contexts[i];
-
-      if ( c.attribute_exists (saga::attributes::context_type) )
+      for ( unsigned int i = 0; i < contexts.size (); i++ )
       {
-        if ( c.get_attribute  (saga::attributes::context_type) == "UserPass" )
+        saga::context c = contexts[i];
+
+        if ( c.attribute_exists (saga::attributes::context_type) )
         {
-          std::string user;
-          std::string pass;
-
-          if ( c.attribute_exists (saga::attributes::context_userid) )
+          if ( c.get_attribute  (saga::attributes::context_type) == "UserPass" )
           {
-            user = c.get_attribute (saga::attributes::context_userid);
+            std::string user;
+            std::string pass;
+
+            if ( c.attribute_exists (saga::attributes::context_userid) )
+            {
+              user = c.get_attribute (saga::attributes::context_userid);
+            }
+
+            if ( c.attribute_exists (saga::attributes::context_userpass) )
+            {
+              pass = c.get_attribute (saga::attributes::context_userpass);
+            }
+
+            bp_.set_security ("", "", "", user, pass);
+
+            context_found = true;
+          }
+          else if ( c.get_attribute (saga::attributes::context_type) == "UserPass" )
+          {
+            std::string cert;
+            std::string pass;
+            std::string cadir;
+
+            if ( c.attribute_exists (saga::attributes::context_certrepository) )
+            {
+              cadir = c.get_attribute (saga::attributes::context_certrepository);
+            }
+
+            if ( c.attribute_exists (saga::attributes::context_usercert) )
+            {
+              cert = c.get_attribute (saga::attributes::context_usercert);
+            }
+
+            if ( c.attribute_exists (saga::attributes::context_userpass) )
+            {
+              pass = c.get_attribute (saga::attributes::context_userpass);
+            }
+
+            bp_.set_security (cert, pass, cadir, "", "");
+
+            context_found = true;
           }
 
-          if ( c.attribute_exists (saga::attributes::context_userpass) )
+          if ( context_found )
           {
-            pass = c.get_attribute (saga::attributes::context_userpass);
+            // TODO?: test if context can be used to contact server.  
+            // If not, set context_found to false again, and free 
+            // the bes context
           }
-
-          bp_.set_security ("", "", "", user, pass);
-
-          context_found = true;
-        }
-        else if ( c.get_attribute (saga::attributes::context_type) == "UserPass" )
-        {
-          std::string cert;
-          std::string pass;
-          std::string cadir;
-
-          if ( c.attribute_exists (saga::attributes::context_certrepository) )
-          {
-            cadir = c.get_attribute (saga::attributes::context_certrepository);
-          }
-
-          if ( c.attribute_exists (saga::attributes::context_usercert) )
-          {
-            cert = c.get_attribute (saga::attributes::context_usercert);
-          }
-
-          if ( c.attribute_exists (saga::attributes::context_userpass) )
-          {
-            pass = c.get_attribute (saga::attributes::context_userpass);
-          }
-
-          bp_.set_security (cert, pass, cadir, "", "");
-
-          context_found = true;
-        }
-
-        if ( context_found )
-        {
-          // TODO?: test if context can be used to contact server.  
-          // If not, set context_found to false again, and free 
-          // the bes context
         }
       }
+    }
+    catch ( const char & m )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not handle context information: ") + m).c_str (), 
+                          saga::BadParameter);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not handle context information: ") + e.what ()).c_str (), 
+                          saga::BadParameter);
     }
 
     if ( ! context_found )
@@ -201,6 +229,20 @@ namespace bes_hpcbp_job
   // destructor
   job_service_cpi_impl::~job_service_cpi_impl (void)
   {
+    try 
+    {
+      bp_.finalize ();
+    }
+    catch ( const char & m )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not finalize backend library: ") + m).c_str (), 
+                          saga::NoSuccess);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not finalize backend library: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
+    }
   }
 
   //////////////////////////////////////////////////////////////////////
@@ -208,8 +250,21 @@ namespace bes_hpcbp_job
   void job_service_cpi_impl::sync_create_job (saga::job::job         & ret, 
                                               saga::job::description   jd)
   {
-    ret = saga::adaptors::job (rm_, jd, 
-                               proxy_->get_session ());
+    try
+    {
+      ret = saga::adaptors::job (rm_, jd, 
+                                 proxy_->get_session ());
+    }
+    catch ( const char & m )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not create job: ") + m).c_str (), 
+                          saga::NoSuccess);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not create job: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
+    }
   }
 
   void job_service_cpi_impl::sync_run_job (saga::job::job     & ret, 
@@ -234,10 +289,23 @@ namespace bes_hpcbp_job
   {
     instance_data idata (this);
 
-    // create job from jobid
-    ret = saga::adaptors::job (idata->rm_,
-                               jobid, 
-                               proxy_->get_session ());
+    try
+    {
+      // create job from jobid
+      ret = saga::adaptors::job (idata->rm_,
+                                 jobid, 
+                                 proxy_->get_session ());
+    }
+    catch ( const char & m )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not create job: ") + m).c_str (), 
+                          saga::NoSuccess);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not create job: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
+    }
   }
 
   void job_service_cpi_impl::sync_get_self (saga::job::self & ret)
