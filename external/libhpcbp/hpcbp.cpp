@@ -345,6 +345,10 @@ namespace hpcbp
     : bes_context_ (NULL)
     , host_epr_    (NULL)
   {
+  }
+
+  void connector::initialize (void)
+  {
     if ( bes_init (&bes_context_) )
     {
       throw ("Cannot init bes context");
@@ -354,10 +358,15 @@ namespace hpcbp
 
   }
 
-  connector::~connector (void)
+  void connector::finalize (void)
   {
     bes_freeEPR  (&host_epr_);
     bes_finalize (&bes_context_);
+  }
+
+
+  connector::~connector (void)
+  {
     // std::cout << "bes connector finalized" << std::endl;
   }
 

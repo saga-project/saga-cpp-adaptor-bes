@@ -94,6 +94,8 @@ namespace hpcbp
       connector (void);
       ~connector (void);
 
+      void             initialize         (void);
+      void             finalize           (void);
       void             set_security       (std::string x509cert, std::string x509pass, std::string capath, 
                                            std::string user,     std::string pass);
       void             set_host_epr       (const std::string epr);
