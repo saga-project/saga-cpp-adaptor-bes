@@ -75,19 +75,45 @@ namespace bes_hpcbp_job
       saga::url e (rm_);
       e.set_scheme ("any");
 
-      saga::filesystem::file f (e);
-      saga::size_t           s = f.get_size ();
-      saga::mutable_buffer   b (s + 1);
+      try 
+      {
+        saga::filesystem::file f (e);
+        saga::size_t           s = f.get_size ();
+        saga::mutable_buffer   b (s + 1);
 
-      f.read (b);
+        f.read (b);
 
-      static_cast <char *> (b.get_data ())[s] = '\0';
-      
-      bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
+        static_cast <char *> (b.get_data ())[s] = '\0';
+
+        bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
+      }
+      catch ( const char & m )
+      {
+        SAGA_ADAPTOR_THROW ((std::string ("Could not handle EPR: ") + m).c_str (), 
+                            saga::BadParameter);
+      }
+      catch ( const saga::exception & e )
+      {
+        SAGA_ADAPTOR_THROW ((std::string ("Could not handle EPR: ") + e.what ()).c_str (), 
+                            saga::BadParameter);
+      }
     }
     else
     {
-      bp_.set_host_endpoint (rm_.get_string ());
+      try 
+      {
+        bp_.set_host_endpoint (rm_.get_string ());
+      }
+      catch ( const char & m )
+      {
+        SAGA_ADAPTOR_THROW ((std::string ("Could not handle endpoint url: ") + m).c_str (), 
+                            saga::BadParameter);
+      }
+      catch ( const saga::exception & e )
+      {
+        SAGA_ADAPTOR_THROW ((std::string ("Could not handle endpoint url: ") + e.what ()).c_str (), 
+                            saga::BadParameter);
+      }
     }
 
 
@@ -150,8 +176,9 @@ namespace bes_hpcbp_job
 
         if ( context_found )
         {
-          // TODO: test if context can be used to contact server.  If not, set
-          // context_found to false again, and free the bes context
+          // TODO?: test if context can be used to contact server.  
+          // If not, set context_found to false again, and free 
+          // the bes context
         }
       }
     }
@@ -166,9 +193,9 @@ namespace bes_hpcbp_job
     }
 
 
-    // FIXME: check if host exists and can be used, otherwise throw
-    // BadParameter.  Easiest would probably to run an invalid job 
-    // request and see if we get a sensible error...
+    // TODO: check if host exists and can be used, otherwise throw BadParameter
+    // easiest would probably to run an invalid job request and see if we get
+    // a sensible error...  But latency *sigh*
   }
 
   // destructor
@@ -198,7 +225,7 @@ namespace bes_hpcbp_job
 
   void job_service_cpi_impl::sync_list (std::vector <std::string> & ret)
   {
-    // TODO: check how that is supported in BES
+    // TODO: no idea how that is supported in BES
     SAGA_ADAPTOR_THROW ("Not Implemented", saga::NotImplemented);
   }
 
