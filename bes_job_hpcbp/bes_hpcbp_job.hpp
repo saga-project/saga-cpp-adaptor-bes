@@ -81,14 +81,14 @@ namespace bes_hpcbp_job
                                  int                      signal);
 
       // inherited from saga::task
-      void sync_run             (saga::impl::void_t & ret);
-      void sync_cancel          (saga::impl::void_t & ret, 
-                                 double               timeout);
-      void sync_suspend         (saga::impl::void_t & ret);
-      void sync_resume          (saga::impl::void_t & ret);
+      void sync_run             (saga::impl::void_t     & ret);
+      void sync_cancel          (saga::impl::void_t     & ret, 
+                                 double                   timeout);
+      void sync_suspend         (saga::impl::void_t     & ret);
+      void sync_resume          (saga::impl::void_t     & ret);
 
-      void sync_wait            (bool         & ret, 
-                                 double         timeout);
+      void sync_wait            (bool                   & ret, 
+                                 double                   timeout);
   };  // class job_cpi_impl
 
 } // namespace bes_hpcbp_job

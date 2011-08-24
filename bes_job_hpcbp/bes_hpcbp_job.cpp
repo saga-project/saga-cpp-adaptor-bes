@@ -75,19 +75,45 @@ namespace bes_hpcbp_job
       saga::url e (rm_);
       e.set_scheme ("any");
 
-      saga::filesystem::file f (e);
-      saga::size_t           s = f.get_size ();
-      saga::mutable_buffer   b (s + 1);
+      try 
+      {
+        saga::filesystem::file f (e);
+        saga::size_t           s = f.get_size ();
+        saga::mutable_buffer   b (s + 1);
 
-      f.read (b);
+        f.read (b);
 
-      static_cast <char *> (b.get_data ())[s] = '\0';
-      
-      bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
+        static_cast <char *> (b.get_data ())[s] = '\0';
+
+        bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
+      }
+      catch ( const char & m )
+      {
+        SAGA_ADAPTOR_THROW ((std::string ("Could not handle EPR: ") + m).c_str (), 
+                            saga::BadParameter);
+      }
+      catch ( const saga::exception & e )
+      {
+        SAGA_ADAPTOR_THROW ((std::string ("Could not handle EPR: ") + e.what ()).c_str (), 
+                            saga::BadParameter);
+      }
     }
     else
     {
-      bp_.set_host_endpoint (rm_.get_string ());
+      try 
+      {
+        bp_.set_host_endpoint (rm_.get_string ());
+      }
+      catch ( const char & m )
+      {
+        SAGA_ADAPTOR_THROW ((std::string ("Could not handle endpoint url: ") + m).c_str (), 
+                            saga::BadParameter);
+      }
+      catch ( const saga::exception & e )
+      {
+        SAGA_ADAPTOR_THROW ((std::string ("Could not handle endpoint url: ") + e.what ()).c_str (), 
+                            saga::BadParameter);
+      }
     }
 
     // cycle over contexts and see which ones we can use.  
@@ -143,17 +169,15 @@ namespace bes_hpcbp_job
 
         if ( context_found )
         {
-          // TODO: test if context can be used to contact server.  If not, set
-          // context_found to false again, and free the bes context
+          // TODO? test if context can be used to contact server.  
+          // If not, set context_found to false again, and free 
+          // the BES context
         }
       }
     }
 
     if ( ! context_found )
     {
-      // this is not really an error, maybe there is no security on the endpoint
-      // whatsoever - but its actually unlikely that calls will succeed.  So, we
-      // print a warning
       SAGA_ADAPTOR_THROW ("No suitable context found - use either X509 or UserPass context",
                           saga::AuthenticationFailed);
     }
@@ -161,76 +185,89 @@ namespace bes_hpcbp_job
 
     // TODO: check if host exists and can be used, otherwise throw BadParameter
     // easiest would probably to run an invalid job request and see if we get
-    // a sensible error...
+    // a sensible error...  But latency *sigh*
 
 
     if ( idata->init_from_jobid_ )
     {
-      SAGA_ADAPTOR_THROW ("Job reconnect is not yet implemented",
+      SAGA_ADAPTOR_THROW ("Job reconnect is not yet implemented for BES",
                           saga::NotImplemented);
-
-      jobid_ = idata->jobid_;
 
       // TODO: confirm that the job exists on the host (get state)
       // TODO: fill job description from the jobs jsdl
-
+      // 
+      // jobid_ = idata->jobid_;
+      // 
       // we successfully inited from job id -- store job description
       // idata->jd_ = jd_;
-
-      state_ = saga::job::Running;
+      // 
+      // state_ = saga::job::Running;
     }
     else
     {
-      // init from job description
-      jd_ = idata->jd_;
-      
-      if ( ! jd_.attribute_exists (sja::description_executable) )
+      try
       {
-        SAGA_ADAPTOR_THROW ("job description misses executable",
+        // init from job description
+        jd_ = idata->jd_;
+
+        if ( ! jd_.attribute_exists (sja::description_executable) )
+        {
+          SAGA_ADAPTOR_THROW ("job description misses executable",
+                              saga::BadParameter);
+        }
+
+        jsdl_.set_executable (jd_.get_attribute (sja::description_executable));
+
+
+        if ( jd_.attribute_exists (sja::description_arguments) )
+        {
+          jsdl_.set_args (jd_.get_vector_attribute (sja::description_arguments));
+        }
+
+        if ( jd_.attribute_exists (sja::description_job_project) )
+        {
+          jsdl_.set_job_project (jd_.get_attribute (sja::description_job_project));
+        }
+
+        if ( jd_.attribute_exists (sja::description_total_cpu_count) )
+        {
+          jsdl_.set_total_cpu_count  (jd_.get_attribute (sja::description_total_cpu_count));
+        }
+
+        if ( jd_.attribute_exists (sja::description_input) )
+        {
+          jsdl_.set_input (jd_.get_attribute (sja::description_input));
+        }
+
+        if ( jd_.attribute_exists (sja::description_output) )
+        {
+          jsdl_.set_output (jd_.get_attribute (sja::description_output));
+        }
+
+        if ( jd_.attribute_exists (sja::description_error) )
+        {
+          jsdl_.set_error (jd_.get_attribute (sja::description_error));
+        }
+
+        if ( jd_.attribute_exists (sja::description_working_directory) )
+        {
+          jsdl_.set_working_directory (jd_.get_attribute (sja::description_working_directory));
+        }
+
+        if ( jd_.attribute_exists (sja::description_file_transfer) )
+        {
+          jsdl_.set_file_transfers (jd_.get_vector_attribute (sja::description_file_transfer));
+        }
+      }
+      catch ( const char & m )
+      {
+        SAGA_ADAPTOR_THROW ((std::string ("Could not create jsdl: ") + m).c_str (), 
                             saga::BadParameter);
       }
-
-      jsdl_.set_executable (jd_.get_attribute (sja::description_executable));
-
-
-      if ( jd_.attribute_exists (sja::description_arguments) )
+      catch ( const saga::exception & e )
       {
-        jsdl_.set_args (jd_.get_vector_attribute (sja::description_arguments));
-      }
-
-      if ( jd_.attribute_exists (sja::description_job_project) )
-      {
-        jsdl_.set_job_project (jd_.get_attribute (sja::description_job_project));
-      }
-
-      if ( jd_.attribute_exists (sja::description_total_cpu_count) )
-      {
-        jsdl_.set_total_cpu_count  (jd_.get_attribute (sja::description_total_cpu_count));
-      }
-
-      if ( jd_.attribute_exists (sja::description_input) )
-      {
-        jsdl_.set_input (jd_.get_attribute (sja::description_input));
-      }
-
-      if ( jd_.attribute_exists (sja::description_output) )
-      {
-        jsdl_.set_output (jd_.get_attribute (sja::description_output));
-      }
-
-      if ( jd_.attribute_exists (sja::description_error) )
-      {
-        jsdl_.set_error (jd_.get_attribute (sja::description_error));
-      }
-
-      if ( jd_.attribute_exists (sja::description_working_directory) )
-      {
-        jsdl_.set_working_directory (jd_.get_attribute (sja::description_working_directory));
-      }
-
-      if ( jd_.attribute_exists (sja::description_file_transfer) )
-      {
-        jsdl_.set_file_transfers (jd_.get_vector_attribute (sja::description_file_transfer));
+        SAGA_ADAPTOR_THROW ((std::string ("Could not create jsdl: ") + e.what ()).c_str (), 
+                            saga::BadParameter);
       }
     }
 
@@ -248,18 +285,31 @@ namespace bes_hpcbp_job
   //  SAGA API functions
   void job_cpi_impl::sync_get_state (saga::job::state & ret)
   {
-    adaptor_data_type adata (this);
+    try 
+    {
+      adaptor_data_type adata (this);
 
-    hpcbp::combined_state cs = bp_.get_state (job_epr_);
+      hpcbp::combined_state cs = bp_.get_state (job_epr_);
 
-    state_ = adata->get_saga_state (cs);
+      state_ = adata->get_saga_state (cs);
 
-    saga::adaptors::attribute jobattr (this);
+      saga::adaptors::attribute jobattr (this);
 
-    // FIXME: need to set metric, not attribute.  How?
-    // jobattr.set_attribute (saga::job::attributes::substate, adata->get_saga_substate (cs));
+      // FIXME: need to set metric, not attribute.  How?
+      // jobattr.set_attribute (saga::job::attributes::substate, adata->get_saga_substate (cs));
 
-    // std::cout << "  substate   : " << adata->get_saga_substate (cs) << std::endl;
+      // std::cout << "  substate   : " << adata->get_saga_substate (cs) << std::endl;
+    }
+    catch ( const char & m )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not get state: ") + m).c_str (), 
+                          saga::NoSuccess);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not get state: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
+    }
 
     ret = state_;
   }
@@ -340,30 +390,43 @@ namespace bes_hpcbp_job
       SAGA_ADAPTOR_THROW ("can run only 'New' jobs", saga::IncorrectState);
     }
 
-    jsdl_.dump ();
-
-    job_epr_ = bp_.run (jsdl_);
-
-    std::string s1 (rm_s_);
-    std::string s2 (::strdup (job_epr_->str));
-
-    jobid_ = std::string ("[") + s1 + "]-[" + s2 + "]";
-
+    try
     {
-      adaptor_data_type adata (this); // scoped lock
-      state_ = adata->get_saga_state (bp_.get_state (job_epr_));
-    }
+      // jsdl_.dump ();
 
-    while ( state_ == saga::job::New )
+      job_epr_ = bp_.run (jsdl_);
+
+      std::string s1 (rm_s_);
+      std::string s2 (::strdup (job_epr_->str));
+
+      jobid_ = std::string ("[") + s1 + "]-[" + s2 + "]";
+
+      {
+        adaptor_data_type adata (this); // scoped lock
+        state_ = adata->get_saga_state (bp_.get_state (job_epr_));
+      }
+
+      while ( state_ == saga::job::New )
+      {
+        // std::cout << "waiting for job state to change" << std::endl;
+        ::sleep (1);
+
+        adaptor_data_type adata (this); // scoped lock
+        state_ = adata->get_saga_state (bp_.get_state (job_epr_));
+      }
+
+      // std::cout << "Successfully submitted activity: " << jobid_ << std::endl;
+    }
+    catch ( const char & m )
     {
-      // std::cout << "waiting for job state to change" << std::endl;
-      ::sleep (1);
-
-      adaptor_data_type adata (this); // scoped lock
-      state_ = adata->get_saga_state (bp_.get_state (job_epr_));
+      SAGA_ADAPTOR_THROW ((std::string ("Could not run job: ") + m).c_str (), 
+                          saga::NoSuccess);
     }
-
-    // std::cout << "Successfully submitted activity: " << jobid_ << std::endl;
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not run job: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
+    }
   }
 
   void job_cpi_impl::sync_cancel (saga::impl::void_t & ret, 
@@ -373,9 +436,15 @@ namespace bes_hpcbp_job
     {
       bp_.terminate (job_epr_);
     }
-    catch ( const char * msg )
+    catch ( const char & m )
     {
-      SAGA_ADAPTOR_THROW (msg, saga::NoSuccess);
+      SAGA_ADAPTOR_THROW ((std::string ("Could not cancel job: ") + m).c_str (), 
+                          saga::NoSuccess);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not cancel job: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
     }
   }
 
@@ -383,22 +452,35 @@ namespace bes_hpcbp_job
   void job_cpi_impl::sync_wait (bool   & ret, 
                                 double   timeout)
   {
-    adaptor_data_type adata (this);
-    double time = 0.0;
-
-    while ( time < timeout ) 
+    try
     {
-      adata->get_saga_state (bp_.get_state (job_epr_));
+      adaptor_data_type adata (this);
+      double time = 0.0;
 
-      if ( state_ == saga::job::Canceled ||
-           state_ == saga::job::Failed   ||
-           state_ == saga::job::Done     )
+      while ( time < timeout ) 
       {
-        break;
-      }
+        adata->get_saga_state (bp_.get_state (job_epr_));
 
-      ::sleep (1);
-      time += 1.0;
+        if ( state_ == saga::job::Canceled ||
+             state_ == saga::job::Failed   ||
+             state_ == saga::job::Done     )
+        {
+          break;
+        }
+
+        ::sleep (1);
+        time += 1.0;
+      }
+    }
+    catch ( const char & m )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not wait for job: ") + m).c_str (), 
+                          saga::NoSuccess);
+    }
+    catch ( const saga::exception & e )
+    {
+      SAGA_ADAPTOR_THROW ((std::string ("Could not wait for job: ") + e.what ()).c_str (), 
+                          saga::NoSuccess);
     }
   }
 
