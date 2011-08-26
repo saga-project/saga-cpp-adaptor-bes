@@ -1,0 +1,7 @@
+# besserver: auth account password session
+auth       required       pam_nologin.so
+auth       sufficient     pam_unix2.so
+auth       required       pam_deny.so
+account    required       pam_unix2.so
+password   required       pam_deny.so
+session    required       pam_deny.so

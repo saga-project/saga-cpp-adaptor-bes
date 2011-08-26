@@ -1,0 +1,19 @@
+
+PACKAGE:  saga-adaptors-bes
+VERSION:  1.0-pre1
+REVISION: $Revision$
+
+DEPENDENCIES:
+  saga-core
+
+DIRS:
+  config/
+  external/
+  bes_job_hpcbp/
+
+FILES:
+  PACKAGE
+  Makefile
+  configure
+  configure.in
+
