@@ -447,6 +447,24 @@ namespace hpcbp
     return job_epr;
   }
 
+  job_handle connector::get_job_handle(const std::string job_epr_str)
+  {
+    epr_t epr;
+
+    if (bes_readEPRFromString(bes_context_, job_epr_str.c_str(), &epr))
+    {
+      std::cerr << bes_get_lasterror (bes_context_) << std::endl;
+      throw bes_get_lasterror (bes_context_);
+    }
+
+    job_handle job_epr = (job_handle) epr;
+
+    // FIXME: epr is leaking memory here... - should be wrapped in
+    // separate class
+    return job_epr;
+  }
+
+
   void connector::terminate (job_handle & job_epr)
   {
     init_security_ ();

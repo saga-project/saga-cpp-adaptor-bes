@@ -101,6 +101,7 @@ namespace hpcbp
       void             set_host_epr       (const std::string epr);
       void             set_host_endpoint  (const std::string host);
       job_handle       run                (const job_description & jd);
+      job_handle       get_job_handle     (const std::string job_epr_str);
       void             terminate          (job_handle & job_epr);
       combined_state   get_state          (job_handle & job_epr);
       job_description  get_description    (job_handle & job_epr);
