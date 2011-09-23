@@ -1,0 +1,53 @@
+# Copyright (c) 2005-2007 Andre Merzky (andre@merzky.net)
+# Copyright (c)      2008 Ole Weidner (oweidner@cct.lsu.ed)
+# 
+# Distributed under the Boost Software License, Version 1.0. 
+# (See accompanying Afile LICENSE_1_0.txt or copy at 
+#  http://www.boost.org/LICENSE_1_0.txt)
+
+# find saga.m4
+
+m4_include([saga.m4])
+
+AC_INIT()
+
+AX_SAGA_CONFIG()
+
+SAGA_DEP_FILES="$SAGA_LOCATION/include/saga/saga.hpp"
+
+# wsseapi.cpp needs a check for an soap call arg constness
+
+
+# create output files
+AC_CONFIG_FILES([config/make.cfg])
+
+SAGA_CONFIGURE_OK=yes
+if ! test "$HAVE_SAGA" = "yes"; then SAGA_CONFIGURE_OK=no; fi
+AC_SUBST([SAGA_CONFIGURE_OK])
+
+# debian and redhat package support
+AX_SAGA_CHECK_DEBDEPS([$SAGA_DEP_FILES])
+AX_SAGA_CHECK_RPMDEPS([$SAGA_DEP_FILES])
+
+AC_OUTPUT()
+
+OUT=config.summary
+rm -f $OUT
+touch $OUT
+
+echo "                                                                 " >> $OUT
+echo " ========================================================        " >> $OUT
+echo " SAGA OGF ADAPTORS - Configuration Summary                       " >> $OUT
+echo " ========================================================        " >> $OUT
+echo "                                                                 " >> $OUT
+echo " Using SAGA from       : $SAGA_LOCATION                          " >> $OUT
+echo "       SAGA version    : $SAGA_VERSION                           " >> $OUT
+echo "                                                                 " >> $OUT
+echo " Adaptor Version       : $SAGA_PACKAGE_VERSION                   " >> $OUT
+echo " Adaptor Revision      : $SAGA_PACKAGE_REVISION                  " >> $OUT
+echo "                                                                 " >> $OUT
+echo " ========================================================        " >> $OUT
+echo "                                                                 " >> $OUT
+
+cat $OUT
+
