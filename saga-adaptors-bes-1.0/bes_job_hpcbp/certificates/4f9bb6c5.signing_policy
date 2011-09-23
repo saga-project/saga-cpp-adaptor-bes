@@ -1,3 +1,0 @@
-access_id_CA X509 '/C=US/ST=Virginia/L=Charlottesville/O=University of Virginia/CN=UVA USHER PKP CA 1/emailAddress=pkimaster@virginia.edu'
-pos_rights globus CA:sign
-cond_subjects globus '"/C=US/ST=Virginia/L=Charlottesville/O=University of Virginia*"'
