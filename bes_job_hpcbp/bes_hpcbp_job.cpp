@@ -205,18 +205,21 @@ namespace bes_hpcbp_job
 
     if ( idata->init_from_jobid_ )
     {
-      SAGA_ADAPTOR_THROW ("Job reconnect is not yet implemented for BES",
-                          saga::NotImplemented);
+      jobid_ = idata->jobid_;
+      size_t start_pos = jobid_.find("]-[");
 
-      // TODO: confirm that the job exists on the host (get state)
+      if ( start_pos == std::string::npos )
+        SAGA_ADAPTOR_THROW("Invalid JobId", saga::BadParameter);
+
+      std::string epr_str = jobid_.substr(start_pos + 3, jobid_.size() - start_pos - 4 );
+
+      std::cout << "EPR = " << epr_str << std::endl;
+      job_epr_ = bp_.get_job_handle(epr_str);
+      
       // TODO: fill job description from the jobs jsdl
-      // 
-      // jobid_ = idata->jobid_;
       // 
       // we successfully inited from job id -- store job description
       // idata->jd_ = jd_;
-      // 
-      // state_ = saga::job::Running;
     }
     else
     {
@@ -429,20 +432,7 @@ namespace bes_hpcbp_job
       std::string s2 (::strdup (job_epr_->str));
 
       jobid_ = std::string ("[") + s1 + "]-[" + s2 + "]";
-
-      {
-        adaptor_data_type adata (this); // scoped lock
-        state_ = adata->get_saga_state (bp_.get_state (job_epr_));
-      }
-
-      while ( state_ == saga::job::New )
-      {
-        // std::cout << "waiting for job state to change" << std::endl;
-        ::sleep (1);
-
-        adaptor_data_type adata (this); // scoped lock
-        state_ = adata->get_saga_state (bp_.get_state (job_epr_));
-      }
+      state_ = saga::job::Running; /* job in system - assume running */    
 
       // std::cout << "Successfully submitted activity: " << jobid_ << std::endl;
     }

@@ -27,6 +27,7 @@
 #include <sys/param.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <signal.h>
 
 #include "bes.hpp"
 #include "jsdl.hpp"
@@ -83,6 +84,30 @@ int calcDomSize(struct soap_dom_element *, char *);
 void sprintDom(struct soap_dom_element *, char *, char *);
 int getActivityDocumentsDOM(struct bes_context *, epr_t, epr_t, struct soap_dom_element **); 
 int getActivityDocumentFromDOM(struct bes_context *, struct soap_dom_element *, struct bes_activity_document **); 
+
+
+int CRYPTO_thread_setup(void);
+int CRYPTO_thread_cleanup(void);
+
+void sigpipe_handle(int x) 
+{ 
+	
+}
+ 
+void __attribute__ ((constructor)) bes_init_ssl(void) 
+{
+    soap_ssl_init();
+    CRYPTO_thread_setup();    
+
+    signal(SIGPIPE, sigpipe_handle);
+}
+
+void __attribute__ ((destructor)) bes_cleanup_ssl(void) 
+{
+    CRYPTO_thread_cleanup();
+    signal(SIGPIPE, SIG_DFL);
+}
+
 
 int
 bes_init(struct bes_context **context)
@@ -1051,7 +1076,7 @@ bes_readEPRFromFile(struct bes_context *context, char *filename, epr_t *epr)
 
 
 int 
-bes_readEPRFromString(struct bes_context *context, char *str, epr_t *epr)
+bes_readEPRFromString(struct bes_context *context,const char *str, epr_t *epr)
 {
     int fd, size = 0, ret = BESE_OK;
     struct soap_dom_element *dom;

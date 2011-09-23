@@ -114,7 +114,7 @@ int          bes_getFactoryAttributesDocument (struct bes_context *, epr_t, char
 void         bes_freeEPR                      (epr_t *epr);
 int          bes_writeEPRToFile               (struct bes_context *, char *, epr_t);
 int          bes_readEPRFromFile              (struct bes_context *, char *, epr_t *);
-int          bes_readEPRFromString            (struct bes_context *, char *, epr_t *);
+int          bes_readEPRFromString            (struct bes_context *, const char *, epr_t *);
 int          bes_initEPRFromString            (struct bes_context *, const char *, epr_t *);
 char       * bes_getEPRString                 (epr_t);
 void         bes_freeActivityStatus           (struct bes_activity_status *);

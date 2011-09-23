@@ -36,10 +36,11 @@ namespace bes_hpcbp_job
     {
       switch ( cs.state )
       {
-        case hpcbp::Pending:
-          return saga::job::New;
-          break;
-
+        /* sic ! - SAGA assumes that a job that is 
+         * already in the target system (BES instance 
+         * in this case) has SAGA state running 
+         */
+        case hpcbp::Pending: 
         case hpcbp::Running:
           return saga::job::Running;
           break;
