@@ -1,0 +1,3 @@
+access_id_CA X509 '/C=US/O=US Higher Education Root/OU=CA1/CN=USHER CA1 v1'
+pos_rights globus CA:sign
+cond_subjects globus '"/C=US/ST=Virginia/L=Charlottesville/O=University of Virginia*"'

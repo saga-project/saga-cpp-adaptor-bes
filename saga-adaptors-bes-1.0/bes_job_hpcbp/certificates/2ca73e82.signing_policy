@@ -1,0 +1,11 @@
+# EACL entries
+
+ access_id_CA      X509         '/C=US/ST=California/L=Los Angeles/O=University of Southern California/CN=University of Southern California PKI-Lite CA, release 1/emailAddress=nmiadmin@usc.edu'
+ pos_rights        globus        CA:sign
+ cond_subjects     globus     '"/C=US/ST=California/L=Los Angeles/O=University of Southern California/*"'
+
+ access_id_CA      X509         '/C=US/ST=California/L=Los Angeles/O=University of Southern California/CN=University of Southern California PKI-Lite CA, release 1/Email=nmiadmin@usc.edu'
+ pos_rights        globus        CA:sign
+ cond_subjects     globus     '"/C=US/ST=California/L=Los Angeles/O=University of Southern California/*"'
+
+# end of EACL
