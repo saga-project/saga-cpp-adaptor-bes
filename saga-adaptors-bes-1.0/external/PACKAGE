@@ -1,0 +1,8 @@
+
+DIRS:
+  libhpcbp/
+
+FILES:
+  PACKAGE
+  Makefile
+

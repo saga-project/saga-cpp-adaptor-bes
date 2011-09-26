@@ -1,0 +1,4 @@
+
+ ./besclient -u ogf -p ogf -e unicore.xml  -c /home/merzky/.saga/certificates/ -x /tmp/x509up_u501 -k /tmp/x509up_u501  create sleep.jsdl  epr.xml
+ ./besclient -u ogf -p ogf -e unicore.xml  -c /home/merzky/.saga/certificates/ -x /tmp/x509up_u501 -k /tmp/x509up_u501  status   epr.xml
+
