@@ -1,3 +1,0 @@
-access_id_CA	X509	'/DC=eu/DC=KnowARC/CN=SAGA Interop-1271279889.18'
-pos_rights	globus	CA:sign
-cond_subjects	globus	'"/DC=eu/DC=KnowARC/*"'

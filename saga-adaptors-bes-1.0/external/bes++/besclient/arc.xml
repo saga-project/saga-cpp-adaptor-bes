@@ -1,5 +1,0 @@
-<?xml version="1.0"  encoding="UTF-8"?>
-<wsa:EndpointReference xmlns:wsa="http://www.w3.org/2005/08/addressing">
-  <wsa:Address>https://interop.grid.niif.hu:2010/arex-x509
-</wsa:Address>
-</wsa:EndpointReference>
