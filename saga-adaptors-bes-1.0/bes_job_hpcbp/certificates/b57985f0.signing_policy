@@ -1,0 +1,10 @@
+# USC Kerberos Certification Authority v3 Signing Policy
+
+access_id_CA   X509    '/C=US/ST=California/L=Los Angeles/O=University of Southern California/OU=Information Services Division/CN=University of Southern California KCA v3/Email=nmiadmin@usc.edu'
+pos_rights     globus  CA:sign
+cond_subjects  globus  '/C=US/ST=California/L=Los Angeles/O=University of Southern California/OU=Information Services Division/OU=University of Southern California KCA v3/Email=nmiadmin@usc.edu/*'
+
+access_id_CA   X509    '/C=US/ST=California/L=Los Angeles/O=University of Southern California/OU=Information Services Division/CN=University of Southern California KCA v3/emailAddress=nmiadmin@usc.edu'
+pos_rights     globus  CA:sign
+cond_subjects  globus  '/C=US/ST=California/L=Los Angeles/O=University of Southern California/OU=Information Services Division/OU=University of Southern California KCA v3/emailAddress=nmiadmin@usc.edu/*'
+

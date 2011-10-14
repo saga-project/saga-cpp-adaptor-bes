@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JobDefinition xmlns="http://schemas.ggf.org/jsdl/2005/11/jsdl">
+    <JobDescription>
+        <JobIdentification>
+            <JobName>Sleep</JobName>
+        </JobIdentification>
+        <Application>
+            <HPCProfileApplication xmlns="http://schemas.ggf.org/jsdl/2006/07/jsdl-hpcpa">
+                <Executable>/bin/sleep</Executable>
+                <Argument>60</Argument>
+                <Output>/dev/null</Output>
+                <WorkingDirectory>/tmp</WorkingDirectory>
+            </HPCProfileApplication>
+        </Application>
+        <Resources>
+            <TotalCPUCount>
+                <Exact>1</Exact>
+            </TotalCPUCount>
+        </Resources>
+    </JobDescription>
+</JobDefinition>
+ 
