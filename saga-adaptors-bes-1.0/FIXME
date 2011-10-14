@@ -1,6 +1,0 @@
-
-  - BES badaptor should check the encpoint status on instance creation, possibly
-    by retrieving the BESResourceAttributes.  Those should get matched against the
-    RD anyway.
-
-
