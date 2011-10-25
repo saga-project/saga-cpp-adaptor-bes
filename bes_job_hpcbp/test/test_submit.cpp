@@ -272,7 +272,7 @@ class endpoint_smoa_2 : public endpoint
   public:
     endpoint_smoa_2 (void)
     {
-      type     = "UserPass";
+      type     = "X509";
       url      = "https://grass1.man.poznan.pl:19022";
    // url      = "https://localhost:10005";
       user     = "";

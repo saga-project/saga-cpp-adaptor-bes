@@ -146,10 +146,14 @@ namespace bes_hpcbp_job
 
         if ( c.attribute_exists (saga::attributes::context_type) )
         {
-          if ( c.get_attribute  (saga::attributes::context_type) == "UserPass" )
+          if ( c.get_attribute  (saga::attributes::context_type) == "UserPass" ||
+               c.get_attribute  (saga::attributes::context_type) == "X509" )
           {
-            std::string user;
-            std::string pass;
+            std::string user  ("");
+            std::string pass  ("");
+            std::string cert  ("");
+            std::string key   ("");
+            std::string cadir ("");
 
             if ( c.attribute_exists (saga::attributes::context_userid) )
             {
@@ -161,16 +165,6 @@ namespace bes_hpcbp_job
               pass = c.get_attribute (saga::attributes::context_userpass);
             }
 
-            bp_.set_security ("", "", "", user, pass);
-
-            context_found = true;
-          }
-          else if ( c.get_attribute (saga::attributes::context_type) == "UserPass" )
-          {
-            std::string cert;
-            std::string pass;
-            std::string cadir;
-
             if ( c.attribute_exists (saga::attributes::context_certrepository) )
             {
               cadir = c.get_attribute (saga::attributes::context_certrepository);
@@ -181,12 +175,12 @@ namespace bes_hpcbp_job
               cert = c.get_attribute (saga::attributes::context_usercert);
             }
 
-            if ( c.attribute_exists (saga::attributes::context_userpass) )
+            if ( c.attribute_exists (saga::attributes::context_userkey) )
             {
-              pass = c.get_attribute (saga::attributes::context_userpass);
+              key = c.get_attribute (saga::attributes::context_userkey);
             }
 
-            bp_.set_security (cert, pass, cadir, "", "");
+            bp_.set_security (cert, key, cadir, user, pass);
 
             context_found = true;
           }
