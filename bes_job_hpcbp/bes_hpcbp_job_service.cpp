@@ -47,7 +47,7 @@ namespace bes_hpcbp_job
     {
       bp_.initialize ();
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not initialize backend library: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -102,7 +102,7 @@ namespace bes_hpcbp_job
 
         bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
       }
-      catch ( const char & m )
+      catch ( const char * m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not handle EPR: ") + m).c_str (), 
                             saga::BadParameter);
@@ -119,7 +119,7 @@ namespace bes_hpcbp_job
       {
         bp_.set_host_endpoint (rm_.get_string ());
       }
-      catch ( const char & m )
+      catch ( const char * m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not handle endpoint url: ") + m).c_str (), 
                             saga::BadParameter);
@@ -194,7 +194,7 @@ namespace bes_hpcbp_job
         }
       }
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not handle context information: ") + m).c_str (), 
                           saga::BadParameter);
@@ -227,7 +227,7 @@ namespace bes_hpcbp_job
     {
       bp_.finalize ();
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not finalize backend library: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -249,7 +249,7 @@ namespace bes_hpcbp_job
       ret = saga::adaptors::job (rm_, jd, 
                                  proxy_->get_session ());
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not create job: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -290,7 +290,7 @@ namespace bes_hpcbp_job
                                  jobid, 
                                  proxy_->get_session ());
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not create job: ") + m).c_str (), 
                           saga::NoSuccess);

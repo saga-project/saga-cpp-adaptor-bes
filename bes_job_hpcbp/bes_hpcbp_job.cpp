@@ -45,7 +45,7 @@ namespace bes_hpcbp_job
     {
       bp_.initialize ();
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not initialize backend library: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -102,7 +102,7 @@ namespace bes_hpcbp_job
 
         bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
       }
-      catch ( const char & m )
+      catch ( const char * m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not handle EPR: ") + m).c_str (), 
                             saga::BadParameter);
@@ -119,7 +119,7 @@ namespace bes_hpcbp_job
       {
         bp_.set_host_endpoint (rm_.get_string ());
       }
-      catch ( const char & m )
+      catch ( const char * m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not handle endpoint url: ") + m).c_str (), 
                             saga::BadParameter);
@@ -277,7 +277,7 @@ namespace bes_hpcbp_job
           jsdl_.set_file_transfers (jd_.get_vector_attribute (sja::description_file_transfer));
         }
       }
-      catch ( const char & m )
+      catch ( const char * m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not create jsdl: ") + m).c_str (), 
                             saga::BadParameter);
@@ -301,7 +301,7 @@ namespace bes_hpcbp_job
     {
       bp_.finalize ();
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not finalize backend library: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -332,7 +332,7 @@ namespace bes_hpcbp_job
 
       // std::cout << "  substate   : " << adata->get_saga_substate (cs) << std::endl;
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not get state: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -436,7 +436,7 @@ namespace bes_hpcbp_job
 
       // std::cout << "Successfully submitted activity: " << jobid_ << std::endl;
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not run job: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -455,7 +455,7 @@ namespace bes_hpcbp_job
     {
       bp_.terminate (job_epr_);
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not cancel job: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -491,7 +491,7 @@ namespace bes_hpcbp_job
         time += 1.0;
       }
     }
-    catch ( const char & m )
+    catch ( const char * m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not wait for job: ") + m).c_str (), 
                           saga::NoSuccess);
