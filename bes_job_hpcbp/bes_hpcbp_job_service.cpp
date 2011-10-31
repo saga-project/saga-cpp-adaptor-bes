@@ -147,7 +147,8 @@ namespace bes_hpcbp_job
         if ( c.attribute_exists (saga::attributes::context_type) )
         {
           if ( c.get_attribute  (saga::attributes::context_type) == "UserPass" ||
-               c.get_attribute  (saga::attributes::context_type) == "X509" )
+               c.get_attribute  (saga::attributes::context_type) == "X509"     ||
+               c.get_attribute  (saga::attributes::context_type) == "x509" )
           {
             std::string user  ("");
             std::string pass  ("");

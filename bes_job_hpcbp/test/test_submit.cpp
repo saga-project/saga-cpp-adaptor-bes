@@ -17,6 +17,7 @@
 // smoa.2         x      x      x
 // fg.sierra      x      x      x SF
 // fg.india       x      x      x SF
+// fg.alamo       x      x      x SF
 // fg.sierra.uc   -      x      - 
 // fg.india.uc    -      x      -
 // ec2            -      -      -
@@ -353,6 +354,27 @@ class endpoint_fg_india : public endpoint
 };
 
 
+class endpoint_fg_alamo : public endpoint
+{
+  public:
+    endpoint_fg_alamo (void)
+    {
+      type     = "UserPass";
+      url      = "epr://localhost/" HOME ".saga/fg.alamo.short.epr";
+      user     = "ogf30";
+      pass     = "ogf30";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
+      cadir    = HOME ".saga/certificates/";
+      exe      = "/N/soft/SAGA/saga/1.6/gcc-4.1.2/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
+    }
+};
+
+
 class endpoint_test : public endpoint
 {
   public:
@@ -552,6 +574,7 @@ int main (int argc, char** argv)
     std::cout << " smoa.2     " << std::endl;
     std::cout << " fg.sierra  " << std::endl;
     std::cout << " fg.india   " << std::endl;
+    std::cout << " fg.alamo   " << std::endl;
     std::cout << " fg.ucsierra" << std::endl;
     std::cout << " fg.ucindia " << std::endl;
     std::cout << " ec2host    " << std::endl;
@@ -578,6 +601,7 @@ int main (int argc, char** argv)
   if ( all || test == "smoa.2"     ) { struct endpoint_smoa_2      ep; run_test ("smoa 2       ", ep) && err++; tot++; } 
   if ( all || test == "fg.sierra"  ) { struct endpoint_fg_sierra   ep; run_test ("fg sierra    ", ep) && err++; tot++; }
   if ( all || test == "fg.india"   ) { struct endpoint_fg_india    ep; run_test ("fg india     ", ep) && err++; tot++; }
+  if ( all || test == "fg.alamo"   ) { struct endpoint_fg_alamo    ep; run_test ("fg alamo     ", ep) && err++; tot++; }
   if ( all || test == "fg.ucsierra") { struct endpoint_fg_ucsierra ep; run_test ("fg uc sierra ", ep) && err++; tot++; }
   if ( all || test == "fg.ucindia" ) { struct endpoint_fg_ucindia  ep; run_test ("fg uc india  ", ep) && err++; tot++; }
   if ( all || test == "ec2host"    ) { struct endpoint_ec2host     ep; run_test ("ec2 host     ", ep) && err++; tot++; }
