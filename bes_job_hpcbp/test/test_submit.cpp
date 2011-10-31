@@ -296,7 +296,7 @@ class endpoint_fg_sierra : public endpoint
     endpoint_fg_sierra (void)
     {
       type     = "UserPass";
-      url      = "epr://localhost/" HOME ".saga/fg.sierra.short.epr";
+      url      = "epr://localhost/" HOME ".saga/epr/fg.sierra.short.epr";
       user     = "ogf30";
       pass     = "ogf30";
       cert     = "/tmp/x509up_u" UID;
@@ -339,7 +339,7 @@ class endpoint_fg_india : public endpoint
     endpoint_fg_india (void)
     {
       type     = "UserPass";
-      url      = "epr://localhost/" HOME ".saga/fg.india.short.epr";
+      url      = "epr://localhost/" HOME ".saga/epr/fg.india.short.epr";
       user     = "ogf30";
       pass     = "ogf30";
       cert     = "/tmp/x509up_u" UID;
@@ -360,7 +360,7 @@ class endpoint_fg_alamo : public endpoint
     endpoint_fg_alamo (void)
     {
       type     = "UserPass";
-      url      = "epr://localhost/" HOME ".saga/fg.alamo.short.epr";
+      url      = "epr://localhost/" HOME ".saga/epr/fg.alamo.short.epr";
       user     = "ogf30";
       pass     = "ogf30";
       cert     = "/tmp/x509up_u" UID;
