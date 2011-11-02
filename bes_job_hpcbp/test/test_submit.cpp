@@ -27,6 +27,15 @@
 
 namespace sja = saga::job::attributes;
 
+#ifdef SAGA_APPLE
+# define HOME "/Users/merzky/"
+# define UID  "503"
+#else
+# define HOME "/home/merzky/"
+# define UID  "1000"
+#endif
+
+
 struct endpoint
 {
   std::string               type;
@@ -41,15 +50,6 @@ struct endpoint
   std::vector <std::string> args;
 };
 
-#ifdef SAGA_APPLE
-# define HOME "/Users/merzky/"
-# define UID  "503"
-#else
-# define HOME "/home/merzky/"
-# define UID  "1000"
-#endif
-
-
 class endpoint_localfork : public endpoint
 {
   public:
@@ -63,10 +63,6 @@ class endpoint_localfork : public endpoint
       key      = "";
       cadir    = "";
       exe      = HOME "/saga/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -84,10 +80,6 @@ class endpoint_localbes : public endpoint
       key      = "";
       cadir    = HOME "/.saga/certificates/";
       exe      = HOME "/saga/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -105,10 +97,6 @@ class endpoint_ssh_cyder : public endpoint
       key      = "";
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/amerzky/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -127,10 +115,6 @@ class endpoint_unicore : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/unicoreinterop/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -149,13 +133,7 @@ class endpoint_gridsam : public endpoint
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
-      exe      = "/bin/sleep";
-   // exe      = "/home/amerzky/install/bin/saga-run.sh";
-     
-      args.push_back ("10");
-   // args.push_back ("saga-advert");
-   // args.push_back ("list_directory");
-   // args.push_back ("/applications/");
+      exe      = "/home/amerzky/install/bin/saga-run.sh";
     }
 };
 
@@ -173,10 +151,6 @@ class endpoint_gram_loni : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".globus/certificates/";
       exe      = "/home/merzky/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -194,10 +168,6 @@ class endpoint_gram_lrz : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".globus/certificates/";
       exe      = "/home/cluster/pr95ho/lu26kov/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -215,10 +185,6 @@ class endpoint_gram_unido : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".globus/certificates/";
       exe      = "/home/hp/hp0250/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -236,13 +202,7 @@ class endpoint_arc : public endpoint
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
-      exe      = "/bin/sleep";
-    //exe      = "/usr/local/saga/bin/saga-run.sh";
-
-      args.push_back ("3");
-    //args.push_back ("saga-advert");
-    //args.push_back ("list_directory");
-    //args.push_back ("/applications/");
+      exe      = "/usr/local/saga/bin/saga-run.sh";
     }
 };
 
@@ -261,10 +221,6 @@ class endpoint_smoa_1 : public endpoint
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/ogf/install/bin/saga-run.sh";
       pwd      = "/home/ogf/";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -273,7 +229,7 @@ class endpoint_smoa_2 : public endpoint
   public:
     endpoint_smoa_2 (void)
     {
-      type     = "X509";
+      type     = "x509";
       url      = "https://grass1.man.poznan.pl:19022";
    // url      = "https://localhost:10005";
       user     = "";
@@ -283,30 +239,39 @@ class endpoint_smoa_2 : public endpoint
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/ogf/install/bin/saga-run.sh";
       pwd      = "/home/ogf/";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
-class endpoint_fg_sierra : public endpoint
+class endpoint_fg_sierra_u : public endpoint
 {
   public:
-    endpoint_fg_sierra (void)
+    endpoint_fg_sierra_u (void)
     {
       type     = "UserPass";
-      url      = "epr://localhost/" HOME ".saga/epr/fg.sierra.short.epr";
+      url      = "epr://localhost/" HOME ".saga/eprs/fg.sierra.short.epr";
       user     = "ogf30";
       pass     = "ogf30";
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
+    }
+};
 
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
+
+class endpoint_fg_sierra_c : public endpoint
+{
+  public:
+    endpoint_fg_sierra_c (void)
+    {
+      type     = "x509";
+      url      = "epr://localhost/" HOME ".saga/eprs/fg.sierra.short.epr";
+      user     = "";
+      pass     = "";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
+      cadir    = HOME ".saga/certificates/";
+      exe      = "/N/u/merzky/install/bin/saga-run.sh";
     }
 };
 
@@ -325,74 +290,78 @@ class endpoint_fg_ucsierra : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
 
-class endpoint_fg_india : public endpoint
+class endpoint_fg_india_u : public endpoint
 {
   public:
-    endpoint_fg_india (void)
+    endpoint_fg_india_u (void)
     {
       type     = "UserPass";
-      url      = "epr://localhost/" HOME ".saga/epr/fg.india.short.epr";
+      url      = "epr://localhost/" HOME ".saga/eprs/fg.india.short.epr";
       user     = "ogf30";
       pass     = "ogf30";
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
 
-class endpoint_fg_alamo : public endpoint
+class endpoint_fg_india_c : public endpoint
 {
   public:
-    endpoint_fg_alamo (void)
+    endpoint_fg_india_c (void)
+    {
+      type     = "x509";
+      url      = "epr://localhost/" HOME ".saga/eprs/fg.india.short.epr";
+      user     = "";
+      pass     = "";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
+      cadir    = HOME ".saga/certificates/";
+      exe      = "/N/u/merzky/install/bin/saga-run.sh";
+    }
+};
+
+
+class endpoint_fg_alamo_u : public endpoint
+{
+  public:
+    endpoint_fg_alamo_u (void)
     {
       type     = "UserPass";
-      url      = "epr://localhost/" HOME ".saga/epr/fg.alamo.short.epr";
+      url      = "epr://localhost/" HOME ".saga/eprs/fg.alamo.short.epr";
       user     = "ogf30";
       pass     = "ogf30";
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/soft/SAGA/saga/1.6/gcc-4.1.2/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
+      exe      = "/does/not/exist";
     }
 };
 
 
-class endpoint_test : public endpoint
+class endpoint_fg_alamo_c : public endpoint
 {
   public:
-    endpoint_test (void)
+    endpoint_fg_alamo_c (void)
     {
-      type     = "UserPass";
-      url      = "https://198.202.120.85:8080/DEMO-SITE/services/BESFactory?res=default_bes_factory";
-   // url      = "https://localhost:10003/DEMO-SITE/services/BESFactory?res=default_bes_factory";
-      user     = "ogf30";
-      pass     = "ogf30";
+      type     = "x509";
+      url      = "epr://localhost/" HOME ".saga/eprs/fg.alamo.short.epr";
+      user     = "";
+      pass     = "";
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
-      exe      = "/bin/sleep";
-
-      args.push_back ("3");
+      exe      = "/N/soft/SAGA/saga/1.6/gcc-4.1.2/bin/saga-run.sh";
     }
 };
+
 
 
 class endpoint_fg_ucindia : public endpoint
@@ -409,10 +378,6 @@ class endpoint_fg_ucindia : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -430,10 +395,6 @@ class endpoint_ec2host : public endpoint
       key      = "";
       cadir    = HOME ".saga/certificates/";
       exe      = "/usr/local/saga/bin/saga-run.sh";
-
-      args.push_back ("saga-advert");
-      args.push_back ("list_directory");
-      args.push_back ("/applications/");
     }
 };
 
@@ -441,6 +402,23 @@ class endpoint_ec2host : public endpoint
 int run_test (std::string       name, 
               struct endpoint & ep)
 {
+  time_t      t   = ::time      (NULL);
+  struct tm * tmp = ::localtime (&t);
+
+  char tstr[256];
+  strftime (tstr, sizeof (tstr), "%F.%T(%Z)", tmp);
+
+  std::string ad  = "advert://SAGA:SAGA_client@cyder.cct.lsu.edu:8080/test/bes_test";
+  std::string key = "endpoint";
+  std::string val = name + "-" + tstr;
+  
+  std::vector <std::string> args;
+  args.push_back ("saga-advert");
+  args.push_back ("set_attribute");
+  args.push_back (ad);
+  args.push_back (key);
+  args.push_back (val);
+
   int err = 0;
 
   try
@@ -471,7 +449,7 @@ int run_test (std::string       name,
     saga::job::description jd;
 
     jd.set_attribute        (sja::description_executable, ep.exe);
-    jd.set_vector_attribute (sja::description_arguments,  ep.args);
+    jd.set_vector_attribute (sja::description_arguments,  args);
 
     std::vector <std::string> file_transfers;
 
@@ -522,7 +500,18 @@ int run_test (std::string       name,
 
     if ( state == saga::job::Done )
     {
-      std::cout << name << ": Done" << std::endl;
+
+      saga::advert::entry a (ad);
+      std::string result = a.get_attribute (key);
+
+      if ( result == val )
+      {
+        std::cout << name << ": Done with Success (" << val << ")" << std::endl;
+      }
+      else
+      {
+        std::cout << name << ": Done with Failure (" << result << " != " << val << ")" << std::endl;
+      }
     }
     else
     {
@@ -572,13 +561,15 @@ int main (int argc, char** argv)
     std::cout << " arc        " << std::endl;
     std::cout << " smoa.1     " << std::endl;
     std::cout << " smoa.2     " << std::endl;
-    std::cout << " fg.sierra  " << std::endl;
-    std::cout << " fg.india   " << std::endl;
-    std::cout << " fg.alamo   " << std::endl;
+    std::cout << " fg.sierra.u" << std::endl;
+    std::cout << " fg.sierra.c" << std::endl;
+    std::cout << " fg.india.u " << std::endl;
+    std::cout << " fg.india.c " << std::endl;
+    std::cout << " fg.alamo.u " << std::endl;
+    std::cout << " fg.alamo.c " << std::endl;
     std::cout << " fg.ucsierra" << std::endl;
     std::cout << " fg.ucindia " << std::endl;
     std::cout << " ec2host    " << std::endl;
-    std::cout << " test       " << std::endl;
     std::cout << "            " << std::endl;
 
     return 0;
@@ -588,24 +579,26 @@ int main (int argc, char** argv)
   bool all = ( test == "all" ) ? true : false ;
 
 
-  if ( all || test == "local.fork" ) { struct endpoint_localfork   ep; run_test ("local fork   ", ep) && err++; tot++; }
-  if ( all || test == "local.bes"  ) { struct endpoint_localbes    ep; run_test ("local bes    ", ep) && err++; tot++; }
-  if ( all || test == "ssh.cyder"  ) { struct endpoint_ssh_cyder   ep; run_test ("ssh cyder    ", ep) && err++; tot++; }
-  if ( all || test == "unicore"    ) { struct endpoint_unicore     ep; run_test ("unicore      ", ep) && err++; tot++; } 
-  if ( all || test == "gridsam"    ) { struct endpoint_gridsam     ep; run_test ("gridsam      ", ep) && err++; tot++; } 
-  if ( all || test == "gram.loni"  ) { struct endpoint_gram_loni   ep; run_test ("gram loni    ", ep) && err++; tot++; } 
-  if ( all || test == "gram.lrz"   ) { struct endpoint_gram_lrz    ep; run_test ("gram lrz     ", ep) && err++; tot++; } 
-  if ( all || test == "gram.unido" ) { struct endpoint_gram_unido  ep; run_test ("gram unido   ", ep) && err++; tot++; } 
-  if ( all || test == "arc"        ) { struct endpoint_arc         ep; run_test ("arc          ", ep) && err++; tot++; } 
-  if ( all || test == "smoa.1"     ) { struct endpoint_smoa_1      ep; run_test ("smoa 1       ", ep) && err++; tot++; } 
-  if ( all || test == "smoa.2"     ) { struct endpoint_smoa_2      ep; run_test ("smoa 2       ", ep) && err++; tot++; } 
-  if ( all || test == "fg.sierra"  ) { struct endpoint_fg_sierra   ep; run_test ("fg sierra    ", ep) && err++; tot++; }
-  if ( all || test == "fg.india"   ) { struct endpoint_fg_india    ep; run_test ("fg india     ", ep) && err++; tot++; }
-  if ( all || test == "fg.alamo"   ) { struct endpoint_fg_alamo    ep; run_test ("fg alamo     ", ep) && err++; tot++; }
-  if ( all || test == "fg.ucsierra") { struct endpoint_fg_ucsierra ep; run_test ("fg uc sierra ", ep) && err++; tot++; }
-  if ( all || test == "fg.ucindia" ) { struct endpoint_fg_ucindia  ep; run_test ("fg uc india  ", ep) && err++; tot++; }
-  if ( all || test == "ec2host"    ) { struct endpoint_ec2host     ep; run_test ("ec2 host     ", ep) && err++; tot++; }
-  if ( all || test == "test"       ) { struct endpoint_test        ep; run_test ("test         ", ep) && err++; tot++; }
+  if ( all || test == "local.fork" ) { struct endpoint_localfork      ep; run_test ("local.fork" , ep) && err++; tot++; }
+  if ( all || test == "local.bes"  ) { struct endpoint_localbes       ep; run_test ("local.bes"  , ep) && err++; tot++; }
+  if ( all || test == "ssh.cyder"  ) { struct endpoint_ssh_cyder      ep; run_test ("ssh.cyder"  , ep) && err++; tot++; }
+  if ( all || test == "unicore"    ) { struct endpoint_unicore        ep; run_test ("unicore"    , ep) && err++; tot++; } 
+  if ( all || test == "gridsam"    ) { struct endpoint_gridsam        ep; run_test ("gridsam"    , ep) && err++; tot++; } 
+  if ( all || test == "gram.loni"  ) { struct endpoint_gram_loni      ep; run_test ("gram.loni"  , ep) && err++; tot++; } 
+  if ( all || test == "gram.lrz"   ) { struct endpoint_gram_lrz       ep; run_test ("gram.lrz"   , ep) && err++; tot++; } 
+  if ( all || test == "gram.unido" ) { struct endpoint_gram_unido     ep; run_test ("gram.unido" , ep) && err++; tot++; } 
+  if ( all || test == "arc"        ) { struct endpoint_arc            ep; run_test ("arc"        , ep) && err++; tot++; } 
+  if ( all || test == "smoa.1"     ) { struct endpoint_smoa_1         ep; run_test ("smoa.1"     , ep) && err++; tot++; } 
+  if ( all || test == "smoa.2"     ) { struct endpoint_smoa_2         ep; run_test ("smoa.2"     , ep) && err++; tot++; } 
+  if ( all || test == "fg.sierra.u") { struct endpoint_fg_sierra_u    ep; run_test ("fg.sierra.u", ep) && err++; tot++; }
+  if ( all || test == "fg.sierra.c") { struct endpoint_fg_sierra_c    ep; run_test ("fg.sierra.c", ep) && err++; tot++; }
+  if ( all || test == "fg.india.u" ) { struct endpoint_fg_india_u     ep; run_test ("fg.india.u" , ep) && err++; tot++; }
+  if ( all || test == "fg.india.c" ) { struct endpoint_fg_india_c     ep; run_test ("fg.india.c" , ep) && err++; tot++; }
+  if ( all || test == "fg.alamo.u" ) { struct endpoint_fg_alamo_u     ep; run_test ("fg.alamo.u" , ep) && err++; tot++; }
+  if ( all || test == "fg.alamo.c" ) { struct endpoint_fg_alamo_c     ep; run_test ("fg.alamo.c" , ep) && err++; tot++; }
+  if ( all || test == "fg.ucsierra") { struct endpoint_fg_ucsierra    ep; run_test ("fg.ucsierra", ep) && err++; tot++; }
+  if ( all || test == "fg.ucindia" ) { struct endpoint_fg_ucindia     ep; run_test ("fg.ucindia" , ep) && err++; tot++; }
+  if ( all || test == "ec2host"    ) { struct endpoint_ec2host        ep; run_test ("ec2host"    , ep) && err++; tot++; }
 
 
   std::cout << " ==================================================================" << std::endl;
