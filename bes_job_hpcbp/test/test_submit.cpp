@@ -405,6 +405,8 @@ int run_test (std::string       name,
   time_t      t   = ::time      (NULL);
   struct tm * tmp = ::localtime (&t);
 
+  bool do_backchannel_test = false;
+
   char tstr[256];
   strftime (tstr, sizeof (tstr), "%F.%T(%Z)", tmp);
 
@@ -413,11 +415,19 @@ int run_test (std::string       name,
   std::string val = name + "-" + tstr;
   
   std::vector <std::string> args;
-  args.push_back ("saga-advert");
-  args.push_back ("set_attribute");
-  args.push_back (ad);
-  args.push_back (key);
-  args.push_back (val);
+
+  if ( do_backchannel_test )
+  {
+    args.push_back ("saga-advert");
+    args.push_back ("set_attribute");
+    args.push_back (ad);
+    args.push_back (key);
+    args.push_back (val);
+  }
+  else
+  {
+    args.push_back ("false");
+  }
 
   int err = 0;
 
@@ -483,7 +493,7 @@ int run_test (std::string       name,
 
     j.run ();
 
-    std::cout << j.get_job_id () << std::endl;
+    std::cout << "jobid: " << j.get_job_id () << std::endl;
 
     std::cout << name << ": Submitted" << std::endl;
 
@@ -500,9 +510,13 @@ int run_test (std::string       name,
 
     if ( state == saga::job::Done )
     {
+      std::string result = val;
 
-      saga::advert::entry a (ad);
-      std::string result = a.get_attribute (key);
+      if ( do_backchannel_test )
+      {
+        saga::advert::entry a (ad);
+        result = a.get_attribute (key);
+      }
 
       if ( result == val )
       {
@@ -542,12 +556,21 @@ int main (int argc, char** argv)
 
   std::string test = "list";
 
-  if ( argc > 1 )
+  std::vector <std::string> hosts;
+  bool all  = false;
+  bool list = false;
+
+  for ( int i = 1; i < argc; i++ )
   {
-    test = argv[1];
+    std::string val (argv[i]);
+
+    if      ( val == "all"  ) { all = true;            }
+    else if ( val == "list" ) { all = true;            }
+    else                      { hosts.push_back (val); 
+      std::cout << "host: " << i << " - " << val << std::endl;}
   }
 
-  if ( test == "list" )
+  if ( list )
   {
     std::cout << "            " << std::endl;
     std::cout << " local.fork " << std::endl;
@@ -575,30 +598,54 @@ int main (int argc, char** argv)
     return 0;
   }
   
-  
-  bool all = ( test == "all" ) ? true : false ;
+  if ( all )
+  {
+    hosts.clear ();
+    hosts.push_back ( "local.fork" );
+    hosts.push_back ( "local.bes"  );
+    hosts.push_back ( "ssh.cyder"  );
+    hosts.push_back ( "unicore"    );
+    hosts.push_back ( "gridsam"    );
+    hosts.push_back ( "gram.loni"  );
+    hosts.push_back ( "gram.lrz"   );
+    hosts.push_back ( "gram.unido" );
+    hosts.push_back ( "arc"        );
+    hosts.push_back ( "smoa.1"     );
+    hosts.push_back ( "smoa.2"     );
+    hosts.push_back ( "fg.sierra.u");
+    hosts.push_back ( "fg.sierra.c");
+    hosts.push_back ( "fg.india.u" );
+    hosts.push_back ( "fg.india.c" );
+    hosts.push_back ( "fg.alamo.u" );
+    hosts.push_back ( "fg.alamo.c" );
+    hosts.push_back ( "fg.ucsierra");
+    hosts.push_back ( "fg.ucindia" );
+    hosts.push_back ( "ec2host"    );
+  }
 
-
-  if ( all || test == "local.fork" ) { struct endpoint_localfork      ep; run_test ("local.fork" , ep) && err++; tot++; }
-  if ( all || test == "local.bes"  ) { struct endpoint_localbes       ep; run_test ("local.bes"  , ep) && err++; tot++; }
-  if ( all || test == "ssh.cyder"  ) { struct endpoint_ssh_cyder      ep; run_test ("ssh.cyder"  , ep) && err++; tot++; }
-  if ( all || test == "unicore"    ) { struct endpoint_unicore        ep; run_test ("unicore"    , ep) && err++; tot++; } 
-  if ( all || test == "gridsam"    ) { struct endpoint_gridsam        ep; run_test ("gridsam"    , ep) && err++; tot++; } 
-  if ( all || test == "gram.loni"  ) { struct endpoint_gram_loni      ep; run_test ("gram.loni"  , ep) && err++; tot++; } 
-  if ( all || test == "gram.lrz"   ) { struct endpoint_gram_lrz       ep; run_test ("gram.lrz"   , ep) && err++; tot++; } 
-  if ( all || test == "gram.unido" ) { struct endpoint_gram_unido     ep; run_test ("gram.unido" , ep) && err++; tot++; } 
-  if ( all || test == "arc"        ) { struct endpoint_arc            ep; run_test ("arc"        , ep) && err++; tot++; } 
-  if ( all || test == "smoa.1"     ) { struct endpoint_smoa_1         ep; run_test ("smoa.1"     , ep) && err++; tot++; } 
-  if ( all || test == "smoa.2"     ) { struct endpoint_smoa_2         ep; run_test ("smoa.2"     , ep) && err++; tot++; } 
-  if ( all || test == "fg.sierra.u") { struct endpoint_fg_sierra_u    ep; run_test ("fg.sierra.u", ep) && err++; tot++; }
-  if ( all || test == "fg.sierra.c") { struct endpoint_fg_sierra_c    ep; run_test ("fg.sierra.c", ep) && err++; tot++; }
-  if ( all || test == "fg.india.u" ) { struct endpoint_fg_india_u     ep; run_test ("fg.india.u" , ep) && err++; tot++; }
-  if ( all || test == "fg.india.c" ) { struct endpoint_fg_india_c     ep; run_test ("fg.india.c" , ep) && err++; tot++; }
-  if ( all || test == "fg.alamo.u" ) { struct endpoint_fg_alamo_u     ep; run_test ("fg.alamo.u" , ep) && err++; tot++; }
-  if ( all || test == "fg.alamo.c" ) { struct endpoint_fg_alamo_c     ep; run_test ("fg.alamo.c" , ep) && err++; tot++; }
-  if ( all || test == "fg.ucsierra") { struct endpoint_fg_ucsierra    ep; run_test ("fg.ucsierra", ep) && err++; tot++; }
-  if ( all || test == "fg.ucindia" ) { struct endpoint_fg_ucindia     ep; run_test ("fg.ucindia" , ep) && err++; tot++; }
-  if ( all || test == "ec2host"    ) { struct endpoint_ec2host        ep; run_test ("ec2host"    , ep) && err++; tot++; }
+  for ( unsigned int i = 0; i < hosts.size (); i++ )
+  {
+    if ( hosts[i] == "local.fork" ) { struct endpoint_localfork      ep; run_test ("local.fork" , ep) && err++; tot++; }
+    if ( hosts[i] == "local.bes"  ) { struct endpoint_localbes       ep; run_test ("local.bes"  , ep) && err++; tot++; }
+    if ( hosts[i] == "ssh.cyder"  ) { struct endpoint_ssh_cyder      ep; run_test ("ssh.cyder"  , ep) && err++; tot++; }
+    if ( hosts[i] == "unicore"    ) { struct endpoint_unicore        ep; run_test ("unicore"    , ep) && err++; tot++; } 
+    if ( hosts[i] == "gridsam"    ) { struct endpoint_gridsam        ep; run_test ("gridsam"    , ep) && err++; tot++; } 
+    if ( hosts[i] == "gram.loni"  ) { struct endpoint_gram_loni      ep; run_test ("gram.loni"  , ep) && err++; tot++; } 
+    if ( hosts[i] == "gram.lrz"   ) { struct endpoint_gram_lrz       ep; run_test ("gram.lrz"   , ep) && err++; tot++; } 
+    if ( hosts[i] == "gram.unido" ) { struct endpoint_gram_unido     ep; run_test ("gram.unido" , ep) && err++; tot++; } 
+    if ( hosts[i] == "arc"        ) { struct endpoint_arc            ep; run_test ("arc"        , ep) && err++; tot++; } 
+    if ( hosts[i] == "smoa.1"     ) { struct endpoint_smoa_1         ep; run_test ("smoa.1"     , ep) && err++; tot++; } 
+    if ( hosts[i] == "smoa.2"     ) { struct endpoint_smoa_2         ep; run_test ("smoa.2"     , ep) && err++; tot++; } 
+    if ( hosts[i] == "fg.sierra.u") { struct endpoint_fg_sierra_u    ep; run_test ("fg.sierra.u", ep) && err++; tot++; }
+    if ( hosts[i] == "fg.sierra.c") { struct endpoint_fg_sierra_c    ep; run_test ("fg.sierra.c", ep) && err++; tot++; }
+    if ( hosts[i] == "fg.india.u" ) { struct endpoint_fg_india_u     ep; run_test ("fg.india.u" , ep) && err++; tot++; }
+    if ( hosts[i] == "fg.india.c" ) { struct endpoint_fg_india_c     ep; run_test ("fg.india.c" , ep) && err++; tot++; }
+    if ( hosts[i] == "fg.alamo.u" ) { struct endpoint_fg_alamo_u     ep; run_test ("fg.alamo.u" , ep) && err++; tot++; }
+    if ( hosts[i] == "fg.alamo.c" ) { struct endpoint_fg_alamo_c     ep; run_test ("fg.alamo.c" , ep) && err++; tot++; }
+    if ( hosts[i] == "fg.ucsierra") { struct endpoint_fg_ucsierra    ep; run_test ("fg.ucsierra", ep) && err++; tot++; }
+    if ( hosts[i] == "fg.ucindia" ) { struct endpoint_fg_ucindia     ep; run_test ("fg.ucindia" , ep) && err++; tot++; }
+    if ( hosts[i] == "ec2host"    ) { struct endpoint_ec2host        ep; run_test ("ec2host"    , ep) && err++; tot++; }
+  }
 
 
   std::cout << " ==================================================================" << std::endl;

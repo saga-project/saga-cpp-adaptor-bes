@@ -432,8 +432,32 @@ namespace bes_hpcbp_job
       std::string s1 (rm_s_);
       std::string s2 (::strdup (job_epr_->str));
 
+      // we filter <Metadata>...</Metadata> out of s1 and s2 (Hi Genesis-II :-)
+      size_t pos1 = s1.find ("<Metadata",   0);
+      size_t pos2 = s1.find ("</Metadata>", 0);
+      size_t pos3 = s2.find ("<Metadata",   0);
+      size_t pos4 = s2.find ("</Metadata>", 0);
+
+      if ( pos1 != std::string::npos && 
+           pos2 != std::string::npos &&
+           pos2 > pos1 )
+      {
+        s1.erase (pos1, pos2 - pos1 + 10);
+      }
+
+      if ( pos3 != std::string::npos && 
+           pos4 != std::string::npos &&
+           pos4 > pos3 )
+      {
+        s2.erase (pos3, pos4 - pos3 + 10);
+      }
+
+      // construct te job od according to GFD.90
       jobid_ = std::string ("[") + s1 + "]-[" + s2 + "]";
-      state_ = saga::job::Running; /* job in system - assume running */    
+
+
+      // job accepted by the system - assume running
+      state_ = saga::job::Running; 
 
       // std::cout << "Successfully submitted activity: " << jobid_ << std::endl;
     }

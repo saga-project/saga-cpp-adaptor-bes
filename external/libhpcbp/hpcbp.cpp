@@ -492,7 +492,7 @@ namespace hpcbp
 
     combined_state cs;
 
-    cs.state    = static_cast <state> (status.state);
+    cs.state = static_cast <state> (status.state);
 
     if ( NULL != status.substate )
     {
