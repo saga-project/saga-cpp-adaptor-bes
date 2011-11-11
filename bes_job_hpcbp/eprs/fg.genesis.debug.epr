@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsa:EndpointReference xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:ns1="http://edu.virginia.vcgr.genii/ref-params">
+    <wsa:Address xmlns="http://www.w3.org/2005/08/addressing">https://uvacse-002.cs.Virginia.EDU:18443/axis/services/GeniiBESPortType?genii-container-id=EBD9CA9C-EF9B-9F7C-FA89-8D0752A1FD4D</wsa:Address>
+    <wsa:ReferenceParameters>
+        <ns1:resource-key>0B217EB3-091C-B81A-A0B3-29C04D337F1C</ns1:resource-key>
+    </wsa:ReferenceParameters>
+</wsa:EndpointReference>
