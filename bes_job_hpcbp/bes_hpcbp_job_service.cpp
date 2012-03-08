@@ -206,16 +206,6 @@ namespace bes_hpcbp_job
                           saga::BadParameter);
     }
 
-    if ( ! context_found )
-    {
-      // this is not really an error, maybe there is no security on the endpoint
-      // whatsoever - but its actually unlikely that calls will succeed.  So, we
-      // print a warning
-      SAGA_ADAPTOR_THROW ("No suitable context found - use either X509 or UserPass context",
-                          saga::AuthenticationFailed);
-    }
-
-
     // TODO: check if host exists and can be used, otherwise throw BadParameter
     // easiest would probably to run an invalid job request and see if we get
     // a sensible error...  But latency *sigh*

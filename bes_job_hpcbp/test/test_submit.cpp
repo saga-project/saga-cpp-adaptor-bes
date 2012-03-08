@@ -404,13 +404,13 @@ class endpoint_gin_bsc : public endpoint
   public:
     endpoint_gin_bsc (void)
     {
-      type     = "UserPass";
+      type     = "none";
       url      = "http://bscgrid06.bsc.es:8080/venusbes/factory";
-      user     = "ogf30";
-      pass     = "ogf30";
-      cert     = "/tmp/x509up_u" UID;
-      key      = "/tmp/x509up_u" UID;
-      cadir    = HOME ".saga/certificates/";
+      user     = "";
+      pass     = "";
+      cert     = "";
+      key      = "";
+      cadir    = "";
    // exe      = "/home/merzky/install/bin/saga-run.sh";
       exe      = "echo";
     }
