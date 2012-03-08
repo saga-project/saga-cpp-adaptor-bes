@@ -399,6 +399,24 @@ class endpoint_ec2host : public endpoint
 };
 
 
+class endpoint_gin_bsc : public endpoint
+{
+  public:
+    endpoint_gin_bsc (void)
+    {
+      type     = "UserPass";
+      url      = "http://bscgrid06.bsc.es:8080/venusbes/factory";
+      user     = "ogf30";
+      pass     = "ogf30";
+      cert     = "/tmp/x509up_u" UID;
+      key      = "/tmp/x509up_u" UID;
+      cadir    = HOME ".saga/certificates/";
+   // exe      = "/home/merzky/install/bin/saga-run.sh";
+      exe      = "echo";
+    }
+};
+
+
 int run_test (std::string       name, 
               struct endpoint & ep)
 {
@@ -564,8 +582,8 @@ int main (int argc, char** argv)
   {
     std::string val (argv[i]);
 
-    if      ( val == "all"  ) { all = true;            }
-    else if ( val == "list" ) { all = true;            }
+    if      ( val == "all"  ) { all  = true;            }
+    else if ( val == "list" ) { list = true;            }
     else                      { hosts.push_back (val); 
       std::cout << "host: " << i << " - " << val << std::endl;}
   }
@@ -592,6 +610,7 @@ int main (int argc, char** argv)
     std::cout << " fg.alamo.c " << std::endl;
     std::cout << " fg.ucsierra" << std::endl;
     std::cout << " fg.ucindia " << std::endl;
+    std::cout << " gin.bsc    " << std::endl;
     std::cout << " ec2host    " << std::endl;
     std::cout << "            " << std::endl;
 
@@ -620,6 +639,7 @@ int main (int argc, char** argv)
     hosts.push_back ( "fg.alamo.c" );
     hosts.push_back ( "fg.ucsierra");
     hosts.push_back ( "fg.ucindia" );
+    hosts.push_back ( "gin.bsc"    );
     hosts.push_back ( "ec2host"    );
   }
 
@@ -644,6 +664,7 @@ int main (int argc, char** argv)
     if ( hosts[i] == "fg.alamo.c" ) { struct endpoint_fg_alamo_c     ep; run_test ("fg.alamo.c" , ep) && err++; tot++; }
     if ( hosts[i] == "fg.ucsierra") { struct endpoint_fg_ucsierra    ep; run_test ("fg.ucsierra", ep) && err++; tot++; }
     if ( hosts[i] == "fg.ucindia" ) { struct endpoint_fg_ucindia     ep; run_test ("fg.ucindia" , ep) && err++; tot++; }
+    if ( hosts[i] == "gin.bsc"    ) { struct endpoint_gin_bsc        ep; run_test ("gin.bsc"    , ep) && err++; tot++; }
     if ( hosts[i] == "ec2host"    ) { struct endpoint_ec2host        ep; run_test ("ec2host"    , ep) && err++; tot++; }
   }
 
