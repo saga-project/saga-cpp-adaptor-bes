@@ -399,18 +399,39 @@ class endpoint_ec2host : public endpoint
 };
 
 
-class endpoint_gin_bsc : public endpoint
+class endpoint_gin_bsc_1 : public endpoint
 {
   public:
-    endpoint_gin_bsc (void)
+    endpoint_gin_bsc_1 (void)
     {
       type     = "none";
       url      = "http://bscgrid06.bsc.es:8080/venusbes/factory";
-      user     = "";
-      pass     = "";
+      user     = "";   // usercolb";
+      pass     = "";   // usercolb";
       cert     = "";
       key      = "";
       cadir    = "";
+   // exe      = "/home/merzky/install/bin/saga-run.sh";
+      exe      = "echo";
+    }
+};
+
+
+class endpoint_gin_bsc_2 : public endpoint
+{
+  public:
+    endpoint_gin_bsc_2 (void)
+    {
+      type     = "UserPass";
+      url      = "https://bscgrid05.bsc.es:8443/venusbes/factory";
+      user     = "usercolb";
+      pass     = "usercolb";
+   // cert     = "";
+   // key      = "";
+   // cadir    = "";
+   // cert     = "/tmp/x509up_u" UID;
+   // key      = "/tmp/x509up_u" UID;
+      cadir    = HOME ".saga/certificates/";
    // exe      = "/home/merzky/install/bin/saga-run.sh";
       exe      = "echo";
     }
@@ -456,22 +477,26 @@ int run_test (std::string       name,
     std::cout <<  " ------------------------------------------------------------------" << std::endl;
 
     saga::session s;
-    saga::context c (ep.type);
 
-    // std::cout << " contexttype   : " << ep.type    << std::endl;
-    // std::cout << " usercert      : " << ep.cert    << std::endl;
-    // std::cout << " userkey       : " << ep.key     << std::endl;
-    // std::cout << " userid        : " << ep.user    << std::endl;
-    // std::cout << " userpass      : " << ep.pass    << std::endl;
-    // std::cout << " certrepository: " << ep.cadir   << std::endl;
+    if ( ep.type != "none" )
+    {
+      saga::context c (ep.type);
 
-    c.set_attribute (saga::attributes::context_usercert,       ep.cert);
-    c.set_attribute (saga::attributes::context_userkey,        ep.key);
-    c.set_attribute (saga::attributes::context_userid,         ep.user);
-    c.set_attribute (saga::attributes::context_userpass,       ep.pass);
-    c.set_attribute (saga::attributes::context_certrepository, ep.cadir);
+      // std::cout << " contexttype   : " << ep.type    << std::endl;
+      // std::cout << " usercert      : " << ep.cert    << std::endl;
+      // std::cout << " userkey       : " << ep.key     << std::endl;
+      // std::cout << " userid        : " << ep.user    << std::endl;
+      // std::cout << " userpass      : " << ep.pass    << std::endl;
+      // std::cout << " certrepository: " << ep.cadir   << std::endl;
 
-    s.add_context (c);
+      c.set_attribute (saga::attributes::context_usercert,       ep.cert);
+      c.set_attribute (saga::attributes::context_userkey,        ep.key);
+      c.set_attribute (saga::attributes::context_userid,         ep.user);
+      c.set_attribute (saga::attributes::context_userpass,       ep.pass);
+      c.set_attribute (saga::attributes::context_certrepository, ep.cadir);
+
+      s.add_context (c);
+    }
 
     saga::job::service     js (s, ep.url);
     saga::job::description jd;
@@ -610,7 +635,8 @@ int main (int argc, char** argv)
     std::cout << " fg.alamo.c " << std::endl;
     std::cout << " fg.ucsierra" << std::endl;
     std::cout << " fg.ucindia " << std::endl;
-    std::cout << " gin.bsc    " << std::endl;
+    std::cout << " gin.bsc.1  " << std::endl;
+    std::cout << " gin.bsc.2  " << std::endl;
     std::cout << " ec2host    " << std::endl;
     std::cout << "            " << std::endl;
 
@@ -639,7 +665,8 @@ int main (int argc, char** argv)
     hosts.push_back ( "fg.alamo.c" );
     hosts.push_back ( "fg.ucsierra");
     hosts.push_back ( "fg.ucindia" );
-    hosts.push_back ( "gin.bsc"    );
+    hosts.push_back ( "gin.bsc.1"  );
+    hosts.push_back ( "gin.bsc.2"  );
     hosts.push_back ( "ec2host"    );
   }
 
@@ -664,7 +691,8 @@ int main (int argc, char** argv)
     if ( hosts[i] == "fg.alamo.c" ) { struct endpoint_fg_alamo_c     ep; run_test ("fg.alamo.c" , ep) && err++; tot++; }
     if ( hosts[i] == "fg.ucsierra") { struct endpoint_fg_ucsierra    ep; run_test ("fg.ucsierra", ep) && err++; tot++; }
     if ( hosts[i] == "fg.ucindia" ) { struct endpoint_fg_ucindia     ep; run_test ("fg.ucindia" , ep) && err++; tot++; }
-    if ( hosts[i] == "gin.bsc"    ) { struct endpoint_gin_bsc        ep; run_test ("gin.bsc"    , ep) && err++; tot++; }
+    if ( hosts[i] == "gin.bsc.1"  ) { struct endpoint_gin_bsc_1      ep; run_test ("gin.bsc.1"  , ep) && err++; tot++; }
+    if ( hosts[i] == "gin.bsc.2"  ) { struct endpoint_gin_bsc_2      ep; run_test ("gin.bsc.2"  , ep) && err++; tot++; }
     if ( hosts[i] == "ec2host"    ) { struct endpoint_ec2host        ep; run_test ("ec2host"    , ep) && err++; tot++; }
   }
 
