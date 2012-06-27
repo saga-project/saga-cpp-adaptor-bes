@@ -45,7 +45,7 @@ namespace bes_hpcbp_job
     {
       bp_.initialize ();
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not initialize backend library: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -102,7 +102,7 @@ namespace bes_hpcbp_job
 
         bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
       }
-      catch ( const char * m )
+      catch ( const char & m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not handle EPR: ") + m).c_str (), 
                             saga::BadParameter);
@@ -119,7 +119,7 @@ namespace bes_hpcbp_job
       {
         bp_.set_host_endpoint (rm_.get_string ());
       }
-      catch ( const char * m )
+      catch ( const char & m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not handle endpoint url: ") + m).c_str (), 
                             saga::BadParameter);
@@ -144,8 +144,7 @@ namespace bes_hpcbp_job
       if ( c.attribute_exists (saga::attributes::context_type) )
       {
         if ( c.get_attribute  (saga::attributes::context_type) == "UserPass" ||
-             c.get_attribute  (saga::attributes::context_type) == "X509"     ||
-             c.get_attribute  (saga::attributes::context_type) == "x509" )
+             c.get_attribute  (saga::attributes::context_type) == "X509" )
         {
           std::string user  ("");
           std::string pass  ("");
@@ -191,6 +190,13 @@ namespace bes_hpcbp_job
         }
       }
     }
+
+    if ( ! context_found )
+    {
+      SAGA_ADAPTOR_THROW ("No suitable context found - use either X509 or UserPass context",
+                          saga::AuthenticationFailed);
+    }
+
 
     // TODO: check if host exists and can be used, otherwise throw BadParameter
     // easiest would probably to run an invalid job request and see if we get
@@ -271,7 +277,7 @@ namespace bes_hpcbp_job
           jsdl_.set_file_transfers (jd_.get_vector_attribute (sja::description_file_transfer));
         }
       }
-      catch ( const char * m )
+      catch ( const char & m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not create jsdl: ") + m).c_str (), 
                             saga::BadParameter);
@@ -295,7 +301,7 @@ namespace bes_hpcbp_job
     {
       bp_.finalize ();
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not finalize backend library: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -326,7 +332,7 @@ namespace bes_hpcbp_job
 
       // std::cout << "  substate   : " << adata->get_saga_substate (cs) << std::endl;
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not get state: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -425,36 +431,12 @@ namespace bes_hpcbp_job
       std::string s1 (rm_s_);
       std::string s2 (::strdup (job_epr_->str));
 
-      // we filter <Metadata>...</Metadata> out of s1 and s2 (Hi Genesis-II :-)
-      size_t pos1 = s1.find ("<Metadata",   0);
-      size_t pos2 = s1.find ("</Metadata>", 0);
-      size_t pos3 = s2.find ("<Metadata",   0);
-      size_t pos4 = s2.find ("</Metadata>", 0);
-
-      if ( pos1 != std::string::npos && 
-           pos2 != std::string::npos &&
-           pos2 > pos1 )
-      {
-        s1.erase (pos1, pos2 - pos1 + 10);
-      }
-
-      if ( pos3 != std::string::npos && 
-           pos4 != std::string::npos &&
-           pos4 > pos3 )
-      {
-        s2.erase (pos3, pos4 - pos3 + 10);
-      }
-
-      // construct te job od according to GFD.90
       jobid_ = std::string ("[") + s1 + "]-[" + s2 + "]";
-
-
-      // job accepted by the system - assume running
-      state_ = saga::job::Running; 
+      state_ = saga::job::Running; /* job in system - assume running */    
 
       // std::cout << "Successfully submitted activity: " << jobid_ << std::endl;
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not run job: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -473,7 +455,7 @@ namespace bes_hpcbp_job
     {
       bp_.terminate (job_epr_);
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not cancel job: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -509,7 +491,7 @@ namespace bes_hpcbp_job
         time += 1.0;
       }
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not wait for job: ") + m).c_str (), 
                           saga::NoSuccess);

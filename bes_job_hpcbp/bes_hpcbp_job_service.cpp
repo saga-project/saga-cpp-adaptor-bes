@@ -47,7 +47,7 @@ namespace bes_hpcbp_job
     {
       bp_.initialize ();
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not initialize backend library: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -102,7 +102,7 @@ namespace bes_hpcbp_job
 
         bp_.set_host_epr (static_cast <const char*> (b.get_data ()));
       }
-      catch ( const char * m )
+      catch ( const char & m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not handle EPR: ") + m).c_str (), 
                             saga::BadParameter);
@@ -119,7 +119,7 @@ namespace bes_hpcbp_job
       {
         bp_.set_host_endpoint (rm_.get_string ());
       }
-      catch ( const char * m )
+      catch ( const char & m )
       {
         SAGA_ADAPTOR_THROW ((std::string ("Could not handle endpoint url: ") + m).c_str (), 
                             saga::BadParameter);
@@ -146,15 +146,10 @@ namespace bes_hpcbp_job
 
         if ( c.attribute_exists (saga::attributes::context_type) )
         {
-          if ( c.get_attribute  (saga::attributes::context_type) == "UserPass" ||
-               c.get_attribute  (saga::attributes::context_type) == "X509"     ||
-               c.get_attribute  (saga::attributes::context_type) == "x509" )
+          if ( c.get_attribute  (saga::attributes::context_type) == "UserPass" )
           {
-            std::string user  ("");
-            std::string pass  ("");
-            std::string cert  ("");
-            std::string key   ("");
-            std::string cadir ("");
+            std::string user;
+            std::string pass;
 
             if ( c.attribute_exists (saga::attributes::context_userid) )
             {
@@ -166,6 +161,16 @@ namespace bes_hpcbp_job
               pass = c.get_attribute (saga::attributes::context_userpass);
             }
 
+            bp_.set_security ("", "", "", user, pass);
+
+            context_found = true;
+          }
+          else if ( c.get_attribute (saga::attributes::context_type) == "UserPass" )
+          {
+            std::string cert;
+            std::string pass;
+            std::string cadir;
+
             if ( c.attribute_exists (saga::attributes::context_certrepository) )
             {
               cadir = c.get_attribute (saga::attributes::context_certrepository);
@@ -176,12 +181,12 @@ namespace bes_hpcbp_job
               cert = c.get_attribute (saga::attributes::context_usercert);
             }
 
-            if ( c.attribute_exists (saga::attributes::context_userkey) )
+            if ( c.attribute_exists (saga::attributes::context_userpass) )
             {
-              key = c.get_attribute (saga::attributes::context_userkey);
+              pass = c.get_attribute (saga::attributes::context_userpass);
             }
 
-            bp_.set_security (cert, key, cadir, user, pass);
+            bp_.set_security (cert, pass, cadir, "", "");
 
             context_found = true;
           }
@@ -195,7 +200,7 @@ namespace bes_hpcbp_job
         }
       }
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not handle context information: ") + m).c_str (), 
                           saga::BadParameter);
@@ -205,6 +210,16 @@ namespace bes_hpcbp_job
       SAGA_ADAPTOR_THROW ((std::string ("Could not handle context information: ") + e.what ()).c_str (), 
                           saga::BadParameter);
     }
+
+    if ( ! context_found )
+    {
+      // this is not really an error, maybe there is no security on the endpoint
+      // whatsoever - but its actually unlikely that calls will succeed.  So, we
+      // print a warning
+      SAGA_ADAPTOR_THROW ("No suitable context found - use either X509 or UserPass context",
+                          saga::AuthenticationFailed);
+    }
+
 
     // TODO: check if host exists and can be used, otherwise throw BadParameter
     // easiest would probably to run an invalid job request and see if we get
@@ -218,7 +233,7 @@ namespace bes_hpcbp_job
     {
       bp_.finalize ();
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not finalize backend library: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -240,7 +255,7 @@ namespace bes_hpcbp_job
       ret = saga::adaptors::job (rm_, jd, 
                                  proxy_->get_session ());
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not create job: ") + m).c_str (), 
                           saga::NoSuccess);
@@ -281,7 +296,7 @@ namespace bes_hpcbp_job
                                  jobid, 
                                  proxy_->get_session ());
     }
-    catch ( const char * m )
+    catch ( const char & m )
     {
       SAGA_ADAPTOR_THROW ((std::string ("Could not create job: ") + m).c_str (), 
                           saga::NoSuccess);
