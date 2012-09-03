@@ -68,9 +68,9 @@
 
 :KNOWN ISSUES:
 
-  - no interactive jobs are supported (unsupported by BES).  
-  - callbacks are not supported.
-  - file staging support is not well tested, yet.
+  - No interactive jobs are supported (unsupported by BES).  
+  - Callbacks are not supported.
+  - File staging support is not well tested, yet.
   - file staging does not yet support separate credentials per staging
     directive.
   - the quality of error reports varies widely, depending on the respective

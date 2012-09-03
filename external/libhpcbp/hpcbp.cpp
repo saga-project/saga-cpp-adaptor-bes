@@ -319,32 +319,16 @@ namespace hpcbp
     char * user;
     char * pass;
 
-    bool uc = false; // use security
+    if ( x509cert_.empty () ) x509cert = NULL; else x509cert = ::strdup (x509cert_.c_str ());
+    if ( x509pass_.empty () ) x509pass = NULL; else x509pass = ::strdup (x509pass_.c_str ());
+    if ( capath_.empty   () ) capath   = NULL; else capath   = ::strdup (capath_.c_str   ());
+    if ( user_.empty     () ) user     = NULL; else user     = ::strdup (user_.c_str     ());
+    if ( pass_.empty     () ) pass     = NULL; else pass     = ::strdup (pass_.c_str     ());
 
-    if ( x509cert_.empty () ) x509cert = NULL; else { uc++; x509cert = ::strdup (x509cert_.c_str ()); }
-    if ( x509pass_.empty () ) x509pass = NULL; else { uc++; x509pass = ::strdup (x509pass_.c_str ()); }
-    if ( capath_.empty   () ) capath   = NULL; else { uc++; capath   = ::strdup (capath_.c_str   ()); }
-    if ( user_.empty     () ) user     = NULL; else { uc++; user     = ::strdup (user_.c_str     ()); }
-    if ( pass_.empty     () ) pass     = NULL; else { uc++; pass     = ::strdup (pass_.c_str     ()); }
-
-    if ( uc )
+    if ( bes_security (bes_context_, x509cert, x509pass, capath, user, pass) )
     {
-      // std::cout << " ======== setting sec" << std::endl;
-      // std::cout << "          x509cert: " << x509cert << std::endl;
-      // std::cout << "          x509pass: " << x509pass << std::endl;
-      // std::cout << "          capath  : " << capath   << std::endl;
-      // std::cout << "          user    : " << user     << std::endl;
-      // std::cout << "          pass    : " << pass     << std::endl;
-
-      if ( bes_security (bes_context_, x509cert, x509pass, capath, user, pass) )
-      {
-        std::cerr << bes_get_lasterror (bes_context_) << std::endl;
-        throw bes_get_lasterror (bes_context_);
-      }
-    }
-    else
-    {
-      // std::cout << " ======== not setting sec" << std::endl;
+      std::cerr << bes_get_lasterror (bes_context_) << std::endl;
+      throw bes_get_lasterror (bes_context_);
     }
 
     // std::cout << "bes security initialized:" << std::endl;
@@ -360,11 +344,6 @@ namespace hpcbp
   connector::connector (void)
     : bes_context_ (NULL)
     , host_epr_    (NULL)
-    , x509cert_    ("")
-    , x509pass_    ("")
-    , capath_      ("")
-    , user_        ("")
-    , pass_        ("")
   {
   }
 
@@ -513,7 +492,7 @@ namespace hpcbp
 
     combined_state cs;
 
-    cs.state = static_cast <state> (status.state);
+    cs.state    = static_cast <state> (status.state);
 
     if ( NULL != status.substate )
     {

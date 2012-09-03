@@ -642,10 +642,8 @@ bes_getActivityStatuses(struct bes_context *context,
             struct soap_dom_element *element = rsp.__any->elts;
             int size;
             
-            while (element != NULL) 
-            {
-              // bes_printDom(element);
-              if (!strcmp(element->name,"ActivityStatus")) {
+            while (element != NULL) {
+                if (!strcmp(element->name,"ActivityStatus")) {
                     if(element->atts!=NULL) {
                         struct soap_dom_attribute *attributes=element->atts;
                         
@@ -1272,11 +1270,6 @@ bes_printDom(struct soap_dom_element *node,
     
     if (node == NULL) {
         return;
-    }
-
-    if ( current_nstr == NULL )
-    {
-      current_nstr = strdup (node->nstr);
     }
 
     bool sameline = true;
