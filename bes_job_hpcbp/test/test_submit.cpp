@@ -50,6 +50,7 @@ struct endpoint
   std::vector <std::string> args;
 };
 
+
 class endpoint_localfork : public endpoint
 {
   public:
@@ -133,7 +134,9 @@ class endpoint_gridsam : public endpoint
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
-      exe      = "/home/amerzky/install/bin/saga-run.sh";
+      exe      = "/bin/sleep";
+   // exe      = "/home/amerzky/install/bin/saga-run.sh";
+   // args.push_back ("/applications/");
     }
 };
 
@@ -202,7 +205,10 @@ class endpoint_arc : public endpoint
       cert     = "/tmp/x509up_u" UID;
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
-      exe      = "/usr/local/saga/bin/saga-run.sh";
+      exe      = "/bin/sleep";
+      //exe      = "/usr/local/saga/bin/saga-run.sh";
+
+      args.push_back ("3");
     }
 };
 
@@ -221,6 +227,10 @@ class endpoint_smoa_1 : public endpoint
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/ogf/install/bin/saga-run.sh";
       pwd      = "/home/ogf/";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -239,6 +249,10 @@ class endpoint_smoa_2 : public endpoint
       cadir    = HOME ".saga/certificates/";
       exe      = "/home/ogf/install/bin/saga-run.sh";
       pwd      = "/home/ogf/";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -255,6 +269,10 @@ class endpoint_fg_sierra_u : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -272,6 +290,10 @@ class endpoint_fg_sierra_c : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -290,6 +312,10 @@ class endpoint_fg_ucsierra : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -307,6 +333,10 @@ class endpoint_fg_india_u : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -378,6 +408,10 @@ class endpoint_fg_ucindia : public endpoint
       key      = "/tmp/x509up_u" UID;
       cadir    = HOME ".saga/certificates/";
       exe      = "/N/u/merzky/install/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -395,6 +429,10 @@ class endpoint_ec2host : public endpoint
       key      = "";
       cadir    = HOME ".saga/certificates/";
       exe      = "/usr/local/saga/bin/saga-run.sh";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -413,6 +451,10 @@ class endpoint_gin_bsc_1 : public endpoint
       cadir    = "";
    // exe      = "/home/merzky/install/bin/saga-run.sh";
       exe      = "echo";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -434,6 +476,10 @@ class endpoint_gin_bsc_2 : public endpoint
       cadir    = HOME ".saga/certificates/";
    // exe      = "/home/merzky/install/bin/saga-run.sh";
       exe      = "echo";
+
+      args.push_back ("saga-advert");
+      args.push_back ("list_directory");
+      args.push_back ("/applications/");
     }
 };
 
@@ -480,22 +526,22 @@ int run_test (std::string       name,
 
     if ( ep.type != "none" )
     {
-      saga::context c (ep.type);
+        saga::context c (ep.type);
 
-      // std::cout << " contexttype   : " << ep.type    << std::endl;
-      // std::cout << " usercert      : " << ep.cert    << std::endl;
-      // std::cout << " userkey       : " << ep.key     << std::endl;
-      // std::cout << " userid        : " << ep.user    << std::endl;
-      // std::cout << " userpass      : " << ep.pass    << std::endl;
-      // std::cout << " certrepository: " << ep.cadir   << std::endl;
+        // std::cout << " contexttype   : " << ep.type    << std::endl;
+        // std::cout << " usercert      : " << ep.cert    << std::endl;
+        // std::cout << " userkey       : " << ep.key     << std::endl;
+        // std::cout << " userid        : " << ep.user    << std::endl;
+        // std::cout << " userpass      : " << ep.pass    << std::endl;
+        // std::cout << " certrepository: " << ep.cadir   << std::endl;
 
-      c.set_attribute (saga::attributes::context_usercert,       ep.cert);
-      c.set_attribute (saga::attributes::context_userkey,        ep.key);
-      c.set_attribute (saga::attributes::context_userid,         ep.user);
-      c.set_attribute (saga::attributes::context_userpass,       ep.pass);
-      c.set_attribute (saga::attributes::context_certrepository, ep.cadir);
+        c.set_attribute (saga::attributes::context_usercert,       ep.cert);
+        c.set_attribute (saga::attributes::context_userkey,        ep.key);
+        c.set_attribute (saga::attributes::context_userid,         ep.user);
+        c.set_attribute (saga::attributes::context_userpass,       ep.pass);
+        c.set_attribute (saga::attributes::context_certrepository, ep.cadir);
 
-      s.add_context (c);
+        s.add_context (c);
     }
 
     saga::job::service     js (s, ep.url);
@@ -638,6 +684,7 @@ int main (int argc, char** argv)
     std::cout << " gin.bsc.1  " << std::endl;
     std::cout << " gin.bsc.2  " << std::endl;
     std::cout << " ec2host    " << std::endl;
+    std::cout << " test       " << std::endl;
     std::cout << "            " << std::endl;
 
     return 0;

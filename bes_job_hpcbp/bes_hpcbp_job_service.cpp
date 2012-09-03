@@ -166,6 +166,16 @@ namespace bes_hpcbp_job
               pass = c.get_attribute (saga::attributes::context_userpass);
             }
 
+            bp_.set_security ("", "", "", user, pass);
+
+            context_found = true;
+          }
+          else if ( c.get_attribute (saga::attributes::context_type) == "UserPass" )
+          {
+            std::string cert;
+            std::string pass;
+            std::string cadir;
+
             if ( c.attribute_exists (saga::attributes::context_certrepository) )
             {
               cadir = c.get_attribute (saga::attributes::context_certrepository);
@@ -176,12 +186,12 @@ namespace bes_hpcbp_job
               cert = c.get_attribute (saga::attributes::context_usercert);
             }
 
-            if ( c.attribute_exists (saga::attributes::context_userkey) )
+            if ( c.attribute_exists (saga::attributes::context_userpass) )
             {
-              key = c.get_attribute (saga::attributes::context_userkey);
+              pass = c.get_attribute (saga::attributes::context_userpass);
             }
 
-            bp_.set_security (cert, key, cadir, user, pass);
+            bp_.set_security (cert, pass, cadir, "", "");
 
             context_found = true;
           }
@@ -205,6 +215,16 @@ namespace bes_hpcbp_job
       SAGA_ADAPTOR_THROW ((std::string ("Could not handle context information: ") + e.what ()).c_str (), 
                           saga::BadParameter);
     }
+
+    if ( ! context_found )
+    {
+      // this is not really an error, maybe there is no security on the endpoint
+      // whatsoever - but its actually unlikely that calls will succeed.  So, we
+      // print a warning
+      SAGA_ADAPTOR_THROW ("No suitable context found - use either X509 or UserPass context",
+                          saga::AuthenticationFailed);
+    }
+
 
     // TODO: check if host exists and can be used, otherwise throw BadParameter
     // easiest would probably to run an invalid job request and see if we get

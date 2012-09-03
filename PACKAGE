@@ -1,7 +1,7 @@
 
 PACKAGE:  saga-adaptors-bes
 VERSION:  1.0
-REVISION: $Revision$
+REVISION: $Revision: 825 $
 
 DEPENDENCIES:
   saga-core
@@ -13,6 +13,9 @@ DIRS:
 
 FILES:
   PACKAGE
+  LICENSE
+  README
+  CHANGES
   Makefile
   configure
   configure.in

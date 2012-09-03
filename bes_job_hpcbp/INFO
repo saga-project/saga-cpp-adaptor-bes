@@ -79,5 +79,7 @@
     which refer to a specific job EPR.  That token is taken from the initial
     Genesis-II response which defined the EPR, but is later included w/o namespace
     qualifier - and thus rejected by some Genesis operations (e.g. job.cancel()).
+  - accepted context type is UserPass, but x509 contexts should also be
+    accepted.
 
 
