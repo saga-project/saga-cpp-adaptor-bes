@@ -12,5 +12,8 @@ SAGA_BIN          = $(SAGA_SRC:%.cpp=%)
 
 SAGA_USE_PROFILER = yes
 
+SAGA_CLEAN_TGT = $(wildcard *.log)
+
 -include $(SAGA_MAKE_INCLUDE_ROOT)/saga.application.mk
+
 
