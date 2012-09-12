@@ -53,7 +53,7 @@ int main (int argc, char** argv)
     exit (-1);
   }
 
-  char * epr_buf = new char (s.st_size + 1);
+  char * epr_buf = new char[s.st_size+1];
   if ( s.st_size != ::read (fd, epr_buf, s.st_size) )
   {
     std::cerr << "read oops: " << ::strerror (errno) << std::endl;
@@ -64,9 +64,12 @@ int main (int argc, char** argv)
 
   ::close (fd);
 
+
+
   try 
   {
-    bes.set_host_epr (static_cast <const char*> (epr_buf));
+    std::string  tmp (epr_buf);
+    bes.set_host_epr (tmp);
   }
   catch ( const char * m )
   {
@@ -109,6 +112,8 @@ int main (int argc, char** argv)
     std::cerr << "bes run oops: " << m << std::endl;
     exit (-1);
   }
+
+  delete (epr_buf);
 
   return 0;
 }
